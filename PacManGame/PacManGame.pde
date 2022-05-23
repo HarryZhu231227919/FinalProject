@@ -68,6 +68,7 @@ void display(){
     }
   }
 }
+
 void setup(){
   size(896,800);
   background(255);
