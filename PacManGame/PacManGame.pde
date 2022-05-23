@@ -37,6 +37,7 @@ void reset(){
   points = 0;
   
 }
+
 void display(){
   for (int r  = 0;r<board.length;r++){
     for (int c = 0;c<board[0].length;c++){
