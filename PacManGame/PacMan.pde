@@ -35,9 +35,20 @@ public class PacMan{
    public void move(){
      
    }
+   public int xToCor(float x){
+     return (int)(x/gridSize);
+   }
+   public int yToCor(float y){
+     return (int)(y/gridSize);
+   }
    public void wMove(){
      dy = gridSize/256;
      dx = 0;
+     int ycor = yToCor(y-dy-(gridSize/2));
+     int xcor = xToCor(x-dx);
+     if (board[ycor][xcor] != 1){
+       y+=dy;
+     }
    }
    public void aMove(){}
    public void sMove(){}
