@@ -1,7 +1,8 @@
 int[][] board;
 int points;
 int level;
-final int gridSize = 32;;
+final int gridSize = 32;
+final int shiftDown = 50;
 
 void reset(){
   //9 = empty space
@@ -39,30 +40,34 @@ void reset(){
 }
 
 void display(){
-  for (int r  = 0;r<board.length;r++){
-    for (int c = 0;c<board[0].length;c++){
+  textSize(40);
+  fill(0);
+  text("Level: " + level, 5, 48);
+  text("Score: " + points, 700, 48); //we can make it so that it will auto shift to the left when the number becomes too big
+  for (int r = 0; r < board.length; r++){
+    for (int c = 0; c < board[0].length; c++){
       if (board[r][c] == 1){
         noStroke();
-        fill(2,63,183);
-        rect(c*gridSize,r*gridSize,gridSize,gridSize);
+        fill(2, 63, 183);
+        rect(c * gridSize, r * gridSize + shiftDown, gridSize, gridSize);
         fill(255);
       }
       if (board[r][c] == 0){
         noStroke();
-        fill(252,195,5);
-        ellipse(c*gridSize+(gridSize/2),r*gridSize+(gridSize/2),10,10);
+        fill(252, 195, 5);
+        ellipse(c * gridSize + (gridSize / 2), r * gridSize + (gridSize / 2) + shiftDown, 10, 10);
         fill(255);
       }
       if (board[r][c] == 2){
         noStroke();
-        fill(252,195,5);
-        ellipse(c*gridSize+(gridSize/2),r*gridSize+(gridSize/2),20,20);
+        fill(252, 195, 5);
+        ellipse(c * gridSize + (gridSize / 2), r * gridSize + (gridSize / 2) + shiftDown, 20, 20);
         fill(255);
       }
       if (board[r][c] == 8){
         noStroke();
-        fill(255,188,241);
-        rect(c*gridSize,r*gridSize,gridSize,gridSize);
+        fill(255, 188, 241);
+        rect(c * gridSize, r * gridSize + shiftDown, gridSize, gridSize);
         fill(255);
       }
     }
@@ -70,7 +75,7 @@ void display(){
 }
 
 void setup(){
-  size(896,800);
+  size(896, 850);
   background(255);
   reset();
 }
