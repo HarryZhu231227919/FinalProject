@@ -101,7 +101,6 @@ void keyPressed () {
   } 
   
   if (key == 'a'||key=='A') {
-    pacMan.aMove();
     direction[0] = 1;
   }
   
