@@ -36,21 +36,85 @@ public class PacMan{
      
    }
    public int xToCor(float x){
-     return (int)(x/gridSize);
+     return (int)(x / gridSize);
    }
    public int yToCor(float y){
-     return (int)(y/gridSize);
+     return (int)(y + shiftDown / gridSize);
    }
    public void wMove(){
-     dy = gridSize/256;
+     dy = gridSize / 256;
      dx = 0;
-     int ycor = yToCor(y-dy-(gridSize/2));
-     int xcor = xToCor(x-dx);
+     int ycor = yToCor(y - dy - (gridSize / 2));
+     int xcor = xToCor(x - dx);
+     
      if (board[ycor][xcor] != 1){
-       y+=dy;
+       y -= dy;
      }
+     
+     if (board[ycor][xcor] == 0) {
+       points += 10;
+     } else if (board[ycor][xcor] == 2) {
+       points += 50;
+     }
+     board[ycor][xcor] = 9;
+     // we can implement the eating part after we make the images
+     
    }
-   public void aMove(){}
-   public void sMove(){}
-   public void dMove(){}
+   public void aMove(){
+     dy = 0;
+     dx = gridSize / 256;
+     int xcor = xToCor(x - dx - (gridSize / 2));
+     int ycor = yToCor(y - dy);
+     
+     if (board[ycor][xcor] != 1){
+       x -= dx;
+     }
+     if (board[ycor][xcor] == 0) {
+       points += 10;
+     } else if (board[ycor][xcor] == 2) {
+       points += 50;
+     }
+     
+     board[ycor][xcor] = 9;
+   }
+   
+   
+   public void sMove(){
+     dy = gridSize / 256;
+     dx = 0;
+     int ycor = yToCor(y + dy + (gridSize / 2));
+     int xcor = xToCor(x - dx);
+     
+     if (board[ycor][xcor] != 1){
+       y += dy;
+     }
+     
+     if (board[ycor][xcor] == 0) {
+       points += 10;
+     } else if (board[ycor][xcor] == 2) {
+       points += 50;
+     }
+     
+      board[ycor][xcor] = 9;
+  }
+  
+  
+   public void dMove(){
+     dy = 0;
+     dx = gridSize / 256;
+     int xcor = xToCor(x + dx + (gridSize / 2));
+     int ycor = yToCor(y - dy);
+     
+     if (board[ycor][xcor] != 1){
+       x += dx;
+     }
+     
+     if (board[ycor][xcor] == 0) {
+       points += 10;
+     } else if (board[ycor][xcor] == 2) {
+       points += 50;
+     }
+     
+     board[ycor][xcor] = 9;
+   }
 }
