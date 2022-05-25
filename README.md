@@ -11,3 +11,5 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 5/23/22 (James) - Created the Pac-Man board and the display function to display the board.
 
 5/23/22 (Harry Zhu) - I increased the size of the screen and added a variable that would shift the Pac-Man map downwards so that enough space is created to display the level and the score. I made it display the score and the level after.
+
+5/24/22 (James) - I finished pacman movement with the W,A,S,and D keys changing directions. I also fixed the board.
