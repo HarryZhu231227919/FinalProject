@@ -1,14 +1,34 @@
-int gMode;
+
 public class Ghost{
   public Ghost(){}
   void move(){}
- // public int getX(){}
-  //public int getY(){}
-  //public int getDx(){}
-  //public int getDy(){}
-  //public boolean isAlive(){}
-  //void setDx(){}
-  //void setDx(){}
-  void setGmode(){}
+  public float getX(){
+    return 0;
+  }
+  public float getY(){
+    return 0;
+  }
+  public float getDx(){
+    return 0;
+  }
+  public float getDy(){
+    return 0;
+  }
+  public void setAlive(boolean a){
+  }
+  void setX(float x){}
+  void setY(float y){}
+  void setDx(float dx){}
+  void setDy(float dy){}
   void display(){}
+  void setDTimer(int s){}
+  int getDTimer(){
+    return 0;
+  }
+   public float getSpawnX(){
+     return 0;
+   }
+   public float getSpawnY(){
+     return 0;
+   }
 }
