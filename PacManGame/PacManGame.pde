@@ -3,7 +3,7 @@ int points;
 int level;
 final int gridSize = 32;
 final int shiftDown = 50;
-int[] direction = new int[]{3};
+int[] direction;
 PacMan pacMan;
 /* 
 0 is w
@@ -33,25 +33,22 @@ void reset(){
                       {3,9,9,9,9,9,0,9,9,9,1,9,9,9,9,9,9,1,9,9,9,0,9,9,9,9,9,3},
                       {1,1,1,1,1,1,0,1,1,9,1,1,1,1,1,1,1,1,9,1,1,0,1,1,1,1,1,1},
                       {9,9,9,9,9,1,0,1,1,9,9,9,9,9,9,9,9,9,9,1,1,0,1,9,9,9,9,9},
-                      {9,9,9,9,9,1,0,1,1,1,1,1,9,1,1,9,1,1,1,1,1,0,1,9,9,9,9,9},
-                      {1,1,1,1,1,1,0,1,1,1,1,1,9,1,1,9,1,1,1,1,1,0,1,1,1,1,1,1},
-                      {1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1},
-                      {1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1},
-                      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                      {1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1},
-                      {1,2,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,2,1},
+                      {9,9,9,9,9,1,0,1,1,9,1,1,1,1,1,1,1,1,9,1,1,0,1,9,9,9,9,9},
+                      {1,1,1,1,1,1,0,1,1,9,9,9,9,1,1,9,9,9,9,1,1,0,1,1,1,1,1,1},
                       {1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                      {1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1},
+                      {1,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,1},
+                      {1,1,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,1},
+                      {1,0,0,1,1,1,1,1,1,0,0,0,0,1,1,0,0,0,0,1,1,1,1,1,1,0,0,1},
+                      {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
   level = 1;
   points = 0;
-  
+  direction = new int[]{3};
+  pacMan = new PacMan(432.0, 592+shiftDown,0,0);
 }
 
 void display(){
-  textSize(40);
-  fill(0);
-  text("Level: " + level, 5, 48);
-  text("Score: " + points, 700, 48); //we can make it so that it will auto shift to the left when the number becomes too big. IT'S ALSO OVERLAPPING WITH OLD SCORES RIGHT NOW
   for (int r = 0; r < board.length; r++){
     for (int c = 0; c < board[0].length; c++){
       if (board[r][c] == 1){
@@ -79,50 +76,39 @@ void display(){
         fill(255);
       }
     }
-  }
-  
-  
-  //This is for the Pac Man movement
-  if (direction[0] == 0) {
-    pacMan.wMove();
-  } else if (direction[0] == 1) {
-    pacMan.aMove();
-  } else if (direction[0] == 2) {
-    pacMan.sMove();
-  } else {
-    pacMan.dMove();
-  }
-  
-  
-  
-  
+  }  
 }
 
 void setup(){
   size(896, 850);
   background(255);
-  pacMan = new PacMan(20.0, 20.0); //change this to the starting position of the actual pacman
   reset();
 }
 
 void draw(){
+  pacMan.display();
   display();
+  pacMan.move();
+  textSize(40);
+  fill(0);
+  text("Level: " + level, 5, 48);
+  text("Score: " + points, 650, 48); //we can make it so that it will auto shift to the left when the number becomes too big. IT'S ALSO OVERLAPPING WITH OLD SCORES RIGHT NOW
 }
 
 void keyPressed () {
-  if (key == 77) {
+  if (key == 'w'||key=='W') {
     direction[0] = 0;
   } 
   
-  if (key == 61) {
+  if (key == 'a'||key=='A') {
     direction[0] = 1;
   }
   
-  if (key == 73) {
+  if (key == 's'||key=='S') {
     direction[0] = 2;
   }
   
-  if (key == 64) {
+  if (key == 'd'||key=='D') {
     direction[0] = 3;
   }
 }
