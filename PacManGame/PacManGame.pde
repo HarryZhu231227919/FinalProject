@@ -48,6 +48,23 @@ void reset(){
   pacMan = new PacMan(432.0, 592+shiftDown,0,0);
 }
 
+void lvlUp(){
+  int cLvl = level;
+  int cPoints = points;
+  boolean clear = true;
+  for (int i = 0;i<board.length;i++){
+    for (int j = 0;j<board[0].length;j++){
+      if (board[i][j] == 0 || board[i][j] == 2){
+        clear = false;
+      }
+    }
+  }
+  if (clear == true){
+    reset();
+    level = cLvl+1;
+    points = cPoints;
+  }
+}
 void display(){
   for (int r = 0; r < board.length; r++){
     for (int c = 0; c < board[0].length; c++){
@@ -89,6 +106,7 @@ void draw(){
   pacMan.display();
   display();
   pacMan.move();
+  lvlUp();
   textSize(40);
   fill(0);
   text("Level: " + level, 5, 48);
