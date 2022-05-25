@@ -5,6 +5,7 @@ final int gridSize = 32;
 final int shiftDown = 50;
 int[] direction;
 PacMan pacMan;
+Ghost ghosts;
 /* 
 0 is w
 1 is a
@@ -46,6 +47,8 @@ void reset(){
   points = 0;
   direction = new int[]{3};
   pacMan = new PacMan(432.0, 592+shiftDown,0,0);
+  ghosts = new Clyde(432,300,0,0);
+  
 }
 
 void lvlUp(){
@@ -104,6 +107,7 @@ void setup(){
 
 void draw(){
   pacMan.display();
+  ghosts.display();
   display();
   pacMan.move();
   lvlUp();
