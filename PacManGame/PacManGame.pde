@@ -92,7 +92,7 @@ void draw(){
   textSize(40);
   fill(0);
   text("Level: " + level, 5, 48);
-  text("Score: " + points, 650, 48); //we can make it so that it will auto shift to the left when the number becomes too big. IT'S ALSO OVERLAPPING WITH OLD SCORES RIGHT NOW
+  text("Score: " + points, 650, 48); 
 }
 
 void keyPressed () {

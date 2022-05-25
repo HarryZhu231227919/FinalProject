@@ -81,7 +81,6 @@ public class PacMan{
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
      }
-     // we can implement the eating part after we make the images
      
    }
    void aMove(){
