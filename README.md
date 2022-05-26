@@ -17,3 +17,7 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 5/24/22 (Harry) - I created a new PacMan variable and an int array called direction. I implemented the keyPressed function so that Pac Man will change its direction every time I click either w, a, s, or d. Pac Man's first move in the original game is always right so I gave the int array a value that would make Pac Man go right. The array was made a size of 1 because in the original Pac-Man game, PacMan is capable of storing a single direction that is the most recent. I added a bunch of if statements in the display method so that PacMan will move depending on the value of the first index in the int array, direction. I completed the rest of the move methods for each of the directions. I also made the points increase when Pac Man is on a spot with an orb or special orb(they will give a different amount of points). The spot Pac man is on will always become an empty space.
 
 5/25/22 (Harry) - I added the Lives text so that you know what the numbers in the middle of the screen means. I changed the move method for PacMan because PacMan isn't supposed to stop moving if you tell it to go in a direction where there is a wall blocking it. Pac Man will keep going in the most recent correct direction that it has been given.
+
+5/25/22 (James) - I added Pac-Man and ghost interactions. For example, Pac-Man can die to a ghost and respawn, it can also kill ghosts with the powerup.
+
+5/26/22 (James) - I added a point system for killing the ghosts and also sprites for each of the characters.
