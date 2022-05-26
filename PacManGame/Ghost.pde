@@ -1,4 +1,8 @@
-
+PImage b;
+PImage c;
+PImage i;
+PImage p;
+PImage s;
 public class Ghost{
   public Ghost(){}
   void move(){}
@@ -15,6 +19,9 @@ public class Ghost{
     return 0;
   }
   public void setAlive(boolean a){
+  }
+  public boolean isAlive(){
+    return true;
   }
   void setX(float x){}
   void setY(float y){}

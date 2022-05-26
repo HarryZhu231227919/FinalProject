@@ -5,7 +5,7 @@ float bdy;
 boolean bAlive;
 int bDeath;
 final int bspawnx = 432;
-final int bspawny = 304+shiftDown;
+final int bspawny = 368+shiftDown;
 
 public class Blinky extends Ghost{
   public Blinky(float startx,float starty,float sdx, float sdy){
@@ -17,9 +17,11 @@ public class Blinky extends Ghost{
   } 
    public void display(){
      if (bAlive == true){
-       noStroke();
-       fill(255, 81, 75);
-       ellipse(bx,by, 28, 28);
+       if(pTimer>0){
+         image(s,bx,by,32,32);
+       }else{
+         image(b,bx,by,32,32);
+       }
      }
    }
    void move(){}
@@ -38,6 +40,9 @@ public class Blinky extends Ghost{
    public void setAlive(boolean a){
      bAlive = a;
    }
+   public boolean isAlive(){
+    return bAlive;
+  }
    void setX(float x){
      bx = x;
    }

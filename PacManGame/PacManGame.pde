@@ -7,7 +7,8 @@ int[] direction;
 PacMan pacMan;
 int pTimer;//timer for pacman powerup
 ArrayList <Ghost> ghosts;//turn this into array/arraylist later
-final int duration = 1200;//duration of powerup
+int duration = 1200;//duration of powerup
+int killCount;//to help calculate the point value for a ghost kill
 /* 
 0 is w
 1 is a
@@ -37,7 +38,7 @@ void reset(){
                       {1,1,1,1,1,1,0,1,1,9,1,1,1,1,1,1,1,1,9,1,1,0,1,1,1,1,1,1},
                       {9,9,9,9,9,1,0,1,1,9,9,9,9,9,9,9,9,9,9,1,1,0,1,9,9,9,9,9},
                       {9,9,9,9,9,1,0,1,1,9,1,1,1,1,1,1,1,1,9,1,1,0,1,9,9,9,9,9},
-                      {1,1,1,1,1,1,0,1,1,9,9,9,9,1,1,9,9,9,9,1,1,0,1,1,1,1,1,1},
+                      {1,1,1,1,1,1,0,1,1,9,1,1,1,1,1,1,1,1,9,1,1,0,1,1,1,1,1,1},
                       {1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
                       {1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1},
                       {1,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,1},
@@ -49,6 +50,7 @@ void reset(){
   level = 1;
   points = 0;
   direction = new int[]{3};
+  killCount = 0;
   pacMan = new PacMan(432.0, 592+shiftDown,0,0);
   Ghost c = new Clyde(528,368+shiftDown,0,0);
   ghosts.add(c);
@@ -113,6 +115,15 @@ void setup(){
   size(896, 850);
   background(255);
   ghosts = new ArrayList<Ghost>();
+  pacmanl = loadImage("pacmanleft.png");
+  pacmanr = loadImage("pacmanright.png");
+  pacmand = loadImage("pacmandown.png");
+  pacmanu = loadImage("pacmanup.png");
+  b = loadImage("Blinky.png");
+  c = loadImage("Clyde.png");
+  i = loadImage("Inky.png");
+  p = loadImage("Pinky.png");
+  s = loadImage("scaredGhost.png");
   reset();
   pTimer = 0;
 }
@@ -125,6 +136,9 @@ void draw(){
   lvlUp();
   if (pTimer>0){
     pTimer--;
+  }
+  if (pTimer == 0){
+    killCount=0;
   }
   for (int i = 0;i<ghosts.size();i++){
     ghosts.get(i).display();
