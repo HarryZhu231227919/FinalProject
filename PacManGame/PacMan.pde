@@ -40,9 +40,9 @@ public class PacMan{
      return false;
    }
    public void die(){
-     lives--;
+     lives --;
      x = 432;
-     y = 592+shiftDown;
+     y = 592 + shiftDown;
    }
    public void kill(int i){
      ghosts.get(i).setAlive(false);
@@ -124,6 +124,10 @@ public class PacMan{
      if(xToCor(x)<=0){
        x = 895;
      }
+     
+     
+     /*
+     Why does the dx and dy become 0 when the board is at an exit
      if (board[ycor][xcor] == 1 || board[ycor][xcor] == 8){
         dy = 0;
         dx = 0;
@@ -131,7 +135,18 @@ public class PacMan{
          dy = 0;
          dx = -gridSize / 32;
      }
-    if (board[yToCor(y)][xToCor(x)] == 0) {
+     
+     The following code implements the movement of pacman better I think
+     */
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+        dy = 0;
+        dx = -gridSize / 32;
+        
+        
+        
+        
+        //I tossed this code inside so that nothing will happen if you give an improper direction
+       if (board[yToCor(y)][xToCor(x)] == 0) {
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
@@ -139,6 +154,12 @@ public class PacMan{
        board[yToCor(y)][xToCor(x)] = 9;
        pTimer = duration;
      }
+     
+     
+     }
+     
+     
+
    }
    
    
