@@ -73,17 +73,22 @@ public class PacMan{
    }
    public void display(){
      imageMode(CENTER);
-     if(direction[0] == 0){
-       image(pacmanu,x,y,32,32);
-     }
-     if(direction[0] == 1){
-       image(pacmanl,x,y,32,32);
-     }
-     if(direction[0] == 2){
-       image(pacmand,x,y,32,32);
-     }
-     if(direction[0] == 3){
-       image(pacmanr,x,y,32,32);
+     if(frameCount%60 > 30){
+       fill(255,204,0);
+       ellipse(x,y,32,32);
+     }else{
+       if(direction[0] == 0){
+         image(pacmanu,x,y,32,32);
+       }
+       if(direction[0] == 1){
+         image(pacmanl,x,y,32,32);
+       }
+       if(direction[0] == 2){
+         image(pacmand,x,y,32,32);
+       }
+       if(direction[0] == 3){
+         image(pacmanr,x,y,32,32);
+       }
      }
    }
    public int xToCor(float x){
