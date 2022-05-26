@@ -4,6 +4,10 @@ float y;
 float dx;
 float dy;
 int lives;
+PImage pacmanl;
+PImage pacmanr;
+PImage pacmanu;
+PImage pacmand;
 public class PacMan{
   public PacMan(){}
   public PacMan (float startx, float starty, float sdx,float sdy){
@@ -68,9 +72,19 @@ public class PacMan{
     }
    }
    public void display(){
-     noStroke();
-     fill(206, 27, 27);
-     ellipse(x,y, 28, 28);
+     imageMode(CENTER);
+     if(direction[0] == 0){
+       image(pacmanu,x,y,32,32);
+     }
+     if(direction[0] == 1){
+       image(pacmanl,x,y,32,32);
+     }
+     if(direction[0] == 2){
+       image(pacmand,x,y,32,32);
+     }
+     if(direction[0] == 3){
+       image(pacmanr,x,y,32,32);
+     }
    }
    public int xToCor(float x){
      return (int)(x / gridSize);

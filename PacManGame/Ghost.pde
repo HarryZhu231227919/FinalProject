@@ -1,4 +1,8 @@
-
+PImage b;
+PImage c;
+PImage i;
+PImage p;
+PImage s;
 public class Ghost{
   public Ghost(){}
   void move(){}

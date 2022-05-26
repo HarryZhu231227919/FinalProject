@@ -58,7 +58,7 @@ void reset(){
   ghosts.add(b);
   Ghost p = new Pinky(432,368+shiftDown,0,0);
   ghosts.add(p);
-  Ghost i = new Inky(368,304+shiftDown,0,0);
+  Ghost i = new Inky(368,368+shiftDown,0,0);
   ghosts.add(i);
   
 }
@@ -115,6 +115,15 @@ void setup(){
   size(896, 850);
   background(255);
   ghosts = new ArrayList<Ghost>();
+  pacmanl = loadImage("pacmanleft.png");
+  pacmanr = loadImage("pacmanright.png");
+  pacmand = loadImage("pacmandown.png");
+  pacmanu = loadImage("pacmanup.png");
+  b = loadImage("Blinky.png");
+  c = loadImage("Clyde.png");
+  i = loadImage("Inky.png");
+  p = loadImage("Pinky.png");
+  s = loadImage("My project_adobe_express.png");
   reset();
   pTimer = 0;
 }
