@@ -141,10 +141,13 @@ void draw(){
   fill(0);
   text("Level: " + level, 5, 48);
   text("Score: " + points, 650, 48); 
-  text(lives,300,48);//temp lives
+  text("Lives: " + lives,300,48);//temp lives
 }
 
 void keyPressed () {
+  
+  //we still  need to solve the issue of PacMan's movement
+  
   if (key == 'w'||key=='W') {
     direction[0] = 0;
   } 
