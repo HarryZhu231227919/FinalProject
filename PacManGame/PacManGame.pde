@@ -123,7 +123,7 @@ void setup(){
   c = loadImage("Clyde.png");
   i = loadImage("Inky.png");
   p = loadImage("Pinky.png");
-  s = loadImage("My project_adobe_express.png");
+  s = loadImage("scaredGhost.png");
   reset();
   pTimer = 0;
 }
