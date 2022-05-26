@@ -37,6 +37,9 @@ public class Clyde extends Ghost{
    public void setAlive(boolean a){
      cAlive = a;
    }
+   public boolean isAlive(){
+    return cAlive;
+  }
    void setX(float x){
      cx = x;
    }

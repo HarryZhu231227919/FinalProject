@@ -7,7 +7,8 @@ int[] direction;
 PacMan pacMan;
 int pTimer;//timer for pacman powerup
 ArrayList <Ghost> ghosts;//turn this into array/arraylist later
-final int duration = 1200;//duration of powerup
+int duration = 1200;//duration of powerup
+int killCount;//to help calculate the point value for a ghost kill
 /* 
 0 is w
 1 is a
@@ -49,6 +50,7 @@ void reset(){
   level = 1;
   points = 0;
   direction = new int[]{3};
+  killCount = 0;
   pacMan = new PacMan(432.0, 592+shiftDown,0,0);
   Ghost c = new Clyde(528,368+shiftDown,0,0);
   ghosts.add(c);
@@ -56,7 +58,7 @@ void reset(){
   ghosts.add(b);
   Ghost p = new Pinky(432,368+shiftDown,0,0);
   ghosts.add(p);
-  Ghost i = new Inky(368,368+shiftDown,0,0);
+  Ghost i = new Inky(368,304+shiftDown,0,0);
   ghosts.add(i);
   
 }
@@ -125,6 +127,9 @@ void draw(){
   lvlUp();
   if (pTimer>0){
     pTimer--;
+  }
+  if (pTimer == 0){
+    killCount=0;
   }
   for (int i = 0;i<ghosts.size();i++){
     ghosts.get(i).display();

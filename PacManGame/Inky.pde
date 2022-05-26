@@ -38,6 +38,9 @@ public class Inky extends Ghost{
    public void setAlive(boolean a){
      iAlive = a;
    }
+   public boolean isAlive(){
+    return iAlive;
+  }
    void setX(float x){
      ix = x;
    }

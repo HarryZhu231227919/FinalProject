@@ -38,6 +38,9 @@ public class Blinky extends Ghost{
    public void setAlive(boolean a){
      bAlive = a;
    }
+   public boolean isAlive(){
+    return bAlive;
+  }
    void setX(float x){
      bx = x;
    }

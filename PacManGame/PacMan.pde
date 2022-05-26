@@ -45,10 +45,15 @@ public class PacMan{
      y = 592 + shiftDown;
    }
    public void kill(int i){
-     ghosts.get(i).setAlive(false);
-     ghosts.get(i).setDTimer(120);
-     ghosts.get(i).setX(ghosts.get(i).getSpawnX());
-     ghosts.get(i).setY(ghosts.get(i).getSpawnY());
+     if (ghosts.get(i).isAlive()==true){
+       killCount++;
+       println(killCount);
+       ghosts.get(i).setAlive(false);
+       ghosts.get(i).setDTimer(120);
+       ghosts.get(i).setX(ghosts.get(i).getSpawnX());
+       ghosts.get(i).setY(ghosts.get(i).getSpawnY());
+       points+=(200*killCount);
+     }
    }
    public void touchGhost(int i){
      if(pacMan.sameGrid(ghosts.get(i).getX(),ghosts.get(i).getY())){

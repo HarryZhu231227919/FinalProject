@@ -38,6 +38,9 @@ public class Pinky extends Ghost{
    public void setAlive(boolean a){
      pAlive = a;
    }
+   public boolean isAlive(){
+    return pAlive;
+  }
    void setX(float x){
      px = x;
    }

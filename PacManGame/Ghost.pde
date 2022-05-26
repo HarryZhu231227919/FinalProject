@@ -16,6 +16,9 @@ public class Ghost{
   }
   public void setAlive(boolean a){
   }
+  public boolean isAlive(){
+    return true;
+  }
   void setX(float x){}
   void setY(float y){}
   void setDx(float dx){}
