@@ -33,8 +33,37 @@ public class PacMan{
    public void setDy(float newDy){
      dy = newDy;
    }
+   public boolean sameGrid(float gx, float gy){
+     if (yToCor(y) == yToCor(gy) && xToCor(x) == xToCor(gx)){
+       return true;
+     }
+     return false;
+   }
+   public void die(){
+     lives --;
+     x = 432;
+     y = 592 + shiftDown;
+   }
+   public void kill(int i){
+     ghosts.get(i).setAlive(false);
+     ghosts.get(i).setDTimer(120);
+     ghosts.get(i).setX(ghosts.get(i).getSpawnX());
+     ghosts.get(i).setY(ghosts.get(i).getSpawnY());
+   }
+   public void touchGhost(int i){
+     if(pacMan.sameGrid(ghosts.get(i).getX(),ghosts.get(i).getY())){
+       if (pTimer > 0){
+         kill(i);
+      }
+      else{
+        try{
+        Thread.sleep(1000);
+        pacMan.die();
+        }catch(InterruptedException e){}
+      }
+    }
+   }
    public void display(){
-     background(255);
      noStroke();
      fill(206, 27, 27);
      ellipse(x,y, 28, 28);
@@ -80,6 +109,7 @@ public class PacMan{
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
+       pTimer = duration;
      }
      
    }
@@ -94,6 +124,10 @@ public class PacMan{
      if(xToCor(x)<=0){
        x = 895;
      }
+     
+     
+     /*
+     Why does the dx and dy become 0 when the board is at an exit
      if (board[ycor][xcor] == 1 || board[ycor][xcor] == 8){
         dy = 0;
         dx = 0;
@@ -101,13 +135,31 @@ public class PacMan{
          dy = 0;
          dx = -gridSize / 32;
      }
-    if (board[yToCor(y)][xToCor(x)] == 0) {
+     
+     The following code implements the movement of pacman better I think
+     */
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+        dy = 0;
+        dx = -gridSize / 32;
+        
+        
+        
+        
+        //I tossed this code inside so that nothing will happen if you give an improper direction
+       if (board[yToCor(y)][xToCor(x)] == 0) {
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
+       pTimer = duration;
      }
+     
+     
+     }
+     
+     
+
    }
    
    
@@ -133,6 +185,7 @@ public class PacMan{
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
+       pTimer = duration;
      }
   }
   
@@ -158,6 +211,7 @@ public class PacMan{
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
+       pTimer = duration;
      }
      
    }

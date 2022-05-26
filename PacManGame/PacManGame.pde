@@ -5,6 +5,9 @@ final int gridSize = 32;
 final int shiftDown = 50;
 int[] direction;
 PacMan pacMan;
+int pTimer;//timer for pacman powerup
+ArrayList <Ghost> ghosts;//turn this into array/arraylist later
+final int duration = 1200;//duration of powerup
 /* 
 0 is w
 1 is a
@@ -40,12 +43,22 @@ void reset(){
                       {1,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,1},
                       {1,1,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,1},
                       {1,0,0,1,1,1,1,1,1,0,0,0,0,1,1,0,0,0,0,1,1,1,1,1,1,0,0,1},
+                      {1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,0,1},
                       {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
   level = 1;
   points = 0;
   direction = new int[]{3};
   pacMan = new PacMan(432.0, 592+shiftDown,0,0);
+  Ghost c = new Clyde(528,368+shiftDown,0,0);
+  ghosts.add(c);
+  Ghost b = new Blinky(432,304+shiftDown,0,0);
+  ghosts.add(b);
+  Ghost p = new Pinky(432,368+shiftDown,0,0);
+  ghosts.add(p);
+  Ghost i = new Inky(368,368+shiftDown,0,0);
+  ghosts.add(i);
+  
 }
 
 void lvlUp(){
@@ -99,21 +112,42 @@ void display(){
 void setup(){
   size(896, 850);
   background(255);
+  ghosts = new ArrayList<Ghost>();
   reset();
+  pTimer = 0;
 }
 
 void draw(){
+  background(255);
   pacMan.display();
   display();
   pacMan.move();
   lvlUp();
+  if (pTimer>0){
+    pTimer--;
+  }
+  for (int i = 0;i<ghosts.size();i++){
+    ghosts.get(i).display();
+    pacMan.touchGhost(i);
+    ghosts.get(i).display();
+    if (ghosts.get(i).getDTimer()>0){
+      ghosts.get(i).setDTimer(ghosts.get(i).getDTimer()-1);
+    }
+    if (ghosts.get(i).getDTimer()==0){
+      ghosts.get(i).setAlive(true);
+    }
+  }
   textSize(40);
   fill(0);
   text("Level: " + level, 5, 48);
   text("Score: " + points, 650, 48); 
+  text("Lives: " + lives,300,48);//temp lives
 }
 
 void keyPressed () {
+  
+  //we still  need to solve the issue of PacMan's movement
+  
   if (key == 'w'||key=='W') {
     direction[0] = 0;
   } 
