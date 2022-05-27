@@ -37,6 +37,14 @@ public class PacMan{
    public void setDy(float newDy){
      dy = newDy;
    }
+   
+   public void setX (float newX) {
+     x = newX;
+   }
+   
+   public void setY (float newY) {
+     y = newY;
+   }
    public boolean sameGrid(float gx, float gy){
      if (yToCor(y) == yToCor(gy) && xToCor(x) == xToCor(gx)){
        return true;
@@ -120,21 +128,20 @@ public class PacMan{
        x = xToCor(x)*gridSize+16;
      }
      
-     if (board[ycor][xcor] == 1 || board[ycor][xcor] == 8){
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+        dy = -gridSize / 32;
         dx = 0;
-        dy = 0;
-     }else{
-        dy = -gridSize/32;
-        dx = 0;
-     }
-     
-    if (board[yToCor(y)][xToCor(x)] == 0) {
+        
+       if (board[yToCor(y)][xToCor(x)] == 0) {
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        pTimer = duration;
+     }
+     
+     
      }
      
    }
@@ -150,25 +157,9 @@ public class PacMan{
        x = 895;
      }
      
-     
-     /*
-     Why does the dx and dy become 0 when the board is at an exit
-     if (board[ycor][xcor] == 1 || board[ycor][xcor] == 8){
-        dy = 0;
-        dx = 0;
-     }else{
-         dy = 0;
-         dx = -gridSize / 32;
-     }
-     
-     The following code implements the movement of pacman better I think
-     */
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
         dy = 0;
         dx = -gridSize / 32;
-        
-        
-        
         
         //I tossed this code inside so that nothing will happen if you give an improper direction
        if (board[yToCor(y)][xToCor(x)] == 0) {
@@ -196,21 +187,20 @@ public class PacMan{
        x = xToCor(x)*gridSize+16;
      }
      
-     if (board[ycor][xcor] == 1 || board[ycor][xcor] == 8){
-        dy = 0;
-        dx = 0;
-     }else{
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
         dy = gridSize / 32;
         dx = 0;
-     }
-     
-    if (board[yToCor(y)][xToCor(x)] == 0) {
+        
+       if (board[yToCor(y)][xToCor(x)] == 0) {
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        pTimer = duration;
+     }
+     
+     
      }
   }
   
@@ -223,14 +213,12 @@ public class PacMan{
      if(xToCor(x)>=27){
        x = 1;
      }
-     if (board[ycor][xcor] == 1 || board[ycor][xcor] == 8){
-        dy = 0;
-        dx = 0;
-     }else{
-        dy = 0;
-        dx = gridSize / 32;}
      
-     if (board[yToCor(y)][xToCor(x)] == 0) {
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+        dy = 0;
+        dx = gridSize / 32;
+        
+       if (board[yToCor(y)][xToCor(x)] == 0) {
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
@@ -238,6 +226,25 @@ public class PacMan{
        board[yToCor(y)][xToCor(x)] = 9;
        pTimer = duration;
      }
+     
+     
+     }
+     
+   }
+   
+   
+   
+   boolean canGoThere (int dir) {
+
+     if (dir == 0) {
+       return board[yToCor(y) - 1][xToCor(x)] != 1 && board[yToCor(y) - 1][xToCor(x)] != 8;
+     } else if (dir == 1) {
+       return board[yToCor(y)][xToCor(x) - 1] != 1 && board[yToCor(y)][xToCor(x) - 1] != 8;
+     } else if (dir == 2) {
+       return board[yToCor(y) + 1][xToCor(x)] != 1 && board[yToCor(y) + 1][xToCor(x)] != 8;
+     } else {
+       return board[yToCor(y)][xToCor(x) + 1] != 1 && board[yToCor(y)][xToCor(x) + 1] != 8;
+     }     
      
    }
 }
