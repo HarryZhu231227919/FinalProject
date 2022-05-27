@@ -16,9 +16,11 @@ public class Clyde extends Ghost{
   } 
    public void display(){
      if (cAlive == true){
-       noStroke();
-       fill(255, 159, 70);
-       ellipse(cx,cy, 28, 28);
+       if(pTimer>0){
+         image(s,cx,cy,32,32);
+       }else{
+       image(c,cx,cy,32,32);
+       }
      }
    }
    void move(){}
@@ -37,6 +39,9 @@ public class Clyde extends Ghost{
    public void setAlive(boolean a){
      cAlive = a;
    }
+   public boolean isAlive(){
+    return cAlive;
+  }
    void setX(float x){
      cx = x;
    }

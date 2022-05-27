@@ -17,9 +17,11 @@ public class Inky extends Ghost{
   } 
    public void display(){
      if (iAlive == true){
-       noStroke();
-       fill(119, 231, 250);
-       ellipse(ix,iy, 28, 28);
+       if(pTimer>0){
+         image(s,ix,iy,32,32);
+       }else{
+         image(i,ix,iy,30,30);
+       }
      }
    }
    void move(){}
@@ -38,6 +40,9 @@ public class Inky extends Ghost{
    public void setAlive(boolean a){
      iAlive = a;
    }
+   public boolean isAlive(){
+    return iAlive;
+  }
    void setX(float x){
      ix = x;
    }

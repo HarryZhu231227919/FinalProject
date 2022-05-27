@@ -17,9 +17,11 @@ public class Pinky extends Ghost{
   } 
    public void display(){
      if (pAlive == true){
-       noStroke();
-       fill(255, 118, 239);
-       ellipse(px,py, 28, 28);
+       if(pTimer>0){
+         image(s,px,py,32,32);
+       }else{
+         image(p,px,py,32,32);
+       }
      }
    }
    void move(){}
@@ -38,6 +40,9 @@ public class Pinky extends Ghost{
    public void setAlive(boolean a){
      pAlive = a;
    }
+   public boolean isAlive(){
+    return pAlive;
+  }
    void setX(float x){
      px = x;
    }

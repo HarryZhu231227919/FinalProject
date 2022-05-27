@@ -4,6 +4,10 @@ float y;
 float dx;
 float dy;
 int lives;
+PImage pacmanl;
+PImage pacmanr;
+PImage pacmanu;
+PImage pacmand;
 public class PacMan{
   public PacMan(){}
   public PacMan (float startx, float starty, float sdx,float sdy){
@@ -33,6 +37,14 @@ public class PacMan{
    public void setDy(float newDy){
      dy = newDy;
    }
+   
+   public void setX (float newX) {
+     x = newX;
+   }
+   
+   public void setY (float newY) {
+     y = newY;
+   }
    public boolean sameGrid(float gx, float gy){
      if (yToCor(y) == yToCor(gy) && xToCor(x) == xToCor(gx)){
        return true;
@@ -45,10 +57,14 @@ public class PacMan{
      y = 592 + shiftDown;
    }
    public void kill(int i){
-     ghosts.get(i).setAlive(false);
-     ghosts.get(i).setDTimer(120);
-     ghosts.get(i).setX(ghosts.get(i).getSpawnX());
-     ghosts.get(i).setY(ghosts.get(i).getSpawnY());
+     if (ghosts.get(i).isAlive()==true){
+       killCount++;
+       ghosts.get(i).setAlive(false);
+       ghosts.get(i).setDTimer(120);
+       ghosts.get(i).setX(ghosts.get(i).getSpawnX());
+       ghosts.get(i).setY(ghosts.get(i).getSpawnY());
+       points+=(200*killCount);
+     }
    }
    public void touchGhost(int i){
      if(pacMan.sameGrid(ghosts.get(i).getX(),ghosts.get(i).getY())){
@@ -64,9 +80,24 @@ public class PacMan{
     }
    }
    public void display(){
-     noStroke();
-     fill(206, 27, 27);
-     ellipse(x,y, 28, 28);
+     imageMode(CENTER);
+     if(frameCount%60 > 30){
+       fill(255,204,0);
+       ellipse(x,y,32,32);
+     }else{
+       if(direction[0] == 0){
+         image(pacmanu,x,y,32,32);
+       }
+       if(direction[0] == 1){
+         image(pacmanl,x,y,32,32);
+       }
+       if(direction[0] == 2){
+         image(pacmand,x,y,32,32);
+       }
+       if(direction[0] == 3){
+         image(pacmanr,x,y,32,32);
+       }
+     }
    }
    public int xToCor(float x){
      return (int)(x / gridSize);
