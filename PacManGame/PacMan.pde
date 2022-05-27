@@ -55,6 +55,8 @@ public class PacMan{
      lives --;
      x = 432;
      y = 592 + shiftDown;
+     ghosts.get(1).setX(432);
+     ghosts.get(1).setY(304+shiftDown);
    }
    public void kill(int i){
      if (ghosts.get(i).isAlive()==true){
@@ -119,7 +121,7 @@ public class PacMan{
      y+=dy;
    }
    void wMove(){
-     int ycor = yToCor(y - dy - (gridSize / 2));//checks if cord + 16 is wall
+     int ycor = yToCor(y - dy - (gridSize / 2)-1.5);//checks if cord + 16 is wall
      int xcor = xToCor(x - dx);
      //centers when turning
     if(x%gridSize!=gridSize/2){
@@ -178,7 +180,7 @@ public class PacMan{
    
    
    void sMove(){
-     int ycor = yToCor(y + dy + (gridSize / 2));
+     int ycor = yToCor(y + dy + (gridSize / 2)+1.5);
      int xcor = xToCor(x - dx);
      
      if(x%gridSize!=gridSize/2){
@@ -204,7 +206,7 @@ public class PacMan{
   
   
    void dMove(){
-     int xcor = xToCor(x + dx + (gridSize / 2));
+     int xcor = xToCor(x + dx + (gridSize / 2)+1.5);
      int ycor = yToCor(y - dy);
      
      //exits
