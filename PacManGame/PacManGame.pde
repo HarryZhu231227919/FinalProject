@@ -8,6 +8,7 @@ PacMan pacMan;
 int pTimer;//timer for pacman powerup
 ArrayList <Ghost> ghosts;//turn this into array/arraylist later
 final int duration = 1200;//duration of powerup
+boolean stop = false;
 /* 
 0 is w
 1 is a
@@ -121,7 +122,16 @@ void draw(){
   background(255);
   pacMan.display();
   display();
-  pacMan.move();
+  
+
+  if (!pacMan.canGoThere(direction[0])) {
+  stop = true;
+  }
+  
+  if (!stop) {
+    pacMan.move();
+  }
+  
   lvlUp();
   if (pTimer>0){
     pTimer--;
@@ -149,18 +159,30 @@ void keyPressed () {
   //we still  need to solve the issue of PacMan's movement
   
   if (key == 'w'||key=='W') {
+    if (pacMan.canGoThere(0)) {
     direction[0] = 0;
+    stop = false;
+    }
   } 
   
   if (key == 'a'||key=='A') {
+    if (pacMan.canGoThere(1)) {
     direction[0] = 1;
+    stop = false;
+    }
   }
   
   if (key == 's'||key=='S') {
+    if (pacMan.canGoThere(2)) {
     direction[0] = 2;
+    stop = false;
+    }
   }
   
   if (key == 'd'||key=='D') {
+    if (pacMan.canGoThere(3)) {
     direction[0] = 3;
+    stop = false;
+    }
   }
 }
