@@ -11,7 +11,7 @@ boolean stop = false;
 
 int duration = 1200;//duration of powerup
 int killCount;//to help calculate the point value for a ghost kill
-
+PImage gameover;
 /* 
 0 is w
 1 is a
@@ -61,6 +61,7 @@ void reset(){
   points = 0;
   direction = new int[]{3};
   killCount = 0;
+  lives = 3;
   pacMan = new PacMan(432.0, 592+shiftDown,0,0);
   Ghost c = new Clyde(528,368+shiftDown,0,0);
   ghosts.add(c);
@@ -134,48 +135,50 @@ void setup(){
   i = loadImage("Inky.png");
   p = loadImage("Pinky.png");
   s = loadImage("scaredGhost.png");
+  gameover = loadImage("gameover.png");
   reset();
   pTimer = 0;
 }
 
 void draw(){
-  background(255);
-  pacMan.display();
-  display();
+  if(lives>0){
+    background(255);
+    pacMan.display();
+    display();
   
-  if (!stop) {
-    pacMan.move();
-  }
-  if(direction[0]==1){
-    if(pacMan.xToCor(x)<=0){
-       x = 895;
-     }
-    if(!pacMan.canGoThere(1) && x%32==16){
-      stop = true;
-      pacMan.aMove();
+    if (!stop) {
+      pacMan.move();
     }
-  }
-  if(direction[0]==3){
-    if(pacMan.xToCor(x)>=27){
-       x = 1;
-     }
-    if(!pacMan.canGoThere(3) && x%32==16){
-      stop = true;
-      pacMan.dMove();
+    if(direction[0]==1){
+      if(pacMan.xToCor(x)<=0){
+         x = 895;
+       }
+      if(!pacMan.canGoThere(1) && x%32==16){
+        stop = true;
+        pacMan.aMove();
+      }
     }
-  }
-  if(direction[0]==0){
-    if(!pacMan.canGoThere(0) && (y-shiftDown)%32==16){
-      stop = true;
-      pacMan.wMove();
+    if(direction[0]==3){
+      if(pacMan.xToCor(x)>=27){
+         x = 1;
+       }
+      if(!pacMan.canGoThere(3) && x%32==16){
+        stop = true;
+        pacMan.dMove();
+      }
     }
-  }
-  if(direction[0]==2){
-    if(!pacMan.canGoThere(2) && (y-shiftDown)%32==16){
-      stop = true;
-      pacMan.sMove();
+    if(direction[0]==0){
+      if(!pacMan.canGoThere(0) && (y-shiftDown)%32==16){
+        stop = true;
+        pacMan.wMove();
+      }
     }
-  }
+    if(direction[0]==2){
+      if(!pacMan.canGoThere(2) && (y-shiftDown)%32==16){
+        stop = true;
+        pacMan.sMove();
+      }
+    }
   /*
   if (!pacMan.canGoThere(direction[0]) && x % 32 == 16) {
   stop = true;
@@ -221,8 +224,20 @@ void draw(){
       ghosts.get(i).setAlive(true);
     }
   }
+  }else{
+    background(0);
+   // pacMan.display();
+    imageMode(CENTER);
+    image(gameover,width/2,height/2-100,500,300);
+    textAlign(CENTER);
+    if(frameCount%60 > 30){
+       fill(255);
+       text("PRESS SPACEBAR TO RESTART",width/2,(height/2)+100);
+    }
+  }
   textSize(40);
   fill(0);
+  textAlign(LEFT);
   text("Level: " + level, 5, 48);
   text("Score: " + points, 650, 48); 
   text("Lives: " + lives,300,48);//temp lives
@@ -231,7 +246,9 @@ void draw(){
 void keyPressed () {
   
   //we still  need to solve the issue of PacMan's movement
-  
+  if (key == 32){
+    reset();
+  }
   if (key == 'w'||key=='W') {
     if (pacMan.canGoThere(0)) {
     direction[0] = 0;
