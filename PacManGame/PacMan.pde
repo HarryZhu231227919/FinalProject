@@ -146,7 +146,7 @@ public class PacMan{
      
    }
    void aMove(){
-     int xcor = xToCor(x - dx - (gridSize / 2));
+     int xcor = xToCor(x - dx - (gridSize / 2) - 1.5);
      int ycor = yToCor(y - dy);
     // println(xcor);
    /* if(y%gridSize!=gridSize/2){
