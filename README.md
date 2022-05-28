@@ -26,4 +26,8 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 
 5/27/22 (Harry) - I fixed the horizontal movement of Pac Man. Before it would stop too early when it encounters a wall and it looked weird.
 
+5/27/22 (James) - I fixed Blinky's respawn. He respawns inside the ghost house when he gets eaten, but he respawns outside if Pac-man dies.
+
 5/28/22 (Harry) - I placed in all the remaining stuff that wasn't in the first map. Now it exactly resembles that of the original map in terms of size and orb placements.
+
+5/28/22 (James) - Fixed Pac-Man's movement and added a bunch of graphical features. Changed lives counter, added game over screen, and changed the background. 
