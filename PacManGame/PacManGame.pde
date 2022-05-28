@@ -139,7 +139,31 @@ void draw(){
   if (!stop) {
     pacMan.move();
   }
-
+  if(direction[0]==1){
+    if(!pacMan.canGoThere(1) && x%32==16){
+      stop = true;
+      pacMan.aMove();
+    }
+  }
+  if(direction[0]==3){
+    if(!pacMan.canGoThere(3) && x%32==16){
+      stop = true;
+      pacMan.dMove();
+    }
+  }
+  if(direction[0]==0){
+    if(!pacMan.canGoThere(0) && (y-shiftDown)%32==16){
+      stop = true;
+      pacMan.wMove();
+    }
+  }
+  if(direction[0]==2){
+    if(!pacMan.canGoThere(2) && (y-shiftDown)%32==16){
+      stop = true;
+      pacMan.sMove();
+    }
+  }
+  /*
   if (!pacMan.canGoThere(direction[0]) && x % 32 == 16) {
   stop = true;
     if (direction[0] == 1) {
@@ -150,7 +174,7 @@ void draw(){
       
   }
   
-  if (!pacMan.canGoThere(direction[0]) && (y + shiftDown) % 32 == 16) {
+  if (!pacMan.canGoThere(direction[0]) && (y - shiftDown) % 32 == 16) {
     stop = true;
    if (direction[0] == 0) {
    pacMan.wMove();
@@ -159,7 +183,7 @@ void draw(){
   }
   
   
-  }
+  }*/
   
   
   
