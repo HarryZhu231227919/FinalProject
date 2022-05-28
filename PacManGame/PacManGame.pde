@@ -140,20 +140,30 @@ void draw(){
     pacMan.move();
   }
 
-  if (!pacMan.canGoThere(direction[0])) {
+  if (!pacMan.canGoThere(direction[0]) && x % 32 == 16) {
   stop = true;
-  if (direction[0] == 0) {
-    pacMan.setY(pacMan.getY() - 0.5);
-  } else if (direction[0] == 1) {
-    pacMan.setX(pacMan.getX() - 0.5);
+    if (direction[0] == 1) {
+       pacMan.aMove();
+    } else if (direction[0] == 3) {
+   pacMan.dMove();
+      }
+      
+  }
+  
+  if (!pacMan.canGoThere(direction[0]) && (y + shiftDown) % 32 == 16) {
+    stop = true;
+   if (direction[0] == 0) {
+   pacMan.wMove();
   } else if (direction[0] == 2) {
-    pacMan.setY(pacMan.getY() + 0.5);
-  } else if (direction[0] == 3) {
-    pacMan.setX(pacMan.getX() + 0.5);
+      pacMan.sMove();
   }
   
   
   }
+  
+  
+  
+  
   
   
   lvlUp();
