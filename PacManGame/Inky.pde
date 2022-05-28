@@ -5,7 +5,7 @@ float idy;
 boolean iAlive;
 int iDeath;
 final int ispawnx = 468;
-final int ispawny = 368+shiftDown;
+final int ispawny = 464+shiftDown;
 
 public class Inky extends Ghost{
   public Inky(float startx,float starty,float sdx, float sdy){
