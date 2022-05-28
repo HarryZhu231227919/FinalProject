@@ -123,6 +123,7 @@ public class PacMan{
    void wMove(){
      int ycor = yToCor(y - dy - (gridSize / 2)-1.5);//checks if cord + 16 is wall
      int xcor = xToCor(x - dx);
+
      //centers when turning
     if(x%gridSize!=gridSize/2){
        x = xToCor(x)*gridSize+16;
@@ -149,14 +150,10 @@ public class PacMan{
      int xcor = xToCor(x - dx - (gridSize / 2) - 1.5);
      int ycor = yToCor(y - dy);
     // println(xcor);
-   /* if(y%gridSize!=gridSize/2){
-       y = yToCor(y)*gridSize+16;
-     }*/
-     //exits
-     if(xToCor(x)<=0){
-       x = 895;
+    if((y-shiftDown)%gridSize!=gridSize/2){
+       y = yToCor(y)*gridSize+shiftDown+16;
      }
-     
+     //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
         dy = 0;
         dx = -gridSize / 32;
@@ -209,11 +206,10 @@ public class PacMan{
      int xcor = xToCor(x + dx + (gridSize / 2)+1.5);
      int ycor = yToCor(y - dy);
      
-     //exits
-     if(xToCor(x)>=27){
-       x = 1;
+     if((y-shiftDown)%gridSize!=gridSize/2){
+       y = yToCor(y)*gridSize+shiftDown+16;
      }
-     
+     //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
         dy = 0;
         dx = gridSize / 32;
