@@ -54,9 +54,9 @@ public class PacMan{
    public void die(){
      lives --;
      x = 432;
-     y = 592 + shiftDown;
+     y = 752 + shiftDown;
      ghosts.get(1).setX(432);
-     ghosts.get(1).setY(304+shiftDown);
+     ghosts.get(1).setY(368+shiftDown);
    }
    public void kill(int i){
      if (ghosts.get(i).isAlive()==true){

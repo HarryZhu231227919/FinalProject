@@ -5,7 +5,7 @@ float pdy;
 boolean pAlive;
 int pDeath;
 final int pspawnx = 432;
-final int pspawny = 368+shiftDown;
+final int pspawny = 464+shiftDown;
 
 public class Pinky extends Ghost{
   public Pinky(float startx,float starty,float sdx, float sdy){

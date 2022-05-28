@@ -62,14 +62,14 @@ void reset(){
   direction = new int[]{3};
   killCount = 0;
   lives = 3;
-  pacMan = new PacMan(432.0, 592+shiftDown,0,0);
-  Ghost c = new Clyde(528,368+shiftDown,0,0);
+  pacMan = new PacMan(432.0, 752+shiftDown,0,0);
+  Ghost c = new Clyde(528,464+shiftDown,0,0);
   ghosts.add(c);
-  Ghost b = new Blinky(432,304+shiftDown,0,0);
+  Ghost b = new Blinky(432,368+shiftDown,0,0);
   ghosts.add(b);
-  Ghost p = new Pinky(432,368+shiftDown,0,0);
+  Ghost p = new Pinky(432,464+shiftDown,0,0);
   ghosts.add(p);
-  Ghost i = new Inky(368,368+shiftDown,0,0);
+  Ghost i = new Inky(368,464+shiftDown,0,0);
   ghosts.add(i);
   
 }
@@ -122,9 +122,14 @@ void display(){
   }  
 }
 
+void displayLives(){
+  for(int i = 0;i<lives;i++){
+    image(pacmanl,425+(i*45),33,32,32);
+  }
+}
 void setup(){
   size(896, 1042);
-  background(255);
+  background(10);
   ghosts = new ArrayList<Ghost>();
   pacmanl = loadImage("pacmanleft.png");
   pacmanr = loadImage("pacmanright.png");
@@ -142,7 +147,7 @@ void setup(){
 
 void draw(){
   if(lives>0){
-    background(255);
+    background(10);
     pacMan.display();
     display();
   
@@ -236,11 +241,12 @@ void draw(){
     }
   }
   textSize(40);
-  fill(0);
+  fill(255);
   textAlign(LEFT);
   text("Level: " + level, 5, 48);
   text("Score: " + points, 650, 48); 
-  text("Lives: " + lives,300,48);//temp lives
+  text("Lives",300,48);//temp lives
+  displayLives();
 }
 
 void keyPressed () {

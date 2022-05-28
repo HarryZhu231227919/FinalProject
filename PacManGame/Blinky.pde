@@ -5,9 +5,9 @@ float bdy;
 boolean bAlive;
 int bDeath;
 final int bspawnx = 464;
-final int bspawny = 304+shiftDown;
+final int bspawny = 432+shiftDown;
 final int bspawnx2 = 464;
-final int bspawny2 = 368+shiftDown;
+final int bspawny2 = 464+shiftDown;
 
 public class Blinky extends Ghost{
   public Blinky(float startx,float starty,float sdx, float sdy){
