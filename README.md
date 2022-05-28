@@ -24,4 +24,6 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 
 5/26/22 (Harry) - I made it so that Pac Man wouldn't be able to change its direction when there is a wall there.
 
-5/27/22 (Harry) - I fixed the horizontal movement of Pac Man. Before it would stop too early when it encounters a wall and it looked weird. 
+5/27/22 (Harry) - I fixed the horizontal movement of Pac Man. Before it would stop too early when it encounters a wall and it looked weird.
+
+5/28/22 (Harry) - I placed in all the remaining stuff that wasn't in the first map. Now it exactly resembles that of the original map in terms of size and orb placements.
