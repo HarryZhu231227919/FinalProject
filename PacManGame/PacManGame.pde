@@ -140,12 +140,18 @@ void draw(){
     pacMan.move();
   }
   if(direction[0]==1){
+    if(pacMan.xToCor(x)<=0){
+       x = 895;
+     }
     if(!pacMan.canGoThere(1) && x%32==16){
       stop = true;
       pacMan.aMove();
     }
   }
   if(direction[0]==3){
+    if(pacMan.xToCor(x)>=27){
+       x = 1;
+     }
     if(!pacMan.canGoThere(3) && x%32==16){
       stop = true;
       pacMan.dMove();
