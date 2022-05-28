@@ -130,8 +130,13 @@ public class PacMan{
      }
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
-        dy = -gridSize / 32;
-        dx = 0;
+       if(level<4){
+          dy = -(level*2*gridSize) / 64;
+          dx = 0;
+       }else{
+          dy = -(4*2*gridSize)/64;
+          dx = 0;
+       }
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
        points += 10;
@@ -139,7 +144,9 @@ public class PacMan{
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
-       pTimer = duration;
+       if(duration - (level*60) > 0){
+         pTimer = (duration - (level*60));
+       }
      }
      
      
@@ -155,8 +162,13 @@ public class PacMan{
      }
      //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
-        dy = 0;
-        dx = -gridSize / 32;
+       if(level<4){
+          dy = 0;
+          dx = -(level*2*gridSize) / 64;
+       }else{
+          dy = 0;
+          dx = -(4*2*gridSize) / 64;
+       }
         
         //I tossed this code inside so that nothing will happen if you give an improper direction
        if (board[yToCor(y)][xToCor(x)] == 0) {
@@ -165,7 +177,9 @@ public class PacMan{
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
-       pTimer = duration;
+       if(duration - (level*60) > 0){
+         pTimer = (duration - (level*60));
+       }
      }
      
      
@@ -185,8 +199,13 @@ public class PacMan{
      }
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
-        dy = gridSize / 32;
-        dx = 0;
+       if(level<4){
+          dy = (level*2*gridSize) / 64;
+          dx = 0;
+       }else{
+          dy = (4*2*gridSize)/64;
+          dx = 0;
+       }
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
        points += 10;
@@ -194,7 +213,9 @@ public class PacMan{
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
-       pTimer = duration;
+       if(duration - (level*60) > 0){
+         pTimer = (duration - (level*60));
+       }
      }
      
      
@@ -211,8 +232,14 @@ public class PacMan{
      }
      //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
-        dy = 0;
-        dx = gridSize / 32;
+       if(level<4){
+          dy = 0;
+          dx = (2*level*gridSize) / 64;
+       }else{
+          dy =0;
+          dx = (2*4*gridSize)/64;
+       }
+
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
        points += 10;
@@ -220,7 +247,9 @@ public class PacMan{
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
-       pTimer = duration;
+       if(duration - (level*60) > 0){
+         pTimer = (duration - (level*60));
+       }
      }
      
      
