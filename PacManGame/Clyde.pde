@@ -5,7 +5,7 @@ float cdy;
 boolean cAlive;
 int cDeath;
 final int spawnx = 528;
-final int spawny = 368+shiftDown;
+final int spawny = 464+shiftDown;
 public class Clyde extends Ghost{
   public Clyde(float startx,float starty,float sdx, float sdy){
     cx = startx;

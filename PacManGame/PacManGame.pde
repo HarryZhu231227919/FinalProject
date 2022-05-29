@@ -8,7 +8,7 @@ PacMan pacMan;
 int pTimer;//timer for pacman powerup
 ArrayList <Ghost> ghosts;//turn this into array/arraylist later
 boolean stop = false;
-
+int[] nextMove;
 int duration = 1200;//duration of powerup
 int killCount;//to help calculate the point value for a ghost kill
 PImage gameover;
@@ -60,16 +60,17 @@ void reset(){
   level = 1;
   points = 0;
   direction = new int[]{3};
+  nextMove = new int[]{-1}; //-1 is for placeholder
   killCount = 0;
   lives = 3;
-  pacMan = new PacMan(432.0, 592+shiftDown,0,0);
-  Ghost c = new Clyde(528,368+shiftDown,0,0);
+  pacMan = new PacMan(432.0, 752+shiftDown,0,0);
+  Ghost c = new Clyde(528,464+shiftDown,0,0);
   ghosts.add(c);
-  Ghost b = new Blinky(432,304+shiftDown,0,0);
+  Ghost b = new Blinky(432,368+shiftDown,0,0);
   ghosts.add(b);
-  Ghost p = new Pinky(432,368+shiftDown,0,0);
+  Ghost p = new Pinky(432,464+shiftDown,0,0);
   ghosts.add(p);
-  Ghost i = new Inky(368,368+shiftDown,0,0);
+  Ghost i = new Inky(368,464+shiftDown,0,0);
   ghosts.add(i);
   
 }
@@ -122,9 +123,14 @@ void display(){
   }  
 }
 
+void displayLives(){
+  for(int i = 0;i<lives;i++){
+    image(pacmanl,425+(i*45),33,32,32);
+  }
+}
 void setup(){
   size(896, 1042);
-  background(255);
+  background(10);
   ghosts = new ArrayList<Ghost>();
   pacmanl = loadImage("pacmanleft.png");
   pacmanr = loadImage("pacmanright.png");
@@ -142,7 +148,7 @@ void setup(){
 
 void draw(){
   if(lives>0){
-    background(255);
+    background(10);
     pacMan.display();
     display();
   
@@ -155,56 +161,32 @@ void draw(){
        }
       if(!pacMan.canGoThere(1) && x%32==16){
         stop = true;
-        pacMan.aMove();
+        pacMan.move();
       }
     }
+    
     if(direction[0]==3){
       if(pacMan.xToCor(x)>=27){
          x = 1;
        }
       if(!pacMan.canGoThere(3) && x%32==16){
         stop = true;
-        pacMan.dMove();
+        pacMan.move();
       }
     }
+    
     if(direction[0]==0){
       if(!pacMan.canGoThere(0) && (y-shiftDown)%32==16){
         stop = true;
-        pacMan.wMove();
+        pacMan.move();
       }
     }
     if(direction[0]==2){
       if(!pacMan.canGoThere(2) && (y-shiftDown)%32==16){
         stop = true;
-        pacMan.sMove();
+        pacMan.move();
       }
     }
-  /*
-  if (!pacMan.canGoThere(direction[0]) && x % 32 == 16) {
-  stop = true;
-    if (direction[0] == 1) {
-       pacMan.aMove();
-    } else if (direction[0] == 3) {
-   pacMan.dMove();
-      }
-      
-  }
-  
-  if (!pacMan.canGoThere(direction[0]) && (y - shiftDown) % 32 == 16) {
-    stop = true;
-   if (direction[0] == 0) {
-   pacMan.wMove();
-  } else if (direction[0] == 2) {
-      pacMan.sMove();
-  }
-  
-  
-  }*/
-  
-  
-  
-  
-  
   
   lvlUp();
   if (pTimer>0){
@@ -236,11 +218,12 @@ void draw(){
     }
   }
   textSize(40);
-  fill(0);
+  fill(255);
   textAlign(LEFT);
   text("Level: " + level, 5, 48);
   text("Score: " + points, 650, 48); 
-  text("Lives: " + lives,300,48);//temp lives
+  text("Lives",300,48);//temp lives
+  displayLives();
 }
 
 void keyPressed () {
@@ -252,28 +235,40 @@ void keyPressed () {
   if (key == 'w'||key=='W') {
     if (pacMan.canGoThere(0)) {
     direction[0] = 0;
+    nextMove[0] = 0;
     stop = false;
+    } else {
+      nextMove[0] = 0;
     }
   } 
   
   if (key == 'a'||key=='A') {
     if (pacMan.canGoThere(1)) {
     direction[0] = 1;
+    nextMove[0] = 1;
     stop = false;
+    } else {
+      nextMove[0] = 1;
     }
   }
   
   if (key == 's'||key=='S') {
     if (pacMan.canGoThere(2)) {
     direction[0] = 2;
+    nextMove[0] = 2;
     stop = false;
+    } else {
+      nextMove[0] = 2;
     }
   }
   
   if (key == 'd'||key=='D') {
     if (pacMan.canGoThere(3)) {
     direction[0] = 3;
+    nextMove[0] = 3;
     stop = false;
+    } else {
+      nextMove[0] = 3;
     }
   }
 }
