@@ -108,6 +108,7 @@ public class PacMan{
      return (int)((y-shiftDown) / gridSize);
    }
    void move(){
+     if (!canGoThere(nextMove[0])) {
      if (direction[0] == 0) {
        pacMan.wMove();
      } else if (direction[0] == 1) {
@@ -117,6 +118,19 @@ public class PacMan{
      } else {
        pacMan.dMove();
   }
+     } else {
+       direction[0] = nextMove[0];
+       if (nextMove[0] == 0) {
+       pacMan.wMove();
+     } else if (nextMove[0] == 1) {
+       pacMan.aMove();
+     } else if (nextMove[0] == 2) {
+       pacMan.sMove();
+     } else {
+       pacMan.dMove();
+  }
+     }
+    
      x+=dx;
      y+=dy;
    }
@@ -267,9 +281,9 @@ public class PacMan{
        return board[yToCor(y)][xToCor(x) - 1] != 1 && board[yToCor(y)][xToCor(x) - 1] != 8;
      } else if (dir == 2) {
        return board[yToCor(y) + 1][xToCor(x)] != 1 && board[yToCor(y) + 1][xToCor(x)] != 8;
-     } else {
+     } else if (dir == 3) {
        return board[yToCor(y)][xToCor(x) + 1] != 1 && board[yToCor(y)][xToCor(x) + 1] != 8;
      }     
-     
+     return false;
    }
 }
