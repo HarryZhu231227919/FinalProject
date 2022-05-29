@@ -8,7 +8,7 @@ PacMan pacMan;
 int pTimer;//timer for pacman powerup
 ArrayList <Ghost> ghosts;//turn this into array/arraylist later
 boolean stop = false;
-
+int[] nextMove;
 int duration = 1200;//duration of powerup
 int killCount;//to help calculate the point value for a ghost kill
 PImage gameover;
@@ -60,6 +60,7 @@ void reset(){
   level = 1;
   points = 0;
   direction = new int[]{3};
+  nextMove = new int[]{-1}; //-1 is for placeholder
   killCount = 0;
   lives = 3;
   pacMan = new PacMan(432.0, 752+shiftDown,0,0);
@@ -160,56 +161,32 @@ void draw(){
        }
       if(!pacMan.canGoThere(1) && x%32==16){
         stop = true;
-        pacMan.aMove();
+        pacMan.move();
       }
     }
+    
     if(direction[0]==3){
       if(pacMan.xToCor(x)>=27){
          x = 1;
        }
       if(!pacMan.canGoThere(3) && x%32==16){
         stop = true;
-        pacMan.dMove();
+        pacMan.move();
       }
     }
+    
     if(direction[0]==0){
       if(!pacMan.canGoThere(0) && (y-shiftDown)%32==16){
         stop = true;
-        pacMan.wMove();
+        pacMan.move();
       }
     }
     if(direction[0]==2){
       if(!pacMan.canGoThere(2) && (y-shiftDown)%32==16){
         stop = true;
-        pacMan.sMove();
+        pacMan.move();
       }
     }
-  /*
-  if (!pacMan.canGoThere(direction[0]) && x % 32 == 16) {
-  stop = true;
-    if (direction[0] == 1) {
-       pacMan.aMove();
-    } else if (direction[0] == 3) {
-   pacMan.dMove();
-      }
-      
-  }
-  
-  if (!pacMan.canGoThere(direction[0]) && (y - shiftDown) % 32 == 16) {
-    stop = true;
-   if (direction[0] == 0) {
-   pacMan.wMove();
-  } else if (direction[0] == 2) {
-      pacMan.sMove();
-  }
-  
-  
-  }*/
-  
-  
-  
-  
-  
   
   lvlUp();
   if (pTimer>0){
@@ -258,28 +235,40 @@ void keyPressed () {
   if (key == 'w'||key=='W') {
     if (pacMan.canGoThere(0)) {
     direction[0] = 0;
+    nextMove[0] = 0;
     stop = false;
+    } else {
+      nextMove[0] = 0;
     }
   } 
   
   if (key == 'a'||key=='A') {
     if (pacMan.canGoThere(1)) {
     direction[0] = 1;
+    nextMove[0] = 1;
     stop = false;
+    } else {
+      nextMove[0] = 1;
     }
   }
   
   if (key == 's'||key=='S') {
     if (pacMan.canGoThere(2)) {
     direction[0] = 2;
+    nextMove[0] = 2;
     stop = false;
+    } else {
+      nextMove[0] = 2;
     }
   }
   
   if (key == 'd'||key=='D') {
     if (pacMan.canGoThere(3)) {
     direction[0] = 3;
+    nextMove[0] = 3;
     stop = false;
+    } else {
+      nextMove[0] = 3;
     }
   }
 }
