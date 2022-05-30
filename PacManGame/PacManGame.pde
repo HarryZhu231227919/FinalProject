@@ -74,7 +74,22 @@ void reset(){
   ghosts.add(i);
   
 }
+//FOR DEMO
+void loseLives(){
+  lives--;
+}
+void increaseLvl(){
+  for (int i = 0;i<board.length;i++){
+    for(int j =0;j<board[0].length;j++){
+      if(board[i][j] == 0 || board[i][j] == 2){
+        board[i][j]=9;
+      }
+    }
+  }
+  board[20][12] = 0;
+}
 
+//FOR DEMO
 void lvlUp(){
   int cLvl = level;
   int cPoints = points;
@@ -232,6 +247,14 @@ void keyPressed () {
   if (key == 32){
     reset();
   }
+  //FOR DEMO
+  if(key == '1'){
+    loseLives();
+  }
+  if(key == '2'){
+    increaseLvl();
+  }
+  //FOR DEMO
   if (key == 'w'||key=='W') {
     if (pacMan.canGoThere(0)) {
     direction[0] = 0;
