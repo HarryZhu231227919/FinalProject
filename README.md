@@ -37,3 +37,5 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 5/30/22 (James) - I added a lose lives function (1 key) and a increase level function (2 key) for demo purposes.
 
 5/30/22 (Harry) - I created a high score system that will be displayed in the gameover screen.
+
+5/31/22 (James) - I created a random direction picker which will pick a random neighboring grid to go to.
