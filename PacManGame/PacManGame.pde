@@ -12,6 +12,7 @@ int[] nextMove;
 int duration = 1200;//duration of powerup
 int killCount;//to help calculate the point value for a ghost kill
 PImage gameover;
+int HIGHSCORE = 0;
 /* 
 0 is w
 1 is a
@@ -222,8 +223,13 @@ void draw(){
     }
   }
   }else{
+    if (points > HIGHSCORE) {
+      HIGHSCORE = points;
+    }
     background(0);
    // pacMan.display();
+   fill(255);
+   text("HIGHSCORE:" + HIGHSCORE,width/2 - 150,height/2 - 400);
     imageMode(CENTER);
     image(gameover,width/2,height/2-100,500,300);
     textAlign(CENTER);
