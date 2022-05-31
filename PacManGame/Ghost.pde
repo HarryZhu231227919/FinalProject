@@ -18,6 +18,8 @@ public class Ghost{
   public float getDy(){
     return 0;
   }
+  public void setDir(int d){}
+  public int getDir(){}
   public void setAlive(boolean a){
   }
   public boolean isAlive(){
@@ -29,6 +31,25 @@ public class Ghost{
   void setDy(float dy){}
   void display(){}
   void setDTimer(int s){}
+  public int xToCor(float x){
+     return (int)(x / gridSize);
+   }
+   public int yToCor(float y){
+     return (int)((y-shiftDown) / gridSize);
+   }
+  boolean gCanGoThere(int dir){
+    if (dir == 0) {
+       return board[yToCor(y) - 1][xToCor(x)] != 1;
+     } else if (dir == 1) {
+       return board[yToCor(y)][xToCor(x) - 1] != 1;
+     } else if (dir == 2) {
+       return board[yToCor(y) + 1][xToCor(x)] != 1;
+     } else if (dir == 3) {
+       return board[yToCor(y)][xToCor(x) + 1] != 1;
+     }     
+     return false;
+   }
+  }
   int getDTimer(){
     return 0;
   }
