@@ -4,6 +4,7 @@ float pdx;
 float pdy;
 boolean pAlive;
 int pDeath;
+int[]pDir;
 final int pspawnx = 432;
 final int pspawny = 464+shiftDown;
 
@@ -14,6 +15,7 @@ public class Pinky extends Ghost{
     pdx = sdx;
     pdy = sdy;
     pAlive = true;
+    pDir = new int[]{1};
   } 
    public void display(){
      if (pAlive == true){
@@ -24,7 +26,79 @@ public class Pinky extends Ghost{
        }
      }
    }
-   void move(){}
+   //void Gmove(Ghost g){}
+   //void wGMove(Ghost g){}
+   //void aGMove(Ghost g){}
+  // void sGMove(Ghost g){}
+  // void dGMove(Ghost g){}
+   /*int xToCor(float x){
+     return (int)x;
+   }
+   int yToCor(float y){
+     return (int)y;
+   }*/
+  int changeDir(){
+      ArrayList<Integer>canGo = new ArrayList<Integer>();
+     if (pDir[0] == 0){
+       if((py-shiftDown)%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if((py-shiftDown)%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if((py-shiftDown)%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     if (pDir[0] == 1){
+       if(px%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if(px%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if(px%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+     }
+     if (pDir[0] == 2){
+       if((py-shiftDown)%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+       if((py-shiftDown)%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if((py-shiftDown)%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     if (pDir[0] == 3){
+       if(px%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if(px%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+       if(px%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     //choose randomly out of the possible directions
+     return canGo.get((int)(Math.random()*(canGo.size())));
+   }
+   
+   boolean gCanGoThere(int dir){
+     if (dir == 0) {
+       return board[yToCor(py) - 1][xToCor(px)] != 1;
+     } else if (dir == 1) {
+       return board[yToCor(py)][xToCor(px) - 1] != 1;
+     } else if (dir == 2) {
+       return board[yToCor(py) + 1][xToCor(px)] != 1;
+     } else if (dir == 3) {
+       return board[yToCor(py)][xToCor(px) + 1] != 1;
+     }     
+     return false;
+   }
    public float getX(){
      return px;
    }
