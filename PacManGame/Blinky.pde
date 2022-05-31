@@ -28,10 +28,20 @@ public class Blinky extends Ghost{
        }
      }
    }
-   void move(){
+  
+  // void Gmove(Ghost g){}
+  // void wGMove(Ghost g){}
+  // void aGMove(Ghost g){}
+  // void sGMove(Ghost g){}
+  // void dGMove(Ghost g){}
+   /*int xToCor(float x){
+     return (int)x;
    }
-   int changeDir(){
-      Arraylist<Integer>canGo = new ArrayList<Integer>();
+   int yToCor(float y){
+     return (int)y;
+   }*/
+  int changeDir(){
+      ArrayList<Integer>canGo = new ArrayList<Integer>();
      if (bDir[0] == 0){
        if((y-shiftDown)%32==16 && gCanGoThere(0)){
          canGo.add(0);
@@ -44,40 +54,53 @@ public class Blinky extends Ghost{
        }
      }
      if (bDir[0] == 1){
-       if(x%32==16 && gCanGoThere(0)){
+       if(bx%32==16 && gCanGoThere(0)){
          canGo.add(0);
        }
-       if(x%32==16 && gCanGoThere(1)){
+       if(bx%32==16 && gCanGoThere(1)){
          canGo.add(1);
        }
-       if(x%32==16 && gCanGoThere(2)){
+       if(bx%32==16 && gCanGoThere(2)){
          canGo.add(2);
        }
      }
      if (bDir[0] == 2){
-       if((y-shiftDown)%32==16 && gCanGoThere(2)){
+       if((by-shiftDown)%32==16 && gCanGoThere(2)){
          canGo.add(2);
        }
-       if((y-shiftDown)%32==16 && gCanGoThere(1)){
+       if((by-shiftDown)%32==16 && gCanGoThere(1)){
          canGo.add(1);
        }
-       if((y-shiftDown)%32==16 && gCanGoThere(3)){
+       if((by-shiftDown)%32==16 && gCanGoThere(3)){
          canGo.add(3);
        }
      }
      if (bDir[0] == 3){
-       if(x%32==16 && gCanGoThere(0)){
+       if(bx%32==16 && gCanGoThere(0)){
          canGo.add(0);
        }
-       if(x%32==16 && gCanGoThere(2)){
+       if(bx%32==16 && gCanGoThere(2)){
          canGo.add(2);
        }
-       if(x%32==16 && gCanGoThere(3)){
+       if(bx%32==16 && gCanGoThere(3)){
          canGo.add(3);
        }
      }
-     //choose randomly the possible directions
-     return canGo.get((int)(Math.random()*(canGo.size()+1));
+     //choose randomly out of the possible directions
+     return canGo.get((int)(Math.random()*(canGo.size())));
+   }
+   
+   boolean gCanGoThere(int dir){
+     if (dir == 0) {
+       return board[yToCor(by) - 1][xToCor(bx)] != 1;
+     } else if (dir == 1) {
+       return board[yToCor(by)][xToCor(bx) - 1] != 1;
+     } else if (dir == 2) {
+       return board[yToCor(by) + 1][xToCor(bx)] != 1;
+     } else if (dir == 3) {
+       return board[yToCor(by)][xToCor(bx) + 1] != 1;
+     }     
+     return false;
    }
    public float getX(){
      return bx;
@@ -95,7 +118,7 @@ public class Blinky extends Ghost{
      return bDir[0];
    }
    public void setDir(int d){
-     dir[0] = d;
+     bDir[0] = d;
    }
    public void setAlive(boolean a){
      bAlive = a;

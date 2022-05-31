@@ -213,6 +213,7 @@ void draw(){
   }
   for (int i = 0;i<ghosts.size();i++){
     ghosts.get(i).display();
+    println(ghosts.get(2).changeDir());
     pacMan.touchGhost(i);
     ghosts.get(i).display();
     if (ghosts.get(i).getDTimer()>0){
