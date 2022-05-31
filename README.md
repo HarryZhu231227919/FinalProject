@@ -35,3 +35,5 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 5/29/22 (Harry) - I added new code that enabled users to make Pac Man go in a direction preemptively. Before it was hard to make Pac Man turn corners especially when the game speed increased after each level. That movement storing also mimics that of the original game.
 
 5/30/22 (James) - I added a lose lives function (1 key) and a increase level function (2 key) for demo purposes.
+
+5/30/22 (Harry) - I created a high score system that will be displayed in the gameover screen.
