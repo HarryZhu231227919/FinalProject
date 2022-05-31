@@ -4,6 +4,7 @@ float bdx;
 float bdy;
 boolean bAlive;
 int bDeath;
+int[]bDir;
 final int bspawnx = 464;
 final int bspawny = 432+shiftDown;
 final int bspawnx2 = 464;
@@ -16,6 +17,7 @@ public class Blinky extends Ghost{
     bdx = sdx;
     bdy = sdy;
     bAlive = true;
+    bDir = new int[]{1};
   } 
    public void display(){
      if (bAlive == true){
@@ -26,7 +28,57 @@ public class Blinky extends Ghost{
        }
      }
    }
-   void move(){}
+   void move(){
+   }
+   int changeDir(){
+      Arraylist<Integer>canGo = new ArrayList<Integer>();
+     if (bDir[0] == 0){
+       if((y-shiftDown)%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if((y-shiftDown)%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if((y-shiftDown)%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     if (bDir[0] == 1){
+       if(x%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if(x%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if(x%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+     }
+     if (bDir[0] == 2){
+       if((y-shiftDown)%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+       if((y-shiftDown)%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if((y-shiftDown)%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     if (bDir[0] == 3){
+       if(x%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if(x%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+       if(x%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     //choose randomly the possible directions
+     return canGo.get((int)(Math.random()*(canGo.size()+1));
+   }
    public float getX(){
      return bx;
    }
@@ -38,6 +90,12 @@ public class Blinky extends Ghost{
    }
    public float getDy(){
      return bdy;
+   }
+   public int getDir(){
+     return bDir[0];
+   }
+   public void setDir(int d){
+     dir[0] = d;
    }
    public void setAlive(boolean a){
      bAlive = a;
