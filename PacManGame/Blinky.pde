@@ -29,19 +29,104 @@ public class Blinky extends Ghost{
      }
    }
   
-  // void Gmove(Ghost g){}
-  // void wGMove(Ghost g){}
-  // void aGMove(Ghost g){}
-  // void sGMove(Ghost g){}
-  // void dGMove(Ghost g){}
-   /*int xToCor(float x){
-     return (int)x;
+   void Gmove(){
+     
+     if (changeDir()==0){
+       wGMove();
+     }
+     if (changeDir()==1){
+       aGMove();
+     }
+     if (changeDir()==2){
+       sGMove();
+     }
+     if (changeDir()==3){
+       dGMove();
+     }
+     bx+=bdx;
+     by+=bdy;
    }
-   int yToCor(float y){
-     return (int)y;
-   }*/
+   void wGMove(){
+     int ycor = yToCor(by - bdy - (gridSize / 2)-1.5);//checks if cord + 16 is wall
+     int xcor = xToCor(bx - bdx);
+
+     //centers when turning
+    if((bx%gridSize)!=gridSize/2){
+       bx = (xToCor(bx)*gridSize+16);
+     }
+     
+     if (!(board[ycor][xcor] == 1)){
+       if(level<3){
+          bdy = -(level*2*gridSize) / 64;
+          bdx = 0;
+       }else{
+          bdy = -(2*2*gridSize)/64;
+          bdx = 0;
+       }
+     }
+   }
+   void aGMove(){
+     int xcor = xToCor(bx - bdx - (gridSize / 2) - 1.5);
+     int ycor = yToCor(by - bdy);
+    if((by-shiftDown)%gridSize!=gridSize/2){
+       bdy = yToCor(by)*gridSize+shiftDown+16;
+     }
+     //exits
+     if (!(board[ycor][xcor] == 1)){
+       if(level<3){
+          bdy = 0;
+          bdx = -(level*2*gridSize) / 64;
+       }else{
+          bdy = 0;
+          bdx = -(2*2*gridSize) / 64;
+       }
+     }
+   }
+   void sGMove(){
+     int ycor = yToCor(by + bdy + (gridSize / 2)+1.5);
+     int xcor = xToCor(bx - bdx);
+     
+     if(bx%gridSize!=gridSize/2){
+       bx = xToCor(bx)*gridSize+16;
+     }
+     
+     if (!(board[ycor][xcor] == 1)){
+       if(level<3){
+          bdy = (level*2*gridSize) / 64;
+          bdx = 0;
+       }else{
+          bdy = (2*2*gridSize)/64;
+          bdx = 0;
+       }
+     }
+   }
+   void dGMove(){
+     int xcor = xToCor(bx + bdx + (gridSize / 2)+1.5);
+     int ycor = yToCor(by - bdy);
+     
+     if((by-shiftDown)%gridSize!=gridSize/2){
+       by = (yToCor(by)*gridSize+shiftDown+16);
+     }
+     //exits
+     if (!(board[ycor][xcor] == 1)){
+       if(level<3){
+          bdy = 0;
+          bdx = (2*level*gridSize) / 64;
+       }else{
+          bdy = 0;
+          bdx = (2*2*gridSize)/64;
+       }
+     }
+   }
+    public int xToCor(float x){
+     return (int)(x / gridSize);
+   }
+   public int yToCor(float y){
+     return (int)((y-shiftDown) / gridSize);
+   }
   int changeDir(){
-      ArrayList<Integer>canGo = new ArrayList<Integer>();
+     ArrayList<Integer>canGo = new ArrayList<Integer>();
+     canGo.add(bDir[0]);
      if (bDir[0] == 0){
        if((y-shiftDown)%32==16 && gCanGoThere(0)){
          canGo.add(0);
