@@ -30,18 +30,30 @@ public class Blinky extends Ghost{
    }
   
    void Gmove(){
-     
-     if (changeDir()==0){
+     bDir[0] = changeDir();
+     if(bDir[0]==1){
+      if(xToCor(bx)<=0){
+         bx = 895;
+       }
+     }
+     if(bDir[0]==3){
+       if(xToCor(bx)>=27){
+         bx = 1;
+       }
+     }
+     if(bx%gridSize==16 && (by-shiftDown)%gridSize==16){
+     if (bDir[0]==0){
        wGMove();
      }
-     if (changeDir()==1){
+     if (bDir[0]==1){
        aGMove();
      }
-     if (changeDir()==2){
+     if (bDir[0]==2){
        sGMove();
      }
-     if (changeDir()==3){
+     if (bDir[0]==3){
        dGMove();
+     }
      }
      bx+=bdx;
      by+=bdy;
@@ -55,7 +67,7 @@ public class Blinky extends Ghost{
        bx = (xToCor(bx)*gridSize+16);
      }
      
-     if (!(board[ycor][xcor] == 1)){
+     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        if(level<3){
           bdy = -(level*2*gridSize) / 64;
           bdx = 0;
@@ -72,7 +84,7 @@ public class Blinky extends Ghost{
        bdy = yToCor(by)*gridSize+shiftDown+16;
      }
      //exits
-     if (!(board[ycor][xcor] == 1)){
+     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        if(level<3){
           bdy = 0;
           bdx = -(level*2*gridSize) / 64;
@@ -90,7 +102,7 @@ public class Blinky extends Ghost{
        bx = xToCor(bx)*gridSize+16;
      }
      
-     if (!(board[ycor][xcor] == 1)){
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        if(level<3){
           bdy = (level*2*gridSize) / 64;
           bdx = 0;
@@ -108,7 +120,7 @@ public class Blinky extends Ghost{
        by = (yToCor(by)*gridSize+shiftDown+16);
      }
      //exits
-     if (!(board[ycor][xcor] == 1)){
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        if(level<3){
           bdy = 0;
           bdx = (2*level*gridSize) / 64;
@@ -126,15 +138,14 @@ public class Blinky extends Ghost{
    }
   int changeDir(){
      ArrayList<Integer>canGo = new ArrayList<Integer>();
-     canGo.add(bDir[0]);
      if (bDir[0] == 0){
-       if((y-shiftDown)%32==16 && gCanGoThere(0)){
+       if((by-shiftDown)%32==16 && gCanGoThere(0)){
          canGo.add(0);
        }
-       if((y-shiftDown)%32==16 && gCanGoThere(1)){
+       if((by-shiftDown)%32==16 && gCanGoThere(1)){
          canGo.add(1);
        }
-       if((y-shiftDown)%32==16 && gCanGoThere(3)){
+       if((by-shiftDown)%32==16 && gCanGoThere(3)){
          canGo.add(3);
        }
      }
@@ -172,18 +183,22 @@ public class Blinky extends Ghost{
        }
      }
      //choose randomly out of the possible directions
-     return canGo.get((int)(Math.random()*(canGo.size())));
+     if(canGo.size()>0){
+       return canGo.get((int)(Math.random()*(canGo.size())));
+     }else{
+       return bDir[0];
+     }
    }
    
    boolean gCanGoThere(int dir){
      if (dir == 0) {
-       return board[yToCor(by) - 1][xToCor(bx)] != 1;
+       return board[yToCor(by)-1][xToCor(bx)] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
      } else if (dir == 1) {
-       return board[yToCor(by)][xToCor(bx) - 1] != 1;
+       return board[yToCor(by)][xToCor(bx) - 1] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
      } else if (dir == 2) {
-       return board[yToCor(by) + 1][xToCor(bx)] != 1;
+       return board[yToCor(by) + 1][xToCor(bx)] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
      } else if (dir == 3) {
-       return board[yToCor(by)][xToCor(bx) + 1] != 1;
+       return board[yToCor(by)][xToCor(bx) + 1] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
      }     
      return false;
    }
