@@ -25,19 +25,115 @@ public class Clyde extends Ghost{
        }
      }
    }
-   //void Gmove(Ghost g){}
-   //void wGMove(Ghost g){}
-   //void aGMove(Ghost g){}
-   //void sGMove(Ghost g){}
-   //void dGMove(Ghost g){}
-   /*int xToCor(float x){
-     return (int)x;
+ void Gmove(){
+     cDir[0] = changeDir();
+     if(cDir[0]==1){
+      if(xToCor(cx)<=0){
+         cx = 895;
+       }
+     }
+     if(cDir[0]==3){
+       if(xToCor(cx)>=27){
+         cx = 1;
+       }
+     }
+     if(cx%gridSize==16 && (cy-shiftDown)%gridSize==16){
+     if (cDir[0]==0){
+       wGMove();
+     }
+     if (cDir[0]==1){
+       aGMove();
+     }
+     if (cDir[0]==2){
+       sGMove();
+     }
+     if (cDir[0]==3){
+       dGMove();
+     }
+     }
+     cx+=cdx;
+     cy+=cdy;
    }
-   int yToCor(float y){
-     return (int)y;
-   }*/
-    int changeDir(){
-      ArrayList<Integer>canGo = new ArrayList<Integer>();
+   void wGMove(){
+     int ycor = yToCor(cy - cdy - (gridSize / 2)-1.5);//checks if cord + 16 is wall
+     int xcor = xToCor(cx - cdx);
+
+     //centers when turning
+    if((cx%gridSize)!=gridSize/2){
+       cx = (xToCor(cx)*gridSize+16);
+     }
+     
+     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       if(level<3){
+          cdy = -(level*2*gridSize) / 64;
+          cdx = 0;
+       }else{
+          cdy = -(2*2*gridSize)/64;
+          cdx = 0;
+       }
+     }
+   }
+   void aGMove(){
+     int xcor = xToCor(cx - cdx - (gridSize / 2) - 1.5);
+     int ycor = yToCor(cy - cdy);
+    if((cy-shiftDown)%gridSize!=gridSize/2){
+       cdy = yToCor(cy)*gridSize+shiftDown+16;
+     }
+     //exits
+     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       if(level<3){
+          cdy = 0;
+          cdx = -(level*2*gridSize) / 64;
+       }else{
+          cdy = 0;
+          cdx = -(2*2*gridSize) / 64;
+       }
+     }
+   }
+   void sGMove(){
+     int ycor = yToCor(cy + cdy + (gridSize / 2)+1.5);
+     int xcor = xToCor(cx - cdx);
+     
+     if(cx%gridSize!=gridSize/2){
+       cx = xToCor(cx)*gridSize+16;
+     }
+     
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       if(level<3){
+          cdy = (level*2*gridSize) / 64;
+          cdx = 0;
+       }else{
+          cdy = (2*2*gridSize)/64;
+          cdx = 0;
+       }
+     }
+   }
+   void dGMove(){
+     int xcor = xToCor(cx + cdx + (gridSize / 2)+1.5);
+     int ycor = yToCor(cy - cdy);
+     
+     if((cy-shiftDown)%gridSize!=gridSize/2){
+       cy = (yToCor(cy)*gridSize+shiftDown+16);
+     }
+     //exits
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       if(level<3){
+          cdy = 0;
+          cdx = (2*level*gridSize) / 64;
+       }else{
+          cdy = 0;
+          cdx = (2*2*gridSize)/64;
+       }
+     }
+   }
+    public int xToCor(float x){
+     return (int)(x / gridSize);
+   }
+   public int yToCor(float y){
+     return (int)((y-shiftDown) / gridSize);
+   }
+  int changeDir(){
+     ArrayList<Integer>canGo = new ArrayList<Integer>();
      if (cDir[0] == 0){
        if((cy-shiftDown)%32==16 && gCanGoThere(0)){
          canGo.add(0);
@@ -83,18 +179,22 @@ public class Clyde extends Ghost{
        }
      }
      //choose randomly out of the possible directions
-     return canGo.get((int)(Math.random()*(canGo.size())));
+     if(canGo.size()>0){
+       return canGo.get((int)(Math.random()*(canGo.size())));
+     }else{
+       return cDir[0];
+     }
    }
    
    boolean gCanGoThere(int dir){
      if (dir == 0) {
-       return board[yToCor(cy) - 1][xToCor(cx)] != 1;
+       return board[yToCor(cy)-1][xToCor(cx)] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
      } else if (dir == 1) {
-       return board[yToCor(cy)][xToCor(cx) - 1] != 1;
+       return board[yToCor(cy)][xToCor(cx) - 1] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
      } else if (dir == 2) {
-       return board[yToCor(cy) + 1][xToCor(cx)] != 1;
+       return board[yToCor(cy) + 1][xToCor(cx)] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
      } else if (dir == 3) {
-       return board[yToCor(cy)][xToCor(cx) + 1] != 1;
+       return board[yToCor(cy)][xToCor(cx) + 1] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
      }     
      return false;
    }
