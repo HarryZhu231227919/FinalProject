@@ -48,80 +48,12 @@ public class Ghost{
      return 0;
    }
    
-    void wGMove(Ghost g){
-     int ycor = yToCor(g.getY() - g.getDy() - (gridSize / 2)-1.5);//checks if cord + 16 is wall
-     int xcor = xToCor(g.getX() - g.getDx());
-
-     //centers when turning
-    if(g.getX()%gridSize!=gridSize/2){
-       g.setX(xToCor(g.getX())*gridSize+16);
-     }
-     
-     if (!(board[ycor][xcor] == 1)){
-       if(level<3){
-          g.setDy(-(level*2*gridSize) / 64);
-          g.setDx(0);
-       }else{
-          g.setDy(-(2*2*gridSize)/64);
-          g.setDx(0);
-       }
-     }
-   }
-    void aGMove(Ghost g){
-     int xcor = xToCor(g.getX() - g.getDx()- (gridSize / 2) - 1.5);
-     int ycor = yToCor(g.getY() - g.getDy());
-    if((g.getY()-shiftDown)%gridSize!=gridSize/2){
-       g.setY(yToCor(g.getY())*gridSize+shiftDown+16);
-     }
-     //exits
-     if (!(board[ycor][xcor] == 1)){
-       if(level<3){
-          g.setDy(0);
-          g.setDx(-(level*2*gridSize) / 64);
-       }else{
-          g.setDy(0);
-          g.setDx(-(2*2*gridSize) / 64);
-       }
-     }
-   }
-    void sGMove(Ghost g){
-     int ycor = yToCor(g.getY() + g.getDy() + (gridSize / 2)+1.5);
-     int xcor = xToCor(g.getX() - dx);
-     
-     if(x%gridSize!=gridSize/2){
-       g.setX(xToCor(g.getX())*gridSize+16);
-     }
-     
-     if (!(board[ycor][xcor] == 1)){
-       if(level<3){
-          g.setDy((level*2*gridSize) / 64);
-          g.setDx(0);
-       }else{
-          g.setDy((2*2*gridSize)/64);
-          g.setDx(0);
-       }
-     }
-  }
-     void dGMove(Ghost g){
-     int xcor = xToCor(g.getX() + g.getDx() + (gridSize / 2)+1.5);
-     int ycor = yToCor(g.getY() - dy);
-     
-     if((y-shiftDown)%gridSize!=gridSize/2){
-       g.setY(yToCor(g.getY())*gridSize+shiftDown+16);
-     }
-     //exits
-     if (!(board[ycor][xcor] == 1)){
-       if(level<3){
-          g.setDy(0);
-          g.setDx((2*level*gridSize) / 64);
-       }else{
-          g.setDy(0);
-          g.setDx((2*2*gridSize)/64);
-       }
-     }
-   }
+    void wGMove(){}
+    void aGMove(){}
+    void sGMove(){}
+    void dGMove(){}
   
-  void Gmove(Ghost g){
+  void Gmove(){
     /*  if(changeDir(g) == 0){
         wGMove(g);
       }
