@@ -1,7 +1,7 @@
 # Ghost Busters
 **Harry Zhu, James Yu**
 
-#### [Project Document](https://docs.google.com/document/d/1SI7rlL_8qbEuAJo9Ib5VmHNQ4d3TBTAfAFEkWnc8iSY/edit?usp=sharing)
+#### [Project Document](https://docs.google.com/document/d/e/2PACX-1vSVSC7uYhhd6CGsVsG2Q7XkKnlOEECv3XB6BQdNF7RNF3Vz2HSs78n3pf2fufZljfdlK-beA2qo08xO/pub)
 
 ### Project Description
 
