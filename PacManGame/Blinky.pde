@@ -263,7 +263,25 @@ public class Blinky extends Ghost{
      int direction = bDir[0];
      for (int i = 0; i < 4; i++) {
        if (i != oppositeDir(bDir[0]) && gCanGoThere(i)) {
-         float temp = sqrt(pow((xToCor(bx) - pacMan.xToCor(getX())),2) + pow((yToCor(by) - pacMan.yToCor(getY())),2));
+         int nextGridX = 0;
+         int nextGridY = 0;
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         float temp = dist(bx+nextGridX,by+nextGridY,pacMan.getX(),pacMan.getY());;
          if (temp < shortest) {
            shortest = temp;
            direction = i;
