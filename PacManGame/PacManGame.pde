@@ -250,18 +250,9 @@ void draw(){
 
 void keyPressed () {
   
-  //we still  need to solve the issue of PacMan's movement
   if (key == 32){
     reset();
   }
-  /*//FOR DEMO
-  if(key == '1'){
-    loseLives();
-  }
-  if(key == '2'){
-    increaseLvl();
-  }
-  //FOR DEMO*/
   if (key == 'w'||key=='W') {
     if (pacMan.canGoThere(0)) {
     direction[0] = 0;
