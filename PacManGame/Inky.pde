@@ -190,12 +190,12 @@ public class Inky extends Ghost{
    boolean gCanGoThere(int dir){
      if (dir == 0) {
        return board[yToCor(iy)-1][xToCor(ix)] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
-     } else if (dir == 1) {
-       return board[yToCor(iy)][xToCor(ix) - 1] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
+     } else if (dir == 1 && xToCor(ix)-1>-1) {
+       return board[yToCor(iy)][xToCor(ix) - 1] != 1 && board[yToCor(iy)][xToCor(ix)-1] != 8;
      } else if (dir == 2) {
-       return board[yToCor(iy) + 1][xToCor(ix)] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
-     } else if (dir == 3) {
-       return board[yToCor(iy)][xToCor(ix) + 1] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
+       return board[yToCor(iy) + 1][xToCor(ix)] != 1 && board[yToCor(iy) + 1][xToCor(ix)] != 8;
+     } else if (dir == 3 && xToCor(ix)+1<28) {
+       return board[yToCor(iy)][xToCor(ix) + 1] != 1 && board[yToCor(iy)][xToCor(ix)+1] != 8;
      }     
      return false;
    }
