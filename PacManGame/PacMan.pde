@@ -284,11 +284,11 @@ public class PacMan{
 
      if (dir == 0) {
        return board[yToCor(y) - 1][xToCor(x)] != 1 && board[yToCor(y) - 1][xToCor(x)] != 8;
-     } else if (dir == 1) {
+     } else if (dir == 1 && xToCor(x) - 1>-1) {
        return board[yToCor(y)][xToCor(x) - 1] != 1 && board[yToCor(y)][xToCor(x) - 1] != 8;
      } else if (dir == 2) {
        return board[yToCor(y) + 1][xToCor(x)] != 1 && board[yToCor(y) + 1][xToCor(x)] != 8;
-     } else if (dir == 3) {
+     } else if (dir == 3 && xToCor(x) + 1 < 28) {
        return board[yToCor(y)][xToCor(x) + 1] != 1 && board[yToCor(y)][xToCor(x) + 1] != 8;
      }     
      return false;

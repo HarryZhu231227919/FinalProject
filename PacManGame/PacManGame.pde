@@ -66,7 +66,7 @@ void reset(){
   lives = 3;
   ghosts.clear();
   pacMan = new PacMan(432.0, 752+shiftDown,0,0);
-  Ghost c = new Clyde(528,464+shiftDown,0,0);
+  Ghost c = new Clyde(464,368+shiftDown,0,0);
   ghosts.add(c);
   Ghost b = new Blinky(432,368+shiftDown,0,0);
   ghosts.add(b);
@@ -216,7 +216,6 @@ void draw(){
     ghosts.get(i).display();
     ghosts.get(i).Gmove();
     pacMan.touchGhost(i);
-    ghosts.get(i).display();
     if (ghosts.get(i).getDTimer()>0){
       ghosts.get(i).setDTimer(ghosts.get(i).getDTimer()-1);
     }

@@ -27,7 +27,11 @@ public class Pinky extends Ghost{
      }
    }
    void Gmove(){
-     pDir[0] = changeDir();
+     if(pTimer>0){
+       pDir[0] = changeDir();
+     }else{
+       bestMove();
+     }
      if(pDir[0]==1){
       if(xToCor(px)<=0){
          px = 895;
@@ -189,15 +193,67 @@ public class Pinky extends Ghost{
    
    boolean gCanGoThere(int dir){
      if (dir == 0) {
-       return board[yToCor(py)-1][xToCor(px)] != 1 && board[yToCor(py) - 1][xToCor(px)] != 8;
-     } else if (dir == 1) {
-       return board[yToCor(py)][xToCor(px) - 1] != 1 && board[yToCor(py) - 1][xToCor(px)] != 8;
+       return (board[yToCor(py)-1][xToCor(px)] != 1 && board[yToCor(py) - 1][xToCor(px)] != 8);
+     } else if (dir == 1 && xToCor(px)-1>-1) {
+       return (board[yToCor(py)][xToCor(px) - 1] != 1 && board[yToCor(py)][xToCor(px)-1] != 8);
      } else if (dir == 2) {
-       return board[yToCor(py) + 1][xToCor(px)] != 1 && board[yToCor(py) - 1][xToCor(px)] != 8;
-     } else if (dir == 3) {
-       return board[yToCor(py)][xToCor(px) + 1] != 1 && board[yToCor(py) - 1][xToCor(px)] != 8;
+       return (board[yToCor(py) + 1][xToCor(px)] != 1 && board[yToCor(py) + 1][xToCor(px)] != 8);
+     } else if (dir == 3 && xToCor(px)+1<28) {
+       return (board[yToCor(py)][xToCor(px) + 1] != 1 && board[yToCor(py)][xToCor(px)+1] != 8);
      }     
      return false;
+   }
+   
+    public void bestMove() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int gdirection = pDir[0];
+     int nextGridX = 0;
+     int nextGridY = 0;
+     int aheadX = 0;
+     int aheadY = 0;
+     float temp = 0;
+     for (int i = 0; i < 4; i++) {
+       if (i != oppositeDir(pDir[0]) && gCanGoThere(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         if(direction[0] == 0){
+           aheadX = 0;
+           aheadY = -128;
+         }
+         if(direction[0] == 1){
+           aheadX = -128;
+           aheadY = 0;
+         }
+         if(direction[0] == 2){
+           aheadX = 0;
+           aheadY = 128;
+         }
+         if(direction[0] == 3){
+           aheadX = 128;
+           aheadY = 0;
+         }
+         temp = dist(px+nextGridX,(py-shiftDown)+nextGridY,pacMan.getX()+aheadX,pacMan.getY()+aheadY);
+         if (temp < shortest) {
+           shortest = temp;
+           gdirection = i;
+         }
+       }
+     }
+     pDir[0] = gdirection;
    }
    public float getX(){
      return px;
@@ -241,4 +297,22 @@ public class Pinky extends Ghost{
    public float getSpawnY(){
      return pspawny;
    }
+}
+ public int oppositeDir (int dir) {
+     if (dir == 0) {
+       return 2;
+   }
+   
+   if (dir == 1) {
+     return 3;
+   }
+   
+   if (dir == 2) {
+     return 0;
+   }
+   
+   if (dir == 3) {
+     return 1;
+   }
+   return -1; //placeholder
 }
