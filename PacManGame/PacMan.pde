@@ -55,8 +55,15 @@ public class PacMan{
      lives --;
      x = 432;
      y = 752 + shiftDown;
+     direction[0] = 3;
+     ghosts.get(0).setX(528);
+     ghosts.get(0).setY(464+shiftDown);
      ghosts.get(1).setX(432);
      ghosts.get(1).setY(368+shiftDown);
+     ghosts.get(2).setX(432);
+     ghosts.get(2).setY(464+shiftDown);
+     ghosts.get(3).setX(368);
+     ghosts.get(3).setY(464+shiftDown);
    }
    public void kill(int i){
      if (ghosts.get(i).isAlive()==true){
