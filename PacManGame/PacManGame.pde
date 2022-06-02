@@ -64,6 +64,7 @@ void reset(){
   nextMove = new int[]{-1}; //-1 is for placeholder
   killCount = 0;
   lives = 3;
+  ghosts.clear();
   pacMan = new PacMan(432.0, 752+shiftDown,0,0);
   Ghost c = new Clyde(528,464+shiftDown,0,0);
   ghosts.add(c);
