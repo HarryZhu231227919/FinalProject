@@ -5,6 +5,9 @@ float bdy;
 boolean bAlive;
 int bDeath;
 int[]bDir;
+int bTargetX;
+int bTargetY;
+boolean chaseMode;
 final int bspawnx = 464;
 final int bspawny = 432+shiftDown;
 final int bspawnx2 = 464;
@@ -18,6 +21,9 @@ public class Blinky extends Ghost{
     bdy = sdy;
     bAlive = true;
     bDir = new int[]{1};
+    chaseMode = true;
+    bTargetX = pacMan.xToCor(getX());
+    bTargetY = pacMan.yToCor(getY());
   } 
    public void display(){
      if (bAlive == true){
@@ -30,7 +36,8 @@ public class Blinky extends Ghost{
    }
   
    void Gmove(){
-     bDir[0] = changeDir();
+     bestMove();
+   //  bDir[0] = changeDir();
      if(bDir[0]==1){
       if(xToCor(bx)<=0){
          bx = 895;
@@ -250,4 +257,38 @@ public class Blinky extends Ghost{
    public float getSpawnY(){
      return bspawny2;
    }
+   
+   public void bestMove() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = bDir[0];
+     for (int i = 0; i < 4; i++) {
+       if (i != oppositeDir(bDir[0]) && gCanGoThere(i)) {
+         float temp = sqrt(pow((xToCor(bx) - pacMan.xToCor(getX())),2) + pow((yToCor(by) - pacMan.yToCor(getY())),2));
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     bDir[0] = direction;
+   }
+   
+   public int oppositeDir (int dir) {
+     if (dir == 0) {
+       return 2;
+   }
+   
+   if (dir == 1) {
+     return 3;
+   }
+   
+   if (dir == 2) {
+     return 0;
+   }
+   
+   if (dir == 3) {
+     return 1;
+   }
+   return -1; //placeholder
+}
 }
