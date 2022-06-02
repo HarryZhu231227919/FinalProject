@@ -203,7 +203,7 @@ public class Blinky extends Ghost{
      } else if (dir == 1) {
        return board[yToCor(by)][xToCor(bx) - 1] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
      } else if (dir == 2) {
-       return board[yToCor(by) + 1][xToCor(bx)] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
+       return board[yToCor(by-shiftDown) + 1][xToCor(bx)] != 1 && board[yToCor(by-shiftDown) - 1][xToCor(bx)] != 8;
      } else if (dir == 3) {
        return board[yToCor(by)][xToCor(bx) + 1] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
      }     
@@ -261,27 +261,31 @@ public class Blinky extends Ghost{
    public void bestMove() {
      float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
      int direction = bDir[0];
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
      for (int i = 0; i < 4; i++) {
        if (i != oppositeDir(bDir[0]) && gCanGoThere(i)) {
-         int nextGridX = 0;
-         int nextGridY = 0;
          if(i == 0){
            nextGridX = 0;
            nextGridY = -gridSize;
+           temp = dist(bx+nextGridX,by+nextGridY,pacMan.getX(),pacMan.getY());
          }
          if(i == 1){
            nextGridX = -gridSize;
            nextGridY = 0;
+           temp = dist(bx+nextGridX,by+nextGridY,pacMan.getX(),pacMan.getY());
          }
          if(i == 2){
            nextGridX = 0;
            nextGridY = gridSize;
+           temp = dist(bx+nextGridX,by+nextGridY,pacMan.getX(),pacMan.getY());
          }
          if(i == 3){
            nextGridX = gridSize;
            nextGridY = 0;
+           temp = dist(bx+nextGridX,by+nextGridY,pacMan.getX(),pacMan.getY());
          }
-         float temp = dist(bx+nextGridX,by+nextGridY,pacMan.getX(),pacMan.getY());;
          if (temp < shortest) {
            shortest = temp;
            direction = i;
