@@ -4,6 +4,10 @@ float bdx;
 float bdy;
 boolean bAlive;
 int bDeath;
+int[]bDir;
+int bTargetX;
+int bTargetY;
+boolean chaseMode;
 final int bspawnx = 464;
 final int bspawny = 432+shiftDown;
 final int bspawnx2 = 464;
@@ -16,6 +20,10 @@ public class Blinky extends Ghost{
     bdx = sdx;
     bdy = sdy;
     bAlive = true;
+    bDir = new int[]{1};
+    chaseMode = true;
+    bTargetX = pacMan.xToCor(getX());
+    bTargetY = pacMan.yToCor(getY());
   } 
    public void display(){
      if (bAlive == true){
@@ -26,7 +34,181 @@ public class Blinky extends Ghost{
        }
      }
    }
-   void move(){}
+  
+   void Gmove(){
+     bestMove();
+   //  bDir[0] = changeDir();
+     if(bDir[0]==1){
+      if(xToCor(bx)<=0){
+         bx = 895;
+       }
+     }
+     if(bDir[0]==3){
+       if(xToCor(bx)>=27){
+         bx = 1;
+       }
+     }
+     if(bx%gridSize==16 && (by-shiftDown)%gridSize==16){
+     if (bDir[0]==0){
+       wGMove();
+     }
+     if (bDir[0]==1){
+       aGMove();
+     }
+     if (bDir[0]==2){
+       sGMove();
+     }
+     if (bDir[0]==3){
+       dGMove();
+     }
+     }
+     bx+=bdx;
+     by+=bdy;
+   }
+   void wGMove(){
+     int ycor = yToCor(by - bdy - (gridSize / 2)-1.5);//checks if cord + 16 is wall
+     int xcor = xToCor(bx - bdx);
+
+     //centers when turning
+    if((bx%gridSize)!=gridSize/2){
+       bx = (xToCor(bx)*gridSize+16);
+     }
+     
+     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       if(level<3){
+          bdy = -(level*2*gridSize) / 64;
+          bdx = 0;
+       }else{
+          bdy = -(2*2*gridSize)/64;
+          bdx = 0;
+       }
+     }
+   }
+   void aGMove(){
+     int xcor = xToCor(bx - bdx - (gridSize / 2) - 1.5);
+     int ycor = yToCor(by - bdy);
+    if((by-shiftDown)%gridSize!=gridSize/2){
+       bdy = yToCor(by)*gridSize+shiftDown+16;
+     }
+     //exits
+     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       if(level<3){
+          bdy = 0;
+          bdx = -(level*2*gridSize) / 64;
+       }else{
+          bdy = 0;
+          bdx = -(2*2*gridSize) / 64;
+       }
+     }
+   }
+   void sGMove(){
+     int ycor = yToCor(by + bdy + (gridSize / 2)+1.5);
+     int xcor = xToCor(bx - bdx);
+     
+     if(bx%gridSize!=gridSize/2){
+       bx = xToCor(bx)*gridSize+16;
+     }
+     
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       if(level<3){
+          bdy = (level*2*gridSize) / 64;
+          bdx = 0;
+       }else{
+          bdy = (2*2*gridSize)/64;
+          bdx = 0;
+       }
+     }
+   }
+   void dGMove(){
+     int xcor = xToCor(bx + bdx + (gridSize / 2)+1.5);
+     int ycor = yToCor(by - bdy);
+     
+     if((by-shiftDown)%gridSize!=gridSize/2){
+       by = (yToCor(by)*gridSize+shiftDown+16);
+     }
+     //exits
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       if(level<3){
+          bdy = 0;
+          bdx = (2*level*gridSize) / 64;
+       }else{
+          bdy = 0;
+          bdx = (2*2*gridSize)/64;
+       }
+     }
+   }
+    public int xToCor(float x){
+     return (int)(x / gridSize);
+   }
+   public int yToCor(float y){
+     return (int)((y-shiftDown) / gridSize);
+   }
+  int changeDir(){
+     ArrayList<Integer>canGo = new ArrayList<Integer>();
+     if (bDir[0] == 0){
+       if((by-shiftDown)%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if((by-shiftDown)%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if((by-shiftDown)%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     if (bDir[0] == 1){
+       if(bx%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if(bx%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if(bx%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+     }
+     if (bDir[0] == 2){
+       if((by-shiftDown)%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+       if((by-shiftDown)%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if((by-shiftDown)%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     if (bDir[0] == 3){
+       if(bx%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if(bx%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+       if(bx%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     //choose randomly out of the possible directions
+     if(canGo.size()>0){
+       return canGo.get((int)(Math.random()*(canGo.size())));
+     }else{
+       return bDir[0];
+     }
+   }
+   
+   boolean gCanGoThere(int dir){
+     if (dir == 0) {
+       return board[yToCor(by)-1][xToCor(bx)] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
+     } else if (dir == 1) {
+       return board[yToCor(by)][xToCor(bx) - 1] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
+     } else if (dir == 2) {
+       return board[yToCor(by) + 1][xToCor(bx)] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
+     } else if (dir == 3) {
+       return board[yToCor(by)][xToCor(bx) + 1] != 1 && board[yToCor(by) - 1][xToCor(bx)] != 8;
+     }     
+     return false;
+   }
    public float getX(){
      return bx;
    }
@@ -38,6 +220,12 @@ public class Blinky extends Ghost{
    }
    public float getDy(){
      return bdy;
+   }
+   public int getDir(){
+     return bDir[0];
+   }
+   public void setDir(int d){
+     bDir[0] = d;
    }
    public void setAlive(boolean a){
      bAlive = a;
@@ -69,4 +257,38 @@ public class Blinky extends Ghost{
    public float getSpawnY(){
      return bspawny2;
    }
+   
+   public void bestMove() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = bDir[0];
+     for (int i = 0; i < 4; i++) {
+       if (i != oppositeDir(bDir[0]) && gCanGoThere(i)) {
+         float temp = sqrt(pow((xToCor(bx) - pacMan.xToCor(getX())),2) + pow((yToCor(by) - pacMan.yToCor(getY())),2));
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     bDir[0] = direction;
+   }
+   
+   public int oppositeDir (int dir) {
+     if (dir == 0) {
+       return 2;
+   }
+   
+   if (dir == 1) {
+     return 3;
+   }
+   
+   if (dir == 2) {
+     return 0;
+   }
+   
+   if (dir == 3) {
+     return 1;
+   }
+   return -1; //placeholder
+}
 }

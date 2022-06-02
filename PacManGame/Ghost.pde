@@ -3,9 +3,9 @@ PImage c;
 PImage i;
 PImage p;
 PImage s;
+
 public class Ghost{
   public Ghost(){}
-  void move(){}
   public float getX(){
     return 0;
   }
@@ -16,6 +16,10 @@ public class Ghost{
     return 0;
   }
   public float getDy(){
+    return 0;
+  }
+  public void setDir(int d){}
+  public int getDir(){
     return 0;
   }
   public void setAlive(boolean a){
@@ -29,6 +33,42 @@ public class Ghost{
   void setDy(float dy){}
   void display(){}
   void setDTimer(int s){}
+  public int xToCor(float x){
+     return (int)(x / gridSize);
+   }
+   public int yToCor(float y){
+     return (int)((y-shiftDown) / gridSize);
+   }
+
+   boolean gCanGoThere(int dir){
+     return false;
+   }
+  
+  int changeDir(){
+     return 0;
+   }
+   
+    void wGMove(){}
+    void aGMove(){}
+    void sGMove(){}
+    void dGMove(){}
+  
+  void Gmove(){
+    /*  if(changeDir(g) == 0){
+        wGMove(g);
+      }
+       if(changeDir(g) == 1){
+        aGMove(g);
+      }
+       if(changeDir(g) == 2){
+        sGMove(g);
+      }
+       if(changeDir(g) == 3){
+        dGMove(g);
+      }*/
+    }
+    
+    
   int getDTimer(){
     return 0;
   }

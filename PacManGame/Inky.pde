@@ -4,6 +4,7 @@ float idx;
 float idy;
 boolean iAlive;
 int iDeath;
+int[]iDir;
 final int ispawnx = 468;
 final int ispawny = 464+shiftDown;
 
@@ -14,6 +15,7 @@ public class Inky extends Ghost{
     idx = sdx;
     idy = sdy;
     iAlive = true;
+    iDir = new int[]{1};
   } 
    public void display(){
      if (iAlive == true){
@@ -24,7 +26,179 @@ public class Inky extends Ghost{
        }
      }
    }
-   void move(){}
+   void Gmove(){
+     iDir[0] = changeDir();
+     if(iDir[0]==1){
+      if(xToCor(ix)<=0){
+         ix = 895;
+       }
+     }
+     if(iDir[0]==3){
+       if(xToCor(ix)>=27){
+         ix = 1;
+       }
+     }
+     if(ix%gridSize==16 && (iy-shiftDown)%gridSize==16){
+     if (iDir[0]==0){
+       wGMove();
+     }
+     if (iDir[0]==1){
+       aGMove();
+     }
+     if (iDir[0]==2){
+       sGMove();
+     }
+     if (iDir[0]==3){
+       dGMove();
+     }
+     }
+     ix+=idx;
+     iy+=idy;
+   }
+   void wGMove(){
+     int ycor = yToCor(iy - idy - (gridSize / 2)-1.5);//checks if cord + 16 is wall
+     int xcor = xToCor(ix - idx);
+
+     //centers when turning
+    if((ix%gridSize)!=gridSize/2){
+       ix = (xToCor(ix)*gridSize+16);
+     }
+     
+     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       if(level<3){
+          idy = -(level*2*gridSize) / 64;
+          idx = 0;
+       }else{
+          idy = -(2*2*gridSize)/64;
+          idx = 0;
+       }
+     }
+   }
+   void aGMove(){
+     int xcor = xToCor(ix - idx - (gridSize / 2) - 1.5);
+     int ycor = yToCor(iy - idy);
+    if((iy-shiftDown)%gridSize!=gridSize/2){
+       idy = yToCor(iy)*gridSize+shiftDown+16;
+     }
+     //exits
+     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       if(level<3){
+          idy = 0;
+          idx = -(level*2*gridSize) / 64;
+       }else{
+          idy = 0;
+          idx = -(2*2*gridSize) / 64;
+       }
+     }
+   }
+   void sGMove(){
+     int ycor = yToCor(iy + idy + (gridSize / 2)+1.5);
+     int xcor = xToCor(ix - idx);
+     
+     if(ix%gridSize!=gridSize/2){
+       ix = xToCor(ix)*gridSize+16;
+     }
+     
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       if(level<3){
+          idy = (level*2*gridSize) / 64;
+          idx = 0;
+       }else{
+          idy = (2*2*gridSize)/64;
+          idx = 0;
+       }
+     }
+   }
+   void dGMove(){
+     int xcor = xToCor(ix + idx + (gridSize / 2)+1.5);
+     int ycor = yToCor(iy - idy);
+     
+     if((iy-shiftDown)%gridSize!=gridSize/2){
+       iy = (yToCor(iy)*gridSize+shiftDown+16);
+     }
+     //exits
+     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       if(level<3){
+          idy = 0;
+          idx = (2*level*gridSize) / 64;
+       }else{
+          idy = 0;
+          idx = (2*2*gridSize)/64;
+       }
+     }
+   }
+    public int xToCor(float x){
+     return (int)(x / gridSize);
+   }
+   public int yToCor(float y){
+     return (int)((y-shiftDown) / gridSize);
+   }
+  int changeDir(){
+     ArrayList<Integer>canGo = new ArrayList<Integer>();
+     if (iDir[0] == 0){
+       if((iy-shiftDown)%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if((iy-shiftDown)%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if((iy-shiftDown)%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     if (iDir[0] == 1){
+       if(ix%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if(ix%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if(ix%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+     }
+     if (iDir[0] == 2){
+       if((iy-shiftDown)%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+       if((iy-shiftDown)%32==16 && gCanGoThere(1)){
+         canGo.add(1);
+       }
+       if((iy-shiftDown)%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     if (iDir[0] == 3){
+       if(ix%32==16 && gCanGoThere(0)){
+         canGo.add(0);
+       }
+       if(ix%32==16 && gCanGoThere(2)){
+         canGo.add(2);
+       }
+       if(ix%32==16 && gCanGoThere(3)){
+         canGo.add(3);
+       }
+     }
+     //choose randomly out of the possible directions
+     if(canGo.size()>0){
+       return canGo.get((int)(Math.random()*(canGo.size())));
+     }else{
+       return iDir[0];
+     }
+   }
+   
+   boolean gCanGoThere(int dir){
+     if (dir == 0) {
+       return board[yToCor(iy)-1][xToCor(ix)] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
+     } else if (dir == 1) {
+       return board[yToCor(iy)][xToCor(ix) - 1] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
+     } else if (dir == 2) {
+       return board[yToCor(iy) + 1][xToCor(ix)] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
+     } else if (dir == 3) {
+       return board[yToCor(iy)][xToCor(ix) + 1] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
+     }     
+     return false;
+   }
    public float getX(){
      return ix;
    }
