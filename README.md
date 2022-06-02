@@ -41,3 +41,5 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 5/31/22 (James) - I created a random direction picker which will pick a random neighboring grid to go to.
 
 6/1/22 (James) - I created a random move function for the ghosts. They will change direction(or not) at each intersection.
+
+6/1/22 (Harry) - I created a method that will look at all the directions Blinky can take and calculate which is the closest linearly to Pac Man.
