@@ -8,6 +8,7 @@ int[]bDir;
 int bTargetX;
 int bTargetY;
 boolean chaseMode;
+int[] bRevDir;
 final int bspawnx = 464;
 final int bspawny = 432+shiftDown;
 final int bspawnx2 = 464;
@@ -24,6 +25,7 @@ public class Blinky extends Ghost{
     chaseMode = true;
     bTargetX = pacMan.xToCor(getX());
     bTargetY = pacMan.yToCor(getY());
+    bRevDir = new int[]{3};
   } 
    public void display(){
      if (bAlive == true){
@@ -39,7 +41,7 @@ public class Blinky extends Ghost{
      if(pTimer>0){
        bDir[0] = changeDir();
      }else{
-       bestMove();
+       bestMove(bDir[0]);
      }
      if(bDir[0]==1){
       if(xToCor(bx)<=0){
@@ -78,6 +80,7 @@ public class Blinky extends Ghost{
      }
      
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       bRevDir[0] = 2;
        if(level<3){
           bdy = -(level*2*gridSize) / 64;
           bdx = 0;
@@ -95,6 +98,7 @@ public class Blinky extends Ghost{
      }
      //exits
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       bRevDir[0] = 3;
        if(level<3){
           bdy = 0;
           bdx = -(level*2*gridSize) / 64;
@@ -113,6 +117,7 @@ public class Blinky extends Ghost{
      }
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       bRevDir[0] = 0;
        if(level<3){
           bdy = (level*2*gridSize) / 64;
           bdx = 0;
@@ -131,6 +136,7 @@ public class Blinky extends Ghost{
      }
      //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       bRevDir[0] = 1;
        if(level<3){
           bdy = 0;
           bdx = (2*level*gridSize) / 64;
@@ -261,14 +267,14 @@ public class Blinky extends Ghost{
      return bspawny2;
    }
    
-   public void bestMove() {
+   public void bestMove(int dir) {
      float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
-     int direction = bDir[0];
+     int direction = dir;
      int nextGridX = 0;
      int nextGridY = 0;
      float temp = 0;
      for (int i = 0; i < 4; i++) {
-       if (i != oppositeDir(bDir[0]) && gCanGoThere(i)) {
+       if (i != bRevDir[0] && gCanGoThere(i)) {
          if(i == 0){
            nextGridX = 0;
            nextGridY = -gridSize;
