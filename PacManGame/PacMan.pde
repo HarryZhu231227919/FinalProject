@@ -55,8 +55,15 @@ public class PacMan{
      lives --;
      x = 432;
      y = 752 + shiftDown;
+     direction[0] = 3;
+     ghosts.get(0).setX(528);
+     ghosts.get(0).setY(464+shiftDown);
      ghosts.get(1).setX(432);
      ghosts.get(1).setY(368+shiftDown);
+     ghosts.get(2).setX(432);
+     ghosts.get(2).setY(464+shiftDown);
+     ghosts.get(3).setX(368);
+     ghosts.get(3).setY(464+shiftDown);
    }
    public void kill(int i){
      if (ghosts.get(i).isAlive()==true){
@@ -277,11 +284,11 @@ public class PacMan{
 
      if (dir == 0) {
        return board[yToCor(y) - 1][xToCor(x)] != 1 && board[yToCor(y) - 1][xToCor(x)] != 8;
-     } else if (dir == 1) {
+     } else if (dir == 1 && xToCor(x) - 1>-1) {
        return board[yToCor(y)][xToCor(x) - 1] != 1 && board[yToCor(y)][xToCor(x) - 1] != 8;
      } else if (dir == 2) {
        return board[yToCor(y) + 1][xToCor(x)] != 1 && board[yToCor(y) + 1][xToCor(x)] != 8;
-     } else if (dir == 3) {
+     } else if (dir == 3 && xToCor(x) + 1 < 28) {
        return board[yToCor(y)][xToCor(x) + 1] != 1 && board[yToCor(y)][xToCor(x) + 1] != 8;
      }     
      return false;

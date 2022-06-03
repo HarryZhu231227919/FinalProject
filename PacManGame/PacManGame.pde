@@ -64,8 +64,9 @@ void reset(){
   nextMove = new int[]{-1}; //-1 is for placeholder
   killCount = 0;
   lives = 3;
+  ghosts.clear();
   pacMan = new PacMan(432.0, 752+shiftDown,0,0);
-  Ghost c = new Clyde(528,464+shiftDown,0,0);
+  Ghost c = new Clyde(464,368+shiftDown,0,0);
   ghosts.add(c);
   Ghost b = new Blinky(432,368+shiftDown,0,0);
   ghosts.add(b);
@@ -215,7 +216,6 @@ void draw(){
     ghosts.get(i).display();
     ghosts.get(i).Gmove();
     pacMan.touchGhost(i);
-    ghosts.get(i).display();
     if (ghosts.get(i).getDTimer()>0){
       ghosts.get(i).setDTimer(ghosts.get(i).getDTimer()-1);
     }
@@ -250,18 +250,9 @@ void draw(){
 
 void keyPressed () {
   
-  //we still  need to solve the issue of PacMan's movement
   if (key == 32){
     reset();
   }
-  /*//FOR DEMO
-  if(key == '1'){
-    loseLives();
-  }
-  if(key == '2'){
-    increaseLvl();
-  }
-  //FOR DEMO*/
   if (key == 'w'||key=='W') {
     if (pacMan.canGoThere(0)) {
     direction[0] = 0;

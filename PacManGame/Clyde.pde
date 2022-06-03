@@ -26,7 +26,17 @@ public class Clyde extends Ghost{
      }
    }
  void Gmove(){
-     cDir[0] = changeDir();
+   scatter();
+  /*   if(pTimer>0){
+       cDir[0] = changeDir();
+     }else{
+       if(dist(cx,cy,pacMan.getX(),pacMan.getY())>256){
+         bestMove();
+       }else{
+         scatter();
+       }
+     }*/
+    
      if(cDir[0]==1){
       if(xToCor(cx)<=0){
          cx = 895;
@@ -189,15 +199,84 @@ public class Clyde extends Ghost{
    boolean gCanGoThere(int dir){
      if (dir == 0) {
        return board[yToCor(cy)-1][xToCor(cx)] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
-     } else if (dir == 1) {
-       return board[yToCor(cy)][xToCor(cx) - 1] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
+     } else if (dir == 1 && xToCor(cx) - 1>-1) {
+       return board[yToCor(cy)][xToCor(cx) - 1] != 1 && board[yToCor(cy)][xToCor(cx)-1] != 8;
      } else if (dir == 2) {
-       return board[yToCor(cy) + 1][xToCor(cx)] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
-     } else if (dir == 3) {
-       return board[yToCor(cy)][xToCor(cx) + 1] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
+       return board[yToCor(cy) + 1][xToCor(cx)] != 1 && board[yToCor(cy) + 1][xToCor(cx)] != 8;
+     } else if (dir == 3 && xToCor(cx)+1<28) {
+       return board[yToCor(cy)][xToCor(cx) + 1] != 1 && board[yToCor(cy) - 1][xToCor(cx)+1] != 8;
      }     
      return false;
    }
+   
+    public void bestMove() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = cDir[0];
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
+     for (int i = 0; i < 4; i++) {
+       if (i != oppositeDir(cDir[0]) && gCanGoThere(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         temp = dist(cx+nextGridX,(cy-shiftDown)+nextGridY,pacMan.getX(),pacMan.getY());
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     cDir[0] = direction;
+   }
+   
+    public void scatter() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = cDir[0];
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
+     for (int i = 0; i < 4; i++) {
+       if (i != oppositeDir(bDir[0]) && gCanGoThere(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         temp = dist(cx+nextGridX,(cy-shiftDown)+nextGridY,0,1080);
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     cDir[0] = direction;
+   }
+   
    public float getX(){
      return cx;
    }
@@ -240,4 +319,22 @@ public class Clyde extends Ghost{
    public float getSpawnY(){
      return spawny;
    }
+     public int oppositeDir (int dir) {
+     if (dir == 0) {
+       return 2;
+   }
+   
+   if (dir == 1) {
+     return 3;
+   }
+   
+   if (dir == 2) {
+     return 0;
+   }
+   
+   if (dir == 3) {
+     return 1;
+   }
+   return -1; //placeholder
+}
 }
