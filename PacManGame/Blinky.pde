@@ -9,6 +9,7 @@ int bTargetX;
 int bTargetY;
 boolean chaseMode;
 int[] bRevDir;
+boolean binSpawn;
 final int bspawnx = 464;
 final int bspawny = 432+shiftDown;
 final int bspawnx2 = 464;
@@ -26,6 +27,7 @@ public class Blinky extends Ghost{
     bTargetX = pacMan.xToCor(getX());
     bTargetY = pacMan.yToCor(getY());
     bRevDir = new int[]{3};
+    binSpawn = false;
   } 
    public void display(){
      if (bAlive == true){
@@ -38,10 +40,14 @@ public class Blinky extends Ghost{
    }
   
    void Gmove(){
+     if(binSpawn && bDeath==0){
+       out(bDir[0]);
+     }else{
      if(pTimer>0){
        bDir[0] = changeDir();
      }else{
        bestMove(bDir[0]);
+     }
      }
      if(bDir[0]==1){
       if(xToCor(bx)<=0){
@@ -218,6 +224,18 @@ public class Blinky extends Ghost{
      }     
      return false;
    }
+   boolean gCanGoThere2(int dir){
+     if (dir == 0) {
+       return (board[yToCor(by)-1][xToCor(bx)] != 1);
+     } else if (dir == 1 && xToCor(bx) - 1>-1) {
+       return (board[yToCor(by)][xToCor(bx) - 1] != 1);
+     } else if (dir == 2) {
+       return (board[yToCor(by) + 1][xToCor(bx)] != 1);
+     } else if (dir == 3 && xToCor(bx)+1<28) {
+       return (board[yToCor(by)][xToCor(bx) + 1] != 1);
+     }     
+     return false;
+   }
    public float getX(){
      return bx;
    }
@@ -266,7 +284,9 @@ public class Blinky extends Ghost{
    public float getSpawnY(){
      return bspawny2;
    }
-   
+   public void setSpawn(boolean spawn){
+     binSpawn = spawn;
+   }
    public void bestMove(int dir) {
      float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
      int direction = dir;
@@ -300,23 +320,40 @@ public class Blinky extends Ghost{
      }
      bDir[0] = direction;
    }
-   
-   public int oppositeDir (int dir) {
-     if (dir == 0) {
-       return 2;
+   public void out(int dir){
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = dir;
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
+     if(by == 368+shiftDown && bx == 432){
+       binSpawn = false;
+     } 
+     for (int i = 0; i < 4; i++) {
+       if (i != bRevDir[0] && gCanGoThere2(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         temp = dist(bx+nextGridX,(by-shiftDown)+nextGridY,432,368+shiftDown);
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     bDir[0] = direction;
    }
-   
-   if (dir == 1) {
-     return 3;
-   }
-   
-   if (dir == 2) {
-     return 0;
-   }
-   
-   if (dir == 3) {
-     return 1;
-   }
-   return -1; //placeholder
-}
 }

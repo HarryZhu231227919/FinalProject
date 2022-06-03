@@ -33,6 +33,7 @@ public class Ghost{
   void setDy(float dy){}
   void display(){}
   void setDTimer(int s){}
+  void setSpawn(boolean spawn){}
   public int xToCor(float x){
      return (int)(x / gridSize);
    }

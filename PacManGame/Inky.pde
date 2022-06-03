@@ -4,7 +4,9 @@ float idx;
 float idy;
 boolean iAlive;
 int iDeath;
+boolean iinSpawn;
 int[]iDir;
+int[]iRevDir;
 final int ispawnx = 468;
 final int ispawny = 464+shiftDown;
 
@@ -16,6 +18,8 @@ public class Inky extends Ghost{
     idy = sdy;
     iAlive = true;
     iDir = new int[]{1};
+    iRevDir = new int[]{3};
+    iinSpawn = true;
   } 
    public void display(){
      if (iAlive == true){
@@ -27,7 +31,11 @@ public class Inky extends Ghost{
      }
    }
    void Gmove(){
-     iDir[0] = changeDir();
+     if(iinSpawn && iDeath==0){
+       out(iDir[0]);
+     }else{
+       iDir[0] = changeDir();
+     }
      if(iDir[0]==1){
       if(xToCor(ix)<=0){
          ix = 895;
@@ -65,6 +73,7 @@ public class Inky extends Ghost{
      }
      
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       iRevDir[0] = 2;
        if(level<3){
           idy = -(level*2*gridSize) / 64;
           idx = 0;
@@ -82,6 +91,7 @@ public class Inky extends Ghost{
      }
      //exits
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       iRevDir[0] = 3;
        if(level<3){
           idy = 0;
           idx = -(level*2*gridSize) / 64;
@@ -100,6 +110,7 @@ public class Inky extends Ghost{
      }
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       iRevDir[0] = 0;
        if(level<3){
           idy = (level*2*gridSize) / 64;
           idx = 0;
@@ -118,6 +129,7 @@ public class Inky extends Ghost{
      }
      //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       iRevDir[0] = 1;
        if(level<3){
           idy = 0;
           idx = (2*level*gridSize) / 64;
@@ -199,6 +211,20 @@ public class Inky extends Ghost{
      }     
      return false;
    }
+   
+    boolean gCanGoThere2(int dir){
+     if (dir == 0) {
+       return (board[yToCor(iy)-1][xToCor(ix)] != 1);
+     } else if (dir == 1 && xToCor(ix) - 1>-1) {
+       return (board[yToCor(iy)][xToCor(ix) - 1] != 1);
+     } else if (dir == 2) {
+       return (board[yToCor(iy) + 1][xToCor(ix)] != 1);
+     } else if (dir == 3 && xToCor(ix)+1<28) {
+       return (board[yToCor(iy)][xToCor(ix) + 1] != 1);
+     }     
+     return false;
+   }
+   
    public float getX(){
      return ix;
    }
@@ -240,5 +266,44 @@ public class Inky extends Ghost{
    }
    public float getSpawnY(){
      return ispawny;
+   }
+   public void setSpawn(boolean spawn){
+     iinSpawn = spawn;
+   }
+   public void out(int dir){
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = dir;
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
+     if(iy == 368+shiftDown && ix == 432){
+       iinSpawn = false;
+     } 
+     for (int i = 0; i < 4; i++) {
+       if (i != iRevDir[0] && gCanGoThere2(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         temp = dist(ix+nextGridX,(iy-shiftDown)+nextGridY,432,368+shiftDown);
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     iDir[0] = direction;
    }
 }

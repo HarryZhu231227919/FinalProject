@@ -5,6 +5,8 @@ float pdy;
 boolean pAlive;
 int pDeath;
 int[]pDir;
+int[]pRevDir;
+boolean pinSpawn;
 final int pspawnx = 432;
 final int pspawny = 464+shiftDown;
 
@@ -16,6 +18,8 @@ public class Pinky extends Ghost{
     pdy = sdy;
     pAlive = true;
     pDir = new int[]{1};
+    pRevDir = new int[]{3};
+    pinSpawn = true;
   } 
    public void display(){
      if (pAlive == true){
@@ -27,10 +31,14 @@ public class Pinky extends Ghost{
      }
    }
    void Gmove(){
-     if(pTimer>0){
-       pDir[0] = changeDir();
+     if(pinSpawn && pDeath == 0){
+       out(pDir[0]);
      }else{
-       bestMove();
+       if(pTimer>0){
+         pDir[0] = changeDir();
+       }else{
+         bestMove();
+       }
      }
      if(pDir[0]==1){
       if(xToCor(px)<=0){
@@ -69,6 +77,7 @@ public class Pinky extends Ghost{
      }
      
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       pRevDir[0] = 2;
        if(level<3){
           pdy = -(level*2*gridSize) / 64;
           pdx = 0;
@@ -86,6 +95,7 @@ public class Pinky extends Ghost{
      }
      //exits
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+       pRevDir[0] = 3;
        if(level<3){
           pdy = 0;
           pdx = -(level*2*gridSize) / 64;
@@ -104,6 +114,7 @@ public class Pinky extends Ghost{
      }
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       pRevDir[0] = 0;
        if(level<3){
           pdy = (level*2*gridSize) / 64;
           pdx = 0;
@@ -122,6 +133,7 @@ public class Pinky extends Ghost{
      }
      //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+       pRevDir[0] = 1;
        if(level<3){
           pdy = 0;
           pdx = (2*level*gridSize) / 64;
@@ -204,6 +216,19 @@ public class Pinky extends Ghost{
      return false;
    }
    
+  boolean gCanGoThere2(int dir){
+     if (dir == 0) {
+       return (board[yToCor(py)-1][xToCor(px)] != 1);
+     } else if (dir == 1 && xToCor(px) - 1>-1) {
+       return (board[yToCor(py)][xToCor(px) - 1] != 1);
+     } else if (dir == 2) {
+       return (board[yToCor(py) + 1][xToCor(px)] != 1);
+     } else if (dir == 3 && xToCor(px)+1<28) {
+       return (board[yToCor(py)][xToCor(px) + 1] != 1);
+     }     
+     return false;
+   }
+   
     public void bestMove() {
      float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
      int gdirection = pDir[0];
@@ -213,7 +238,7 @@ public class Pinky extends Ghost{
      int aheadY = 0;
      float temp = 0;
      for (int i = 0; i < 4; i++) {
-       if (i != oppositeDir(pDir[0]) && gCanGoThere(i)) {
+       if (i != pRevDir[0] && gCanGoThere(i)) {
          if(i == 0){
            nextGridX = 0;
            nextGridY = -gridSize;
@@ -255,6 +280,44 @@ public class Pinky extends Ghost{
      }
      pDir[0] = gdirection;
    }
+   
+    public void out(int dir){
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = dir;
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
+     if(py == 368+shiftDown && px == 432){
+       pinSpawn = false;
+     } 
+     for (int i = 0; i < 4; i++) {
+       if (i != pRevDir[0] && gCanGoThere2(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         temp = dist(px+nextGridX,(py-shiftDown)+nextGridY,432,368+shiftDown);
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     pDir[0] = direction;
+   }
+   
    public float getX(){
      return px;
    }
@@ -297,22 +360,7 @@ public class Pinky extends Ghost{
    public float getSpawnY(){
      return pspawny;
    }
-}
- public int oppositeDir (int dir) {
-     if (dir == 0) {
-       return 2;
+   public void setSpawn(boolean spawn){
+     pinSpawn = spawn;
    }
-   
-   if (dir == 1) {
-     return 3;
-   }
-   
-   if (dir == 2) {
-     return 0;
-   }
-   
-   if (dir == 3) {
-     return 1;
-   }
-   return -1; //placeholder
 }
