@@ -45,3 +45,5 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 6/1/22 (Harry) - I created a method that will look at all the directions Blinky can take and calculate which is the closest linearly to Pac Man.
 
 6/2/22 (James) - I fixed the chase mode for Blinky and added chase modes for Pinky and Clyde.
+
+6/2/22 (Harry) - I added another int array to Blinky that will store the direction that is opposite from the way the ghost is moving. I fixed some of the move method so that Blinky won't reverse direction when it finds out that the reverse way is the shortest distance linearly to Pac Man. 
