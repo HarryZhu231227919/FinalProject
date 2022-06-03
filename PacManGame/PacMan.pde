@@ -69,7 +69,7 @@ public class PacMan{
      if (ghosts.get(i).isAlive()==true){
        killCount++;
        ghosts.get(i).setAlive(false);
-       ghosts.get(i).setDTimer(120);
+       ghosts.get(i).setDTimer(300);
        ghosts.get(i).setSpawn(true);
        ghosts.get(i).setX(ghosts.get(i).getSpawnX());
        ghosts.get(i).setY(ghosts.get(i).getSpawnY());
