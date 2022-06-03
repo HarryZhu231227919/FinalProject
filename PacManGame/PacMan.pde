@@ -70,6 +70,7 @@ public class PacMan{
        killCount++;
        ghosts.get(i).setAlive(false);
        ghosts.get(i).setDTimer(120);
+       ghosts.get(i).setSpawn(true);
        ghosts.get(i).setX(ghosts.get(i).getSpawnX());
        ghosts.get(i).setY(ghosts.get(i).getSpawnY());
        points+=(200*killCount);
