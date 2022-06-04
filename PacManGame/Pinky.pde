@@ -256,7 +256,7 @@ public class Pinky extends Ghost{
            nextGridY = 0;
          }
          if(direction[0] == 0){
-           aheadX = 0;
+           aheadX = -128;
            aheadY = -128;
          }
          if(direction[0] == 1){
