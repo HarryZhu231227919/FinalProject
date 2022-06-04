@@ -34,7 +34,11 @@ public class Inky extends Ghost{
      if(iinSpawn && iDeath==0){
        out(iDir[0]);
      }else{
-       iDir[0] = changeDir();
+       if(pTimer>0){
+         iDir[0] = changeDir();
+       }else{
+         bestMove();
+       }
      }
      if(iDir[0]==1){
       if(xToCor(ix)<=0){
@@ -306,4 +310,57 @@ public class Inky extends Ghost{
      }
      iDir[0] = direction;
    }
+   
+       public void bestMove() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int gdirection = pDir[0];
+     int nextGridX = 0;
+     int nextGridY = 0;
+     int aheadX = 0;
+     int aheadY = 0;
+     float temp = 0;
+     for (int i = 0; i < 4; i++) {
+       if (i != iRevDir[0] && gCanGoThere(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         if(direction[0] == 0){
+           aheadX = -64;
+           aheadY = -64;
+         }
+         if(direction[0] == 1){
+           aheadX = -64;
+           aheadY = 0;
+         }
+         if(direction[0] == 2){
+           aheadX = 0;
+           aheadY = 64;
+         }
+         if(direction[0] == 3){
+           aheadX = 64;
+           aheadY = 0;
+         }
+         temp = dist(ix+nextGridX,(iy-shiftDown)+nextGridY,-1 * (bx - (pacMan.getX()+aheadX)),-1 * (by - (pacMan.getY()+aheadY)));
+         if (temp < shortest) {
+           shortest = temp;
+           gdirection = i;
+         }
+       }
+     }
+     iDir[0] = gdirection;
+   }
+   
 }
