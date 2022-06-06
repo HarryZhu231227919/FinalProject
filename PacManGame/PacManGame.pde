@@ -13,6 +13,7 @@ int duration = 1200;//duration of powerup
 int killCount;//to help calculate the point value for a ghost kill
 PImage gameover;
 int HIGHSCORE = 0;
+boolean intro;
 /* 
 0 is w
 1 is a
@@ -74,24 +75,8 @@ void reset(){
   ghosts.add(p);
   Ghost i = new Inky(368,464+shiftDown,0,0);
   ghosts.add(i);
-  
-}
-/*//FOR DEMO
-void loseLives(){
-  lives--;
-}
-void increaseLvl(){
-  for (int i = 0;i<board.length;i++){
-    for(int j =0;j<board[0].length;j++){
-      if(board[i][j] == 0 || board[i][j] == 2){
-        board[i][j]=9;
-      }
-    }
-  }
-  board[20][12] = 0;
 }
 
-//FOR DEMO*/
 void lvlUp(){
   int cLvl = level;
   int cPoints = points;
@@ -148,6 +133,7 @@ void displayLives(){
 void setup(){
   size(896, 1042);
   background(10);
+  intro = true;
   ghosts = new ArrayList<Ghost>();
   pacmanl = loadImage("pacmanleft.png");
   pacmanr = loadImage("pacmanright.png");
@@ -164,7 +150,10 @@ void setup(){
 }
 
 void draw(){
-  if(lives>0){
+  if(intro){
+    background(10);
+  }
+  else if(lives>0 && intro == false){
     background(10);
     pacMan.display();
     display();
@@ -228,9 +217,8 @@ void draw(){
       HIGHSCORE = points;
     }
     background(0);
-   // pacMan.display();
-   fill(255);
-   text("HIGHSCORE:" + HIGHSCORE,width/2 - 150,height/2 - 400);
+    fill(255);
+    text("HIGHSCORE:" + HIGHSCORE,width/2 - 150,height/2 - 400);
     imageMode(CENTER);
     image(gameover,width/2,height/2-100,500,300);
     textAlign(CENTER);
@@ -239,6 +227,7 @@ void draw(){
        text("PRESS SPACEBAR TO RESTART",width/2,(height/2)+100);
     }
   }
+  if(intro == false){
   textSize(40);
   fill(255);
   textAlign(LEFT);
@@ -246,12 +235,14 @@ void draw(){
   text("Score: " + points, 650, 48); 
   text("Lives",300,48);//temp lives
   displayLives();
+  }
 }
 
 void keyPressed () {
   
   if (key == 32){
     reset();
+    intro = false;
   }
   if (key == 'w'||key=='W') {
     if (pacMan.canGoThere(0)) {
