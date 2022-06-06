@@ -7,6 +7,10 @@
 
 This project will be an imitation of the game “Pac-Man”. There will be Pac-Man and 4 ghosts: Clyde (Orange), Blinky (Red), Pinky (Pink), and Inky (Cyan). The ghosts will move towards Pac-Man and when they collide, Pac-Man loses a life. Pac-Man will traverse the map trying to eat the orbs. The orbs will give points and some orbs will be bigger and give Pac-Man the ability to eat the ghosts. Once all of the orbs are gone, you beat the level and move on to the next level.
 
+### Instructions
+When you first run the program in processing, an introduction screen will pop up. You can press spacebar to play the game. The W,A,S, and D keys will move PacMan.
+You can restart anytime by pressing spacebar.
+
 ### Development Log
 5/23/22 (James) - Created the Pac-Man board and the display function to display the board.
 
@@ -53,3 +57,5 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 6/3/22 (Harry) - I made Inky behave like the original pac man game. I calculated by taking the grid that is 2 grid in front of pac man. I use Blinky's position to reflect it over that grid. The resulting point from the reflection will be Inky's target.
 
 6/4/22 (Harry) - I changed values to the move method since I previously didn't account for the fact that Pac Man's position wouldn't be like an origin.
+
+6/6/22 (James) - I added an intro screen that resembles that of the original PacMan.

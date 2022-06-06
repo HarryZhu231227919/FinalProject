@@ -152,6 +152,41 @@ void setup(){
 void draw(){
   if(intro){
     background(10);
+    fill(255);
+    textAlign(CENTER);
+    textSize(36);
+    text("CHARACTER / NICKNAME",width/2,height/8);
+    //BLINKY
+    image(b,width/2-250,height/8+25,75,75);
+    textSize(30);
+    fill(238,40,37);
+    text(" - SHADOW     \"BLINKY\"", width/2,height/8+75);
+    //PINKY
+    fill(248,184,208);
+    image(p,width/2-250,height/8+125,75,75);
+    text(" - SPEEDY     \"PINKY\"", width/2,height/8+175);
+    //INKY
+    fill(0,255,223);
+    image(i,width/2-250,height/8+225,75,75);
+    text(" - BASHFUL     \"INKY\"", width/2,height/8+275);
+    //CLYDE
+    fill(252,183,74);
+    image(c,width/2-255,height/8+325,90,90);
+    text(" - POKEY     \"CLYDE\"", width/2,height/8+375);
+    
+    fill(252, 195, 5);
+    ellipse(width/2-100,height/8+665,20,20);
+    fill(255);
+    text(" 10 POINTS",width/2,height/8+675);
+    
+    fill(252, 195, 5);
+    ellipse(width/2-100,height/8+715,35,35);
+    fill(255);
+    text(" 50 POINTS",width/2,height/8+725);
+    if(frameCount%60>30){
+      textSize(60);
+      text("PRESS SPACE TO PLAY", width/2,height/8+800);
+    }
   }
   else if(lives>0 && intro == false){
     background(10);
