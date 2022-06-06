@@ -51,3 +51,5 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 6/3/22 (James) - I added a get out of spawn method which makes the ghosts move out of spawn.
 
 6/3/22 (Harry) - I made Inky behave like the original pac man game. I calculated by taking the grid that is 2 grid in front of pac man. I use Blinky's position to reflect it over that grid. The resulting point from the reflection will be Inky's target.
+
+6/4/22 (Harry) - I changed values to the move method since I previously didn't account for the fact that Pac Man's position wouldn't be like an origin.
