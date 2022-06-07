@@ -354,7 +354,7 @@ public class Inky extends Ghost{
            aheadX = 64;
            aheadY = 0;
          }
-         temp = dist(ix+nextGridX,(iy-shiftDown)+nextGridY, pacMan.getX() - (bx - (pacMan.getX()+aheadX)), pacMan.getY() - (by - (pacMan.getY()+aheadY)));
+         temp = dist(ix+nextGridX,(iy-shiftDown)+nextGridY, pacMan.getX() + aheadX - (bx - (pacMan.getX()+aheadX)), pacMan.getY() + aheadY- (by - (pacMan.getY()+aheadY)));
          if (temp < shortest) {
            shortest = temp;
            gdirection = i;
