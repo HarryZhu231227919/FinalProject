@@ -284,8 +284,8 @@ public class Blinky extends Ghost{
    public float getSpawnY(){
      return bspawny2;
    }
-   public void setSpawn(boolean spawn){
-     binSpawn = spawn;
+   void setSpawn(boolean a){
+     binSpawn = a;
    }
    public void bestMove(int dir) {
      float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
