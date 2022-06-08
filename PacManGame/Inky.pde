@@ -31,8 +31,8 @@ public class Inky extends Ghost{
      }
    }
    void Gmove(){
-     println(lpoint);
-     if(iinSpawn && iDeath==0 && points-lpoint>300){
+     //println(lpoint);
+     if(iinSpawn && iDeath==0 && dotsEaten >= 30){
        out(iDir[0]);
      }else{
        if(pTimer>0){
