@@ -79,10 +79,10 @@ public class Inky extends Ghost{
      
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        iRevDir[0] = 2;
-       if(level%3==1 && level<=3){
-          idy = -(level*2*gridSize) / 64;
+       if(level<3){
+          idy = -((level+1)/2*2*gridSize) / 64;
           idx = 0;
-       }else if(level>2){
+       }else{
           idy = -(2*2*gridSize)/64;
           idx = 0;
        }
@@ -97,10 +97,10 @@ public class Inky extends Ghost{
      //exits
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        iRevDir[0] = 3;
-       if(level%3==1 && level<=3){
+       if(level<3){
           idy = 0;
-          idx = -(level*2*gridSize) / 64;
-       }else if(level>2){
+          idx = -((level+1)/2*2*gridSize) / 64;
+       }else{
           idy = 0;
           idx = -(2*2*gridSize) / 64;
        }
@@ -116,10 +116,10 @@ public class Inky extends Ghost{
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        iRevDir[0] = 0;
-       if(level%3==1 && level<=3){
-          idy = (level*2*gridSize) / 64;
+       if(level<3){
+          idy = ((level+1)/2*2*gridSize) / 64;
           idx = 0;
-       }else if(level>2){
+       }else{
           idy = (2*2*gridSize)/64;
           idx = 0;
        }
@@ -135,10 +135,10 @@ public class Inky extends Ghost{
      //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        iRevDir[0] = 1;
-       if(level%3==1 && level<=3){
+       if(level<3){
           idy = 0;
-          idx = (2*level*gridSize) / 64;
-       }else if(level>2){
+          idx = ((level+1)/2*2*gridSize) / 64;
+       }else{
           idy = 0;
           idx = (2*2*gridSize)/64;
        }

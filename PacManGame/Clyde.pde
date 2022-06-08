@@ -82,10 +82,10 @@ public class Clyde extends Ghost{
      
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        cRevDir[0] = 2;
-       if(level%3==1 && level<=3){
-          cdy = -(level*2*gridSize) / 64;
+       if(level<3){
+          cdy = -((level+1)/2*2*gridSize) / 64;
           cdx = 0;
-       }else if(level>2){
+       }else{
           cdy = -(2*2*gridSize)/64;
           cdx = 0;
        }
@@ -100,10 +100,10 @@ public class Clyde extends Ghost{
      //exits
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        cRevDir[0] = 3;
-       if(level%3==1 && level<=3){
+       if(level<3){
           cdy = 0;
-          cdx = -(level*2*gridSize) / 64;
-       }else if(level>2){
+          cdx = -((level+1)/2*2*gridSize) / 64;
+       }else{
           cdy = 0;
           cdx = -(2*2*gridSize) / 64;
        }
