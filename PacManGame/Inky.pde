@@ -364,4 +364,19 @@ public class Inky extends Ghost{
      iDir[0] = gdirection;
    }
    
+   public int getDir() {
+     return iDir[0];
+   }
+   public int getRevDir() {
+     return iRevDir[0];
+   }
+   
+   public void setDir(int d) {
+     iDir[0] = d;
+   }
+   
+   public void setRevDir(int d) {
+     iRevDir[0] = d;
+   } 
+   
 }
