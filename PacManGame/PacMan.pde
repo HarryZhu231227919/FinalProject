@@ -165,9 +165,11 @@ public class PacMan{
        }
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
+         dotsEaten ++;
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        if(duration - (level*120) > 0){
@@ -198,9 +200,11 @@ public class PacMan{
         
         //I tossed this code inside so that nothing will happen if you give an improper direction
        if (board[yToCor(y)][xToCor(x)] == 0) {
+         dotsEaten ++;
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        if(duration - (level*120) > 0){
@@ -234,9 +238,11 @@ public class PacMan{
        }
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
+         dotsEaten ++;
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        if(duration - (level*120) > 0){
@@ -268,9 +274,11 @@ public class PacMan{
 
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
+         dotsEaten ++;
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        if(duration - (level*120) > 0){
