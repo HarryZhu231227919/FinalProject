@@ -63,3 +63,5 @@ You can restart anytime by pressing spacebar.
 6/7/22 (Harry) - I created a new variable that will keep track of the amount of dots eaten in a level. This will allow me to know when the ghosts should be released in the game.
 
 6/8/22 (Harry) - I created a bunch of accessor method and mutator methods to access the direction and reverse direction in all the ghost classes. I used them to create a method in the PacMan class to make the ghost reverse on their direction when Pac Man eats a special orb. This is one of the few times that the ghosts breaks the rule of never reversing in direction.
+
+6/8/22 (James) - I tweaked how the movement scaling works, instead of every level, it is every two levels.
