@@ -14,7 +14,8 @@ int killCount;//to help calculate the point value for a ghost kill
 PImage gameover;
 int HIGHSCORE = 0;
 boolean intro;
-int lpoint; //points you get in one level
+//int lpoint; //points you get in one level
+int dotsEaten; //dots eaten in a level
 /* 
 0 is w
 1 is a
@@ -76,11 +77,13 @@ void reset(){
   ghosts.add(p);
   Ghost i = new Inky(368,464+shiftDown,0,0);
   ghosts.add(i);
-  lpoint = 0;
+  //lpoint = 0;
+  dotsEaten = 0;
 }
 
 void lvlUp(){
-  lpoint = points;
+  //lpoint = points;
+  dotsEaten = 0;
   int cLvl = level;
   int cPoints = points;
   boolean clear = true;
