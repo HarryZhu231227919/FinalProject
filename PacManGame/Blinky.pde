@@ -356,4 +356,13 @@ public class Blinky extends Ghost{
      }
      bDir[0] = direction;
    }
+   
+   public int getRevDir() {
+     return bRevDir[0];
+   }
+   
+   
+   public void setRevDir(int d) {
+     bRevDir[0] = d;
+   }
 }
