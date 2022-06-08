@@ -83,7 +83,7 @@ void reset(){
 
 void lvlUp(){
   //lpoint = points;
-  dotsEaten = 0;
+  //dotsEaten = 0;
   int cLvl = level;
   int cPoints = points;
   boolean clear = true;
