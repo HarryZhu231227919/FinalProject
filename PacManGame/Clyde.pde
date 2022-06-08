@@ -383,4 +383,19 @@ public class Clyde extends Ghost{
    public float getSpawnY(){
      return spawny;
    }
+   
+   public int getDir() {
+     return cDir[0];
+   }
+   public int getRevDir() {
+     return cRevDir[0];
+   }
+   
+   public void setDir(int d) {
+     cDir[0] = d;
+   }
+   
+   public void setRevDir(int d) {
+     cRevDir[0] = d;
+   }
 }
