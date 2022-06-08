@@ -363,4 +363,19 @@ public class Pinky extends Ghost{
    public void setSpawn(boolean spawn){
      pinSpawn = spawn;
    }
+   
+   public int getDir() {
+     return pDir[0];
+   }
+   public int getRevDir() {
+     return pRevDir[0];
+   }
+   
+   public void setDir(int d) {
+     pDir[0] = d;
+   }
+   
+   public void setRevDir(int d) {
+     pRevDir[0] = d;
+   } 
 }
