@@ -87,10 +87,10 @@ public class Blinky extends Ghost{
      
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        bRevDir[0] = 2;
-       if(level<3){
+       if(level%3==1 && level<=3){
           bdy = -(level*2*gridSize) / 64;
           bdx = 0;
-       }else{
+       }else if(level>2 || level == 2){
           bdy = -(2*2*gridSize)/64;
           bdx = 0;
        }
@@ -105,10 +105,10 @@ public class Blinky extends Ghost{
      //exits
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        bRevDir[0] = 3;
-       if(level<3){
+       if(level%3==1 && level<=3){
           bdy = 0;
           bdx = -(level*2*gridSize) / 64;
-       }else{
+       }else if(level>2){
           bdy = 0;
           bdx = -(2*2*gridSize) / 64;
        }
@@ -124,10 +124,10 @@ public class Blinky extends Ghost{
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        bRevDir[0] = 0;
-       if(level<3){
+       if(level%3==1 && level<=3){
           bdy = (level*2*gridSize) / 64;
           bdx = 0;
-       }else{
+       }else if(level>2){
           bdy = (2*2*gridSize)/64;
           bdx = 0;
        }
@@ -143,10 +143,10 @@ public class Blinky extends Ghost{
      //exits
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        bRevDir[0] = 1;
-       if(level<3){
+       if(level%3==1 && level<=3){
           bdy = 0;
           bdx = (2*level*gridSize) / 64;
-       }else{
+       }else if(level>2){
           bdy = 0;
           bdx = (2*2*gridSize)/64;
        }
