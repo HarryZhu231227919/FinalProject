@@ -22,6 +22,10 @@ public class Ghost{
   public int getDir(){
     return 0;
   }
+  public void setRevDir(int d){}
+  public int getRevDir() {
+    return 0;
+  }
   public void setAlive(boolean a){
   }
   public boolean isAlive(){

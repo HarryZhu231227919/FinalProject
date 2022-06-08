@@ -169,6 +169,10 @@ public class PacMan{
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       for (int i = 0; i < ghosts.size(); i ++) {
+       ghostRevDir(ghosts.get(i));
+       }
+       
        dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
@@ -204,6 +208,9 @@ public class PacMan{
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       for (int i = 0; i < ghosts.size(); i ++) {
+       ghostRevDir(ghosts.get(i));
+       }
        dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
@@ -242,6 +249,9 @@ public class PacMan{
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       for (int i = 0; i < ghosts.size(); i ++) {
+       ghostRevDir(ghosts.get(i));
+       }
        dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
@@ -278,6 +288,9 @@ public class PacMan{
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       for (int i = 0; i < ghosts.size(); i ++) {
+       ghostRevDir(ghosts.get(i));
+       }
        dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
@@ -306,4 +319,11 @@ public class PacMan{
      }     
      return false;
    }
+   
+   void ghostRevDir(Ghost g) {
+     int direct = g.getDir();
+     int revDirect = g.getRevDir();
+     g.setDir(revDirect);
+     g.setRevDir(direct);
+   } 
 }
