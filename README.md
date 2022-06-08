@@ -59,3 +59,5 @@ You can restart anytime by pressing spacebar.
 6/4/22 (Harry) - I changed values to the move method since I previously didn't account for the fact that Pac Man's position wouldn't be like an origin.
 
 6/6/22 (James) - I added an intro screen that resembles that of the original PacMan.
+
+6/7/22 (Harry) - I created a new variable that will keep track of the amount of dots eaten in a level. This will allow me to know when the ghosts should be released in the game.

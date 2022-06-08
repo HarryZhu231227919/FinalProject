@@ -58,12 +58,16 @@ public class PacMan{
      direction[0] = 3;
      ghosts.get(0).setX(528);
      ghosts.get(0).setY(464+shiftDown);
+     ghosts.get(0).setSpawn(true);
      ghosts.get(1).setX(432);
      ghosts.get(1).setY(368+shiftDown);
+     ghosts.get(1).setSpawn(true);
      ghosts.get(2).setX(432);
      ghosts.get(2).setY(464+shiftDown);
+     ghosts.get(2).setSpawn(true);
      ghosts.get(3).setX(368);
      ghosts.get(3).setY(464+shiftDown);
+     ghosts.get(3).setSpawn(true);
    }
    public void kill(int i){
      if (ghosts.get(i).isAlive()==true){
@@ -161,9 +165,11 @@ public class PacMan{
        }
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
+         dotsEaten ++;
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        if(duration - (level*120) > 0){
@@ -194,9 +200,11 @@ public class PacMan{
         
         //I tossed this code inside so that nothing will happen if you give an improper direction
        if (board[yToCor(y)][xToCor(x)] == 0) {
+         dotsEaten ++;
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        if(duration - (level*120) > 0){
@@ -230,9 +238,11 @@ public class PacMan{
        }
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
+         dotsEaten ++;
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        if(duration - (level*120) > 0){
@@ -264,9 +274,11 @@ public class PacMan{
 
         
        if (board[yToCor(y)][xToCor(x)] == 0) {
+         dotsEaten ++;
        points += 10;
        board[yToCor(y)][xToCor(x)] = 9;
      } else if (board[yToCor(y)][xToCor(x)] == 2) {
+       dotsEaten ++;
        points += 50;
        board[yToCor(y)][xToCor(x)] = 9;
        if(duration - (level*120) > 0){

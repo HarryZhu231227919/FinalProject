@@ -30,7 +30,7 @@ public class Clyde extends Ghost{
      }
    }
  void Gmove(){
-     if(cinSpawn && cDeath==0){
+     if(cinSpawn && cDeath==0 && dotsEaten >= 82 ){
        out(cDir[0]);
      }else{
        if(pTimer>0){
