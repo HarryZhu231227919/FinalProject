@@ -81,6 +81,22 @@ void reset(){
   dotsEaten = 0;
 }
 
+//FOR DEMO
+void loseLives(){
+  lives--;
+}
+void increaseLvl(){
+  for (int i = 0;i<board.length;i++){
+    for(int j =0;j<board[0].length;j++){
+      if(board[i][j] == 0 || board[i][j] == 2){
+        board[i][j]=9;
+      }
+    }
+  }
+  board[20][12] = 0;
+}
+
+//FOR DEMO
 void lvlUp(){
   //lpoint = points;
   //dotsEaten = 0;
@@ -280,7 +296,14 @@ void draw(){
 }
 
 void keyPressed () {
-  
+   //FOR DEMO
+  if(key == '1'){
+    loseLives();
+  }
+  if(key == '2'){
+    increaseLvl();
+  }
+  //FOR DEMO
   if (key == 32){
     reset();
     intro = false;
