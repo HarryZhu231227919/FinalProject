@@ -7,7 +7,7 @@ int iDeath;
 boolean iinSpawn;
 int[]iDir;
 int[]iRevDir;
-final int ispawnx = 468;
+final int ispawnx = 368;
 final int ispawny = 464+shiftDown;
 
 public class Inky extends Ghost{
