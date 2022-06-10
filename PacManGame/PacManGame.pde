@@ -222,7 +222,7 @@ void draw(){
     timer++;
     if(timer < 420){
       scatterMode = true;
-    }else if(timer > 1620 && level < 3){
+    }else if(timer > 2220 && level < 3){
       timer = 0;
     }else{
       scatterMode = false;
