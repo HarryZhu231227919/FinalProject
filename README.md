@@ -9,7 +9,7 @@ This project will be an imitation of the game “Pac-Man”. There will be Pac-M
 
 ### Instructions
 When you first run the program in processing, an introduction screen will pop up. You can press spacebar to play the game. The W,A,S, and D keys will move PacMan.
-You can restart anytime by pressing spacebar.
+You can restart anytime by pressing spacebar. The 1 key will decrement PacMan's life by one. The 2 key will get rid of every orb except for one (so that you can level up).
 
 ### Development Log
 5/23/22 (James) - Created the Pac-Man board and the display function to display the board.
@@ -67,3 +67,5 @@ You can restart anytime by pressing spacebar.
 6/8/22 (James) - I tweaked how the movement scaling works, instead of every level, it is every two levels.
 
 6/9/22 (Harry) - I made it so that the ghosts would go to their corners if they enter scatter mode. This is a feature in the game that makes it easier for the players on earlier stages.
+
+6/10/22 (James) - I added a timer that determines whether the ghosts are chasing or scattering.
