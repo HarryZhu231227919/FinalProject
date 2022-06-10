@@ -157,7 +157,7 @@ public class PacMan{
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        if(level<3){
-          dy = -(level*2*gridSize) / 64;
+          dy = -((level+1)/2*2*gridSize) / 64;
           dx = 0;
        }else{
           dy = -(2*2*gridSize)/64;
@@ -196,7 +196,7 @@ public class PacMan{
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        if(level<3){
           dy = 0;
-          dx = -(level*2*gridSize) / 64;
+          dx = -((level+1)/2*2*gridSize) / 64;
        }else{
           dy = 0;
           dx = -(2*2*gridSize) / 64;
@@ -237,7 +237,7 @@ public class PacMan{
      
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        if(level<3){
-          dy = (level*2*gridSize) / 64;
+          dy = ((level+1)/2*2*gridSize) / 64;
           dx = 0;
        }else{
           dy = (2*2*gridSize)/64;
@@ -276,7 +276,7 @@ public class PacMan{
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        if(level<3){
           dy = 0;
-          dx = (2*level*gridSize) / 64;
+          dx = (2*(level+1)/2*gridSize) / 64;
        }else{
           dy =0;
           dx = (2*2*gridSize)/64;

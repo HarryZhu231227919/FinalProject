@@ -1,3 +1,4 @@
+
 float px;
 float py;
 float pdx;
@@ -83,7 +84,7 @@ public class Pinky extends Ghost{
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        pRevDir[0] = 2;
        if(level<3){
-          pdy = -(level*2*gridSize) / 64;
+          pdy = -((level+1)/2*2*gridSize) / 64;
           pdx = 0;
        }else{
           pdy = -(2*2*gridSize)/64;
@@ -102,7 +103,7 @@ public class Pinky extends Ghost{
        pRevDir[0] = 3;
        if(level<3){
           pdy = 0;
-          pdx = -(level*2*gridSize) / 64;
+          pdx = -((level+1)/2*2*gridSize) / 64;
        }else{
           pdy = 0;
           pdx = -(2*2*gridSize) / 64;
@@ -120,7 +121,7 @@ public class Pinky extends Ghost{
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        pRevDir[0] = 0;
        if(level<3){
-          pdy = (level*2*gridSize) / 64;
+          pdy = ((level+1)/2*2*gridSize) / 64;
           pdx = 0;
        }else{
           pdy = (2*2*gridSize)/64;
@@ -140,7 +141,7 @@ public class Pinky extends Ghost{
        pRevDir[0] = 1;
        if(level<3){
           pdy = 0;
-          pdx = (2*level*gridSize) / 64;
+          pdx = ((level+1)/2*2*gridSize) / 64;
        }else{
           pdy = 0;
           pdx = (2*2*gridSize)/64;
