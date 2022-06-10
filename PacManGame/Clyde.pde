@@ -36,7 +36,7 @@ public class Clyde extends Ghost{
        if(pTimer>0){
          cDir[0] = changeDir();
        }else{
-         if(dist(cx,cy,pacMan.getX(),pacMan.getY())>256){
+         if(dist(cx,cy,pacMan.getX(),pacMan.getY())>256 && !scatterMode){
            bestMove();
          }else{
            scatter();
