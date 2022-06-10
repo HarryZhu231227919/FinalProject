@@ -59,18 +59,6 @@ public class Ghost{
     void dGMove(){}
   
   void Gmove(){
-    /*  if(changeDir(g) == 0){
-        wGMove(g);
-      }
-       if(changeDir(g) == 1){
-        aGMove(g);
-      }
-       if(changeDir(g) == 2){
-        sGMove(g);
-      }
-       if(changeDir(g) == 3){
-        dGMove(g);
-      }*/
     }
     
     
