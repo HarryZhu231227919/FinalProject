@@ -38,7 +38,11 @@ public class Inky extends Ghost{
        if(pTimer>0){
          iDir[0] = changeDir();
        }else{
+         if (!scatterMode) {
          bestMove();
+         } else {
+           scatter();
+         }
        }
      }
      if(iDir[0]==1){
@@ -378,5 +382,39 @@ public class Inky extends Ghost{
    public void setRevDir(int d) {
      iRevDir[0] = d;
    } 
+   
+   public void scatter() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = iDir[0];
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
+     for (int i = 0; i < 4; i++) {
+       if (i != iRevDir[0] && gCanGoThere(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         temp = dist(ix+nextGridX,(iy-shiftDown)+nextGridY,870,1080);
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     iDir[0] = direction;
+   }
    
 }
