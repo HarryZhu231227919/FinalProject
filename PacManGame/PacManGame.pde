@@ -16,6 +16,7 @@ int HIGHSCORE = 0;
 boolean intro;
 //int lpoint; //points you get in one level
 int dotsEaten; //dots eaten in a level
+boolean scatterMode;
 /* 
 0 is w
 1 is a
@@ -79,6 +80,7 @@ void reset(){
   ghosts.add(i);
   //lpoint = 0;
   dotsEaten = 0;
+  scatterMode = false;
 }
 
 //FOR DEMO
@@ -169,6 +171,7 @@ void setup(){
   gameover = loadImage("gameover.png");
   reset();
   pTimer = 0;
+  scatterMode = false;
 }
 
 void draw(){

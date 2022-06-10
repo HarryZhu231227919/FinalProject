@@ -83,4 +83,11 @@ public class Ghost{
    public float getSpawnY(){
      return 0;
    }
+   
+   public void reverseDir () {
+     int direct = getDir();
+     int revDirect = getRevDir();
+     setDir(revDirect);
+     setRevDir(direct);
+   }
 }

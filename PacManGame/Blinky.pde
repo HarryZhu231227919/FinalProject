@@ -5,7 +5,6 @@ float bdy;
 boolean bAlive;
 int bDeath;
 int[]bDir;
-boolean chaseMode;
 int[] bRevDir;
 boolean binSpawn;
 int bTargetX;
@@ -23,7 +22,6 @@ public class Blinky extends Ghost{
     bdy = sdy;
     bAlive = true;
     bDir = new int[]{1};
-    chaseMode = true;
     bTargetX = pacMan.xToCor(getX());
     bTargetY = pacMan.yToCor(getY());
     bRevDir = new int[]{3};
@@ -46,7 +44,11 @@ public class Blinky extends Ghost{
      if(pTimer>0){
        bDir[0] = changeDir();
      }else{
-       bestMove(bDir[0]);
+       if (!scatterMode) {
+       bestMove();
+       } else {
+         scatter();
+       }
      }
      }
      if(bDir[0]==1){
@@ -88,7 +90,7 @@ public class Blinky extends Ghost{
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        bRevDir[0] = 2;
        if(level<3){
-          bdy = -(level*2*gridSize) / 64;
+          bdy = -((level+1)/2*2*gridSize) / 64;
           bdx = 0;
        }else{
           bdy = -(2*2*gridSize)/64;
@@ -107,7 +109,7 @@ public class Blinky extends Ghost{
        bRevDir[0] = 3;
        if(level<3){
           bdy = 0;
-          bdx = -(level*2*gridSize) / 64;
+          bdx = -((level+1)/2*2*gridSize) / 64;
        }else{
           bdy = 0;
           bdx = -(2*2*gridSize) / 64;
@@ -125,7 +127,7 @@ public class Blinky extends Ghost{
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        bRevDir[0] = 0;
        if(level<3){
-          bdy = (level*2*gridSize) / 64;
+          bdy = ((level+1)/2*2*gridSize) / 64;
           bdx = 0;
        }else{
           bdy = (2*2*gridSize)/64;
@@ -145,7 +147,7 @@ public class Blinky extends Ghost{
        bRevDir[0] = 1;
        if(level<3){
           bdy = 0;
-          bdx = (2*level*gridSize) / 64;
+          bdx = ((level+1)/2*2*gridSize) / 64;
        }else{
           bdy = 0;
           bdx = (2*2*gridSize)/64;
@@ -287,9 +289,9 @@ public class Blinky extends Ghost{
    void setSpawn(boolean a){
      binSpawn = a;
    }
-   public void bestMove(int dir) {
+   public void bestMove() {
      float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
-     int direction = dir;
+     int direction = bDir[0];
      int nextGridX = 0;
      int nextGridY = 0;
      float temp = 0;
@@ -364,5 +366,39 @@ public class Blinky extends Ghost{
    
    public void setRevDir(int d) {
      bRevDir[0] = d;
+   }
+   
+   public void scatter() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = cDir[0];
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
+     for (int i = 0; i < 4; i++) {
+       if (i != bRevDir[0] && gCanGoThere(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         temp = dist(bx+nextGridX,(by-shiftDown)+nextGridY,870,50);
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     bDir[0] = direction;
    }
 }

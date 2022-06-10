@@ -1,3 +1,4 @@
+
 float px;
 float py;
 float pdx;
@@ -37,7 +38,11 @@ public class Pinky extends Ghost{
        if(pTimer>0){
          pDir[0] = changeDir();
        }else{
+         if (!scatterMode) {
          bestMove();
+         } else {
+           scatter();
+         }
        }
      }
      if(pDir[0]==1){
@@ -79,7 +84,7 @@ public class Pinky extends Ghost{
      if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
        pRevDir[0] = 2;
        if(level<3){
-          pdy = -(level*2*gridSize) / 64;
+          pdy = -((level+1)/2*2*gridSize) / 64;
           pdx = 0;
        }else{
           pdy = -(2*2*gridSize)/64;
@@ -98,7 +103,7 @@ public class Pinky extends Ghost{
        pRevDir[0] = 3;
        if(level<3){
           pdy = 0;
-          pdx = -(level*2*gridSize) / 64;
+          pdx = -((level+1)/2*2*gridSize) / 64;
        }else{
           pdy = 0;
           pdx = -(2*2*gridSize) / 64;
@@ -116,7 +121,7 @@ public class Pinky extends Ghost{
      if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
        pRevDir[0] = 0;
        if(level<3){
-          pdy = (level*2*gridSize) / 64;
+          pdy = ((level+1)/2*2*gridSize) / 64;
           pdx = 0;
        }else{
           pdy = (2*2*gridSize)/64;
@@ -136,7 +141,7 @@ public class Pinky extends Ghost{
        pRevDir[0] = 1;
        if(level<3){
           pdy = 0;
-          pdx = (2*level*gridSize) / 64;
+          pdx = ((level+1)/2*2*gridSize) / 64;
        }else{
           pdy = 0;
           pdx = (2*2*gridSize)/64;
@@ -378,4 +383,38 @@ public class Pinky extends Ghost{
    public void setRevDir(int d) {
      pRevDir[0] = d;
    } 
+   
+   public void scatter() {
+     float shortest = 10000; //placeholder, no distance can be greater than 10000 in the game
+     int direction = pDir[0];
+     int nextGridX = 0;
+     int nextGridY = 0;
+     float temp = 0;
+     for (int i = 0; i < 4; i++) {
+       if (i != pRevDir[0] && gCanGoThere(i)) {
+         if(i == 0){
+           nextGridX = 0;
+           nextGridY = -gridSize;
+         }
+         if(i == 1){
+           nextGridX = -gridSize;
+           nextGridY = 0;
+         }
+         if(i == 2){
+           nextGridX = 0;
+           nextGridY = gridSize;
+         }
+         if(i == 3){
+           nextGridX = gridSize;
+           nextGridY = 0;
+         }
+         temp = dist(px+nextGridX,(py-shiftDown)+nextGridY,0,50);
+         if (temp < shortest) {
+           shortest = temp;
+           direction = i;
+         }
+       }
+     }
+     pDir[0] = direction;
+   }
 }
