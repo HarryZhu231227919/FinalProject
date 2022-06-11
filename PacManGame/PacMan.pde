@@ -74,7 +74,7 @@ public class PacMan{
        killCount++;
        fill(0,255,255);
        textSize(30);
-       text("" + points, ghosts.get(i).getX(),ghosts.get(i).getY());
+       text("" + 200 * killCount, ghosts.get(i).getX(),ghosts.get(i).getY());
        ghosts.get(i).setAlive(false);
        ghosts.get(i).setDTimer(300);
        ghosts.get(i).setSpawn(true);
