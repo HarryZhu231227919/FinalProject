@@ -416,5 +416,5 @@ public class Inky extends Ghost{
      }
      iDir[0] = direction;
    }
-   
+
 }

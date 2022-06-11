@@ -14,9 +14,12 @@ int killCount;//to help calculate the point value for a ghost kill
 PImage gameover;
 int HIGHSCORE = 0;
 boolean intro;
+int timer;
 //int lpoint; //points you get in one level
 int dotsEaten; //dots eaten in a level
 boolean scatterMode;
+int rep = 0;
+int repEnsure;
 /* 
 0 is w
 1 is a
@@ -80,7 +83,10 @@ void reset(){
   ghosts.add(i);
   //lpoint = 0;
   dotsEaten = 0;
-  scatterMode = false;
+  scatterMode = true;
+  timer = 0;
+  rep = 0;
+  repEnsure = 1;
 }
 
 //FOR DEMO
@@ -171,7 +177,8 @@ void setup(){
   gameover = loadImage("gameover.png");
   reset();
   pTimer = 0;
-  scatterMode = false;
+  scatterMode = true;
+  repEnsure = 1;
 }
 
 void draw(){
@@ -217,7 +224,33 @@ void draw(){
     background(10);
     pacMan.display();
     display();
-  
+    timer++;
+    
+    if(timer < 420){
+      scatterMode = true;
+      if (rep == 1) {
+        for (int i = 0; i < 4; i ++) {
+            Ghost a = ghosts.get(i);
+            a.reverseDir();
+          
+        }
+        rep --;
+       }
+    }else if(timer > 2220 && level < 3){
+      timer = 0;
+    }else{
+      if (rep == 0) {
+        for (int i = 0; i < 4; i ++) {
+            Ghost a = ghosts.get(i);
+            a.reverseDir();
+          
+        }
+        rep ++;
+       }
+      scatterMode = false;
+      
+    }
+    
     if (!stop) {
       pacMan.move();
     }
