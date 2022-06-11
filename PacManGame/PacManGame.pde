@@ -18,6 +18,8 @@ int timer;
 //int lpoint; //points you get in one level
 int dotsEaten; //dots eaten in a level
 boolean scatterMode;
+int rep = 0;
+int repEnsure;
 /* 
 0 is w
 1 is a
@@ -83,6 +85,8 @@ void reset(){
   dotsEaten = 0;
   scatterMode = true;
   timer = 0;
+  rep = 0;
+  repEnsure = 1;
 }
 
 //FOR DEMO
@@ -174,6 +178,7 @@ void setup(){
   reset();
   pTimer = 0;
   scatterMode = true;
+  repEnsure = 1;
 }
 
 void draw(){
@@ -220,13 +225,32 @@ void draw(){
     pacMan.display();
     display();
     timer++;
+    
     if(timer < 420){
       scatterMode = true;
+      if (rep == 1) {
+        for (int i = 0; i < 4; i ++) {
+            Ghost a = ghosts.get(i);
+            a.reverseDir();
+          
+        }
+        rep --;
+       }
     }else if(timer > 2220 && level < 3){
       timer = 0;
     }else{
+      if (rep == 0) {
+        for (int i = 0; i < 4; i ++) {
+            Ghost a = ghosts.get(i);
+            a.reverseDir();
+          
+        }
+        rep ++;
+       }
       scatterMode = false;
+      
     }
+    
     if (!stop) {
       pacMan.move();
     }
