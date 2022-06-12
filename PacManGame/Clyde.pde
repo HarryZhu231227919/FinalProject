@@ -27,12 +27,19 @@ public class Clyde extends Ghost{
        }else{
        image(c,cx,cy,32,32);
        }
-     }
+     } else {
+      //code that displayes the image for a set of eyeballs
+    }
    }
  void Gmove(){
-     if(cinSpawn && cDeath==0 && dotsEaten >= 82 ){
+   if (cx > 352 && cx < 544 && cy > 416 + shiftDown && cy < 544 + shiftDown) {
+       setAlive(true);
+       setSpawn(true);
+     }
+     if(cinSpawn && dotsEaten >= 82 ){
        out(cDir[0]);
      }else{
+       if (cAlive){
        if(pTimer>0){
          cDir[0] = changeDir();
        }else{
@@ -42,6 +49,9 @@ public class Clyde extends Ghost{
            scatter();
          }
        }
+       } else {
+       bestMove();
+     }
      }
     
      if(cDir[0]==1){
@@ -80,14 +90,27 @@ public class Clyde extends Ghost{
        cx = (xToCor(cx)*gridSize+16);
      }
      
-     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+     if (!(board[ycor][xcor] == 1)){
+       if (cAlive) {
+       if (!(board[ycor][xcor] == 8)) {
        cRevDir[0] = 2;
-       if(level<3){
+       if(level<3 && cAlive){
           cdy = -((level+1)/2*2*gridSize) / 64;
           cdx = 0;
        }else{
           cdy = -(2*2*gridSize)/64;
           cdx = 0;
+       }
+       }
+       } else {
+                cRevDir[0] = 2;
+       if(level<3 && cAlive){
+          cdy = -((level+1)/2*2*gridSize) / 64;
+          cdx = 0;
+       }else{
+          cdy = -(2*2*gridSize)/64;
+          cdx = 0;
+       }
        }
      }
    }
@@ -98,14 +121,27 @@ public class Clyde extends Ghost{
        cdy = yToCor(cy)*gridSize+shiftDown+16;
      }
      //exits
-     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+     if (!(board[ycor][xcor] == 1)){
+       if (cAlive) {
+       if (!(board[ycor][xcor] == 8)) {
        cRevDir[0] = 3;
-       if(level<3){
+       if(level<3 && cAlive){
           cdy = 0;
           cdx = -((level+1)/2*2*gridSize) / 64;
        }else{
           cdy = 0;
           cdx = -(2*2*gridSize) / 64;
+       }
+       }
+       } else {
+         cRevDir[0] = 3;
+       if(level<3 && cAlive){
+          cdy = 0;
+          cdx = -((level+1)/2*2*gridSize) / 64;
+       }else{
+          cdy = 0;
+          cdx = -(2*2*gridSize) / 64;
+       }
        }
      }
    }
@@ -117,14 +153,27 @@ public class Clyde extends Ghost{
        cx = xToCor(cx)*gridSize+16;
      }
      
-     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+     if (!(board[ycor][xcor] == 1)){
+       if (cAlive) {
+       if (!(board[ycor][xcor] == 8)) {
        cRevDir[0] = 0;
-       if(level<3){
+       if(level<3 && cAlive){
           cdy = ((level+1)/2*2*gridSize) / 64;
           cdx = 0;
        }else{
           cdy = (2*2*gridSize)/64;
           cdx = 0;
+       }
+       }
+       } else {
+         cRevDir[0] = 0;
+       if(level<3 && cAlive){
+          cdy = ((level+1)/2*2*gridSize) / 64;
+          cdx = 0;
+       }else{
+          cdy = (2*2*gridSize)/64;
+          cdx = 0;
+       }
        }
      }
    }
@@ -136,14 +185,27 @@ public class Clyde extends Ghost{
        cy = (yToCor(cy)*gridSize+shiftDown+16);
      }
      //exits
-     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+     if (!(board[ycor][xcor] == 1)){
+       if (cAlive) {
+       if (!(board[ycor][xcor] == 8)) {
       cRevDir[0] = 1;
-       if(level<3){
+       if(level<3 && cAlive){
           cdy = 0;
           cdx = ((level+1)/2*2*gridSize) / 64;
        }else{
           cdy = 0;
           cdx = (2*2*gridSize)/64;
+       }
+       }
+       } else {
+         cRevDir[0] = 1;
+       if(level<3 && cAlive){
+          cdy = 0;
+          cdx = ((level+1)/2*2*gridSize) / 64;
+       }else{
+          cdy = 0;
+          cdx = (2*2*gridSize)/64;
+       }
        }
      }
    }
@@ -208,6 +270,7 @@ public class Clyde extends Ghost{
    }
    
    boolean gCanGoThere(int dir){
+     if (cAlive) {
      if (dir == 0) {
        return board[yToCor(cy)-1][xToCor(cx)] != 1 && board[yToCor(cy) - 1][xToCor(cx)] != 8;
      } else if (dir == 1 && xToCor(cx) - 1>-1) {
@@ -217,6 +280,17 @@ public class Clyde extends Ghost{
      } else if (dir == 3 && xToCor(cx)+1<28) {
        return board[yToCor(cy)][xToCor(cx) + 1] != 1 && board[yToCor(cy) - 1][xToCor(cx)+1] != 8;
      }     
+     } else {
+       if (dir == 0) {
+       return board[yToCor(cy)-1][xToCor(cx)] != 1;
+     } else if (dir == 1 && xToCor(cx) - 1>-1) {
+       return board[yToCor(cy)][xToCor(cx) - 1] != 1;
+     } else if (dir == 2) {
+       return board[yToCor(cy) + 1][xToCor(cx)] != 1;
+     } else if (dir == 3 && xToCor(cx)+1<28) {
+       return board[yToCor(cy)][xToCor(cx) + 1] != 1;
+     }
+     }
      return false;
    }
    
@@ -257,7 +331,11 @@ public class Clyde extends Ghost{
            nextGridX = gridSize;
            nextGridY = 0;
          }
+         if (cAlive) {
          temp = dist(cx+nextGridX,(cy-shiftDown)+nextGridY,pacMan.getX(),pacMan.getY());
+         } else {
+           temp = dist(cx+nextGridX,(cy-shiftDown)+nextGridY,getSpawnX(),getSpawnY());
+         }
          if (temp < shortest) {
            shortest = temp;
            direction = i;
