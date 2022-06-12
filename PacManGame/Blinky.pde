@@ -36,6 +36,7 @@ public class Blinky extends Ghost{
        } 
      } else {
       //code that displayes the image for a set of eyeballs
+      image(e,bx,by,32,32);
     }
      
    }
