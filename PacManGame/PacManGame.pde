@@ -298,12 +298,14 @@ void draw(){
     ghosts.get(i).display();
     ghosts.get(i).Gmove();
     pacMan.touchGhost(i);
+    /*
     if (ghosts.get(i).getDTimer()>0){
       ghosts.get(i).setDTimer(ghosts.get(i).getDTimer()-1);
     }
     if (ghosts.get(i).getDTimer()==0){
       ghosts.get(i).setAlive(true);
     }
+    */
   }
   }else{
     if (points > HIGHSCORE) {

@@ -29,12 +29,20 @@ public class Pinky extends Ghost{
        }else{
          image(p,px,py,32,32);
        }
-     }
+     } else {
+      //code that displayes the image for a set of eyeballs
+      image(s,px,py,32,32);
+    }
    }
    void Gmove(){
-     if(pinSpawn && pDeath == 0){
+     if (px > 352 && px < 544 && py > 416 + shiftDown && py < 544 + shiftDown ) {
+       setAlive(true);
+       setSpawn(true);
+     }
+     if(pinSpawn ){
        out(pDir[0]);
      }else{
+       if (pAlive) {
        if(pTimer>0){
          pDir[0] = changeDir();
        }else{
@@ -44,6 +52,9 @@ public class Pinky extends Ghost{
            scatter();
          }
        }
+     } else {
+       bestMove();
+     }
      }
      if(pDir[0]==1){
       if(xToCor(px)<=0){
@@ -81,14 +92,27 @@ public class Pinky extends Ghost{
        px = (xToCor(px)*gridSize+16);
      }
      
-     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+     if (!(board[ycor][xcor] == 1)){
+       if (pAlive) {
+         if (!(board[ycor][xcor] == 8)) {
        pRevDir[0] = 2;
-       if(level<3){
+       if(level<3 && pAlive){
           pdy = -((level+1)/2*2*gridSize) / 64;
           pdx = 0;
        }else{
           pdy = -(2*2*gridSize)/64;
           pdx = 0;
+       }
+         }
+       } else { 
+         pRevDir[0] = 2;
+       if(level<3 && pAlive){
+          pdy = -((level+1)/2*2*gridSize) / 64;
+          pdx = 0;
+       }else{
+          pdy = -(2*2*gridSize)/64;
+          pdx = 0;
+       }
        }
      }
    }
@@ -99,14 +123,27 @@ public class Pinky extends Ghost{
        pdy = yToCor(py)*gridSize+shiftDown+16;
      }
      //exits
-     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+     if (!(board[ycor][xcor] == 1)){
+       if (pAlive) {
+         if (!(board[ycor][xcor] == 8)) {
        pRevDir[0] = 3;
-       if(level<3){
+       if(level<3 && pAlive){
           pdy = 0;
           pdx = -((level+1)/2*2*gridSize) / 64;
        }else{
           pdy = 0;
           pdx = -(2*2*gridSize) / 64;
+       }
+         }
+       } else {
+         pRevDir[0] = 3;
+       if(level<3 && pAlive){
+          pdy = 0;
+          pdx = -((level+1)/2*2*gridSize) / 64;
+       }else{
+          pdy = 0;
+          pdx = -(2*2*gridSize) / 64;
+       }
        }
      }
    }
@@ -118,14 +155,27 @@ public class Pinky extends Ghost{
        px = xToCor(px)*gridSize+16;
      }
      
-     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+     if (!(board[ycor][xcor] == 1)){
+       if (pAlive) {
+         if (!(board[ycor][xcor] == 8)) {
        pRevDir[0] = 0;
-       if(level<3){
+       if(level<3 && pAlive){
           pdy = ((level+1)/2*2*gridSize) / 64;
           pdx = 0;
        }else{
           pdy = (2*2*gridSize)/64;
           pdx = 0;
+       } 
+         }
+       } else {
+         pRevDir[0] = 0;
+       if(level<3 && pAlive){
+          pdy = ((level+1)/2*2*gridSize) / 64;
+          pdx = 0;
+       }else{
+          pdy = (2*2*gridSize)/64;
+          pdx = 0;
+       }
        }
      }
    }
@@ -137,14 +187,27 @@ public class Pinky extends Ghost{
        py = (yToCor(py)*gridSize+shiftDown+16);
      }
      //exits
-     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+     if (!(board[ycor][xcor] == 1)){
+       if (pAlive) {
+         if (!(board[ycor][xcor] == 8)) {
        pRevDir[0] = 1;
-       if(level<3){
+       if(level<3 && pAlive){
           pdy = 0;
           pdx = ((level+1)/2*2*gridSize) / 64;
        }else{
           pdy = 0;
           pdx = (2*2*gridSize)/64;
+       }
+         }
+       } else {
+         pRevDir[0] = 1;
+       if(level<3 && pAlive){
+          pdy = 0;
+          pdx = ((level+1)/2*2*gridSize) / 64;
+       }else{
+          pdy = 0;
+          pdx = (2*2*gridSize)/64;
+       }
        }
      }
    }
@@ -209,6 +272,7 @@ public class Pinky extends Ghost{
    }
    
    boolean gCanGoThere(int dir){
+     if (pAlive) {
      if (dir == 0) {
        return (board[yToCor(py)-1][xToCor(px)] != 1 && board[yToCor(py) - 1][xToCor(px)] != 8);
      } else if (dir == 1 && xToCor(px)-1>-1) {
@@ -218,6 +282,17 @@ public class Pinky extends Ghost{
      } else if (dir == 3 && xToCor(px)+1<28) {
        return (board[yToCor(py)][xToCor(px) + 1] != 1 && board[yToCor(py)][xToCor(px)+1] != 8);
      }     
+     } else {
+       if (dir == 0) {
+       return (board[yToCor(py)-1][xToCor(px)] != 1);
+     } else if (dir == 1 && xToCor(px)-1>-1) {
+       return (board[yToCor(py)][xToCor(px) - 1] != 1);
+     } else if (dir == 2) {
+       return (board[yToCor(py) + 1][xToCor(px)] != 1 );
+     } else if (dir == 3 && xToCor(px)+1<28) {
+       return (board[yToCor(py)][xToCor(px) + 1] != 1);
+     }
+     }
      return false;
    }
    
@@ -276,7 +351,11 @@ public class Pinky extends Ghost{
            aheadX = 128;
            aheadY = 0;
          }
+         if (pAlive) {
          temp = dist(px+nextGridX,(py-shiftDown)+nextGridY,pacMan.getX()+aheadX,pacMan.getY()+aheadY);
+         } else {
+           temp = dist(px+nextGridX,(py-shiftDown)+nextGridY,getSpawnX(),getSpawnY());
+         }
          if (temp < shortest) {
            shortest = temp;
            gdirection = i;

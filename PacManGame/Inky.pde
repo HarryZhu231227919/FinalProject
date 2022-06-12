@@ -28,13 +28,20 @@ public class Inky extends Ghost{
        }else{
          image(i,ix,iy,30,30);
        }
-     }
+     } else {
+      //code that displayes the image for a set of eyeballs
+      
+    }
    }
    void Gmove(){
-     //println(lpoint);
-     if(iinSpawn && iDeath==0 && dotsEaten >= 30){
+     if (ix > 352 && ix < 544 && iy > 416 + shiftDown && iy < 544 + shiftDown) {
+       setAlive(true);
+       setSpawn(true);
+     }
+     if(iinSpawn && dotsEaten >= 30){
        out(iDir[0]);
      }else{
+       if (iAlive){
        if(pTimer>0){
          iDir[0] = changeDir();
        }else{
@@ -44,6 +51,9 @@ public class Inky extends Ghost{
            scatter();
          }
        }
+       } else {
+       bestMove();
+     }
      }
      if(iDir[0]==1){
       if(xToCor(ix)<=0){
@@ -81,14 +91,27 @@ public class Inky extends Ghost{
        ix = (xToCor(ix)*gridSize+16);
      }
      
-     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+     if (!(board[ycor][xcor] == 1)){
+       if (iAlive) {
+         if (!(board[ycor][xcor] == 8)) {
        iRevDir[0] = 2;
-       if(level<3){
+       if(level<3 && iAlive){
           idy = -((level+1)/2*2*gridSize) / 64;
           idx = 0;
        }else{
           idy = -(2*2*gridSize)/64;
           idx = 0;
+       }
+         }
+       } else {
+         iRevDir[0] = 2;
+       if(level<3 && iAlive){
+          idy = -((level+1)/2*2*gridSize) / 64;
+          idx = 0;
+       }else{
+          idy = -(2*2*gridSize)/64;
+          idx = 0;
+       }
        }
      }
    }
@@ -99,14 +122,27 @@ public class Inky extends Ghost{
        idy = yToCor(iy)*gridSize+shiftDown+16;
      }
      //exits
-     if (!(board[ycor][xcor] == 1)|| board[ycor][xcor] == 8){
+     if (!(board[ycor][xcor] == 1)){
+       if (iAlive) {
+         if (!(board[ycor][xcor] == 8)) {
        iRevDir[0] = 3;
-       if(level<3){
+       if(level<3 && iAlive){
           idy = 0;
           idx = -((level+1)/2*2*gridSize) / 64;
        }else{
           idy = 0;
           idx = -(2*2*gridSize) / 64;
+       }
+         }
+       } else {
+         iRevDir[0] = 3;
+       if(level<3 && iAlive){
+          idy = 0;
+          idx = -((level+1)/2*2*gridSize) / 64;
+       }else{
+          idy = 0;
+          idx = -(2*2*gridSize) / 64;
+       }
        }
      }
    }
@@ -118,14 +154,27 @@ public class Inky extends Ghost{
        ix = xToCor(ix)*gridSize+16;
      }
      
-     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+     if (!(board[ycor][xcor] == 1)){
+       if (iAlive) {
+         if (!(board[ycor][xcor] == 8)) {
        iRevDir[0] = 0;
-       if(level<3){
+       if(level<3 && iAlive){
           idy = ((level+1)/2*2*gridSize) / 64;
           idx = 0;
        }else{
           idy = (2*2*gridSize)/64;
           idx = 0;
+       }
+         }
+       } else {
+         iRevDir[0] = 0;
+       if(level<3 && iAlive){
+          idy = ((level+1)/2*2*gridSize) / 64;
+          idx = 0;
+       }else{
+          idy = (2*2*gridSize)/64;
+          idx = 0;
+       }
        }
      }
    }
@@ -137,14 +186,27 @@ public class Inky extends Ghost{
        iy = (yToCor(iy)*gridSize+shiftDown+16);
      }
      //exits
-     if (!(board[ycor][xcor] == 1 || board[ycor][xcor] == 8)){
+     if (!(board[ycor][xcor] == 1)){
+       if (iAlive) {
+         if (!(board[ycor][xcor] == 8)) {
        iRevDir[0] = 1;
-       if(level<3){
+       if(level<3 && iAlive){
           idy = 0;
           idx = ((level+1)/2*2*gridSize) / 64;
        }else{
           idy = 0;
           idx = (2*2*gridSize)/64;
+       }
+         }
+       } else { 
+         iRevDir[0] = 1;
+       if(level<3 && iAlive){
+          idy = 0;
+          idx = ((level+1)/2*2*gridSize) / 64;
+       }else{
+          idy = 0;
+          idx = (2*2*gridSize)/64;
+       }
        }
      }
    }
@@ -209,6 +271,7 @@ public class Inky extends Ghost{
    }
    
    boolean gCanGoThere(int dir){
+     if (iAlive) {
      if (dir == 0) {
        return board[yToCor(iy)-1][xToCor(ix)] != 1 && board[yToCor(iy) - 1][xToCor(ix)] != 8;
      } else if (dir == 1 && xToCor(ix)-1>-1) {
@@ -218,6 +281,17 @@ public class Inky extends Ghost{
      } else if (dir == 3 && xToCor(ix)+1<28) {
        return board[yToCor(iy)][xToCor(ix) + 1] != 1 && board[yToCor(iy)][xToCor(ix)+1] != 8;
      }     
+     } else {
+            if (dir == 0) {
+       return board[yToCor(iy)-1][xToCor(ix)] != 1;
+     } else if (dir == 1 && xToCor(ix)-1>-1) {
+       return board[yToCor(iy)][xToCor(ix) - 1] != 1;
+     } else if (dir == 2) {
+       return board[yToCor(iy) + 1][xToCor(ix)] != 1;
+     } else if (dir == 3 && xToCor(ix)+1<28) {
+       return board[yToCor(iy)][xToCor(ix) + 1] != 1;
+     }
+     }
      return false;
    }
    
@@ -358,7 +432,11 @@ public class Inky extends Ghost{
            aheadX = 64;
            aheadY = 0;
          }
+         if (iAlive) {
          temp = dist(ix+nextGridX,(iy-shiftDown)+nextGridY, pacMan.getX() + aheadX - (bx - (pacMan.getX()+aheadX)), pacMan.getY() + aheadY- (by - (pacMan.getY()+aheadY)));
+         } else {
+           temp = dist(ix+nextGridX,(iy-shiftDown)+nextGridY,getSpawnX(),getSpawnY());
+         }
          if (temp < shortest) {
            shortest = temp;
            gdirection = i;
