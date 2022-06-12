@@ -71,3 +71,5 @@ You can restart anytime by pressing spacebar. The 1 key will decrement PacMan's 
 6/10/22 (James) - I added a timer that determines whether the ghosts are chasing or scattering.
 
 6/10/22 (Harry) - I created a blue text that shows the amount of points you get when you eat a ghost. I also made the ghost reverse in directions every time they changed modes.
+
+6/11/22 (Harry) - I made the ghosts walk back to the ghost house with increased speed instead of them spawning there.
