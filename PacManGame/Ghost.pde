@@ -3,6 +3,7 @@ PImage c;
 PImage i;
 PImage p;
 PImage s;
+PImage e;
 
 public class Ghost{
   public Ghost(){}

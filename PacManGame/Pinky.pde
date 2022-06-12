@@ -31,7 +31,7 @@ public class Pinky extends Ghost{
        }
      } else {
       //code that displayes the image for a set of eyeballs
-      image(s,px,py,32,32);
+      image(e,px,py,32,32);
     }
    }
    void Gmove(){

@@ -174,6 +174,7 @@ void setup(){
   i = loadImage("Inky.png");
   p = loadImage("Pinky.png");
   s = loadImage("scaredGhost.png");
+  e = loadImage("eyes.png");
   gameover = loadImage("gameover.png");
   reset();
   pTimer = 0;
