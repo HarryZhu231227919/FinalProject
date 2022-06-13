@@ -29,6 +29,7 @@ public class Clyde extends Ghost{
        }
      } else {
       //code that displayes the image for a set of eyeballs
+      image(e,cx,cy,32,32);
     }
    }
  void Gmove(){

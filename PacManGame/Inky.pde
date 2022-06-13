@@ -30,7 +30,7 @@ public class Inky extends Ghost{
        }
      } else {
       //code that displayes the image for a set of eyeballs
-      
+      image(e,ix,iy,32,32);
     }
    }
    void Gmove(){
