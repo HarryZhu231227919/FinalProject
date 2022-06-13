@@ -5,11 +5,16 @@
 
 ### Project Description
 
-This project will be an imitation of the game “Pac-Man”. There will be Pac-Man and 4 ghosts: Clyde (Orange), Blinky (Red), Pinky (Pink), and Inky (Cyan). The ghosts will move towards Pac-Man and when they collide, Pac-Man loses a life. Pac-Man will traverse the map trying to eat the orbs. The orbs will give points and some orbs will be bigger and give Pac-Man the ability to eat the ghosts. Once all of the orbs are gone, you beat the level and move on to the next level.
+This project will be an imitation of the game “Pac-Man”. There will be Pac-Man and 4 ghosts: Clyde (Orange), Blinky (Red), Pinky (Pink), and Inky (Cyan). The ghosts each have their behaviors and target depending on the position of Pac Man and themselves. They will not reverse directions unless they change to either scatter, frightened, or chase mode. They will take the direction that will be the closest linearly to their target. The target of Blinky will be Pac-Man's position. The target of Pinky will be 4 units ahead of Pac-Man. If Pac-Man is facing upwards, then the target value of Pinky will be 4 units up and 4 units left of Pac-Man's position. The target of Inky will depend on the position of Pac-Man and Blinky. Inky's target will be 2 units ahead of Pac-Man (2 units up and 2 units left if Pac-Man is facing upwards) and then you reflect Blink's position over it. This will give you the target of Inky. Clyde's target will be Pac-Man's position, but if Clyde gets within 8 units of Pac-Man his target will be the bottom left corner. That is his corner in scatter mode. Scatter mode was implemented by the creator to give players a breather. In Scatter mode, Pinky will go to the top left corner, Clyde to the bottom left corner, Blinky to the top right corner, and Inky to the bottom right corner. If the ghosts come into contact with Pac-Man when they're not in frightened mode, Pac-Man loses a life. The map will go back to the original except for all the orbs that have been eaten. The goal of the player is to make Pac-Man traverse the map and try to eat all the orbs in a level. The orbs will give points and special orbs will give Pac-Man the ability to eat the ghosts. Once all of the orbs are gone, you beat the level and move on to the next level. Once you reach level 3, the speed of the ghosts and Pac-Man will increase to make it harder for the players.
 
 ### Instructions
-When you first run the program in processing, an introduction screen will pop up. You can press spacebar to play the game. The W,A,S, and D keys will move PacMan.
-You can restart anytime by pressing spacebar. The 1 key will decrement PacMan's life by one. The 2 key will get rid of every orb except for one (so that you can level up).
+When you first run the program in processing, an introduction screen will pop up. You can press spacebar to play the game. The W,A,S, and D keys will determine the direction that Pac-Man will take. You are able to press a direction that Pac-Man can't go in currently and it will save it until either you press another direction or that direction becomes available to you. This feature allows players to turn corners easier especially when the speed of the game increases.
+
+You can restart anytime by pressing spacebar.
+
+The '1' key will decrement PacMan's life by one. 
+
+The '2' key will get rid of every orb except for one (allows you to level up faster).
 
 ### Development Log
 5/23/22 (James) - Created the Pac-Man board and the display function to display the board.
